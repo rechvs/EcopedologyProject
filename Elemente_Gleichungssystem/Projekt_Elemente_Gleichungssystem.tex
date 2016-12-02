@@ -1,0 +1,291 @@
+\documentclass[a4paper,12pt] {article}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{textcomp}
+\usepackage[font={small},labelfont={bf},singlelinecheck={false},justification=centering]{caption}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+%\usepackage[a4paper,inner=2.5cm,outer=3.5cm]{geometry} % bei Erstellung von zweiseitig zu druckenden Dokumenten (\documentclass[twoside... muss gesetzt werden);
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+%\usepackage{fixltx2e} % verträgt sich nicht mit der [H]-Option von float-Umgebungen
+\usepackage{amsthm}
+%\usepackage{floatrow} % verträgt sich nicht mit float
+\usepackage{enumitem}
+\usepackage{calc}
+\usepackage[colorlinks=false]{hyperref}
+\usepackage{setspace}
+\usepackage{siunitx} % notwendig für Einheiten in textmode s. http://tex.stackexchange.com/questions/9043/should-greek-letters-inserted-in-text-using-math-mode-mostly-always-be-italic
+\usepackage{xcolor}
+
+% Bibliographie. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[backend=biber,
+bibstyle=bibstyle_HA,
+citestyle=citestyle_HA,
+natbib=false,
+mcite=false,
+sorting=nyt,
+sortcase=false,
+sortcites=true,
+maxbibnames=99,
+autocite=plain,
+language=autobib,
+hyperref=false,
+urldate=long,
+dateabbrev=false,
+firstinits=true,
+bibencoding=utf8 % s.S. 42 ff. biblatex-Dokumentation
+]{biblatex} % s.S. 45 ff. biblatex-Dokumentation
+
+\addbibresource[location=local]{../../Literatur/Projekt_Literaturliste_abstracts.bib} % s. S. 71 f. biblatex-Dokumentation
+
+\renewcommand*{\nameyeardelim}{\space} % http://tex.stackexchange.com/questions/134063/how-to-add-a-comma-between-author-and-year
+\renewcommand*{\revsdnamepunct}{\space}
+\renewcommand*{\finentrypunct}{}
+\renewcommand*\finalnamedelim{%
+  \ifnumgreater{\value{liststop}}{2}{\addspace\bibstring{and}\addspace}%
+  {\addspace\biband\addspace}}% http://tex.stackexchange.com/questions/67621/biblatex-have-and-in-the-citation-but-in-the-bibliography
+
+\DeclareNameAlias{sortname}{last-first} % http://tex.stackexchange.com/questions/12806/guidelines-for-customizing-biblatex-styles/13076#13076
+
+\DeclareNosort{} % http://tex.stackexchange.com/questions/171492/biblatex-biber-is-incorrectly-sorting-entries-with-hyphens-in-their-respective-a
+\DeclareNoinit{
+  \noinit{\regexp{[\x{2bf}\x{2018}]}}} % http://tex.stackexchange.com/questions/171492/biblatex-biber-is-incorrectly-sorting-entries-with-hyphens-in-their-respective-a
+
+\newcommand{\biband}{\ifcurrentname{labelname}{\addspace \& \addspace}{\addspace \addcomma \addspace}} % http://tex.stackexchange.com/questions/67621/biblatex-have-and-in-the-citation-but-in-the-bibliography
+
+% Längen, Abstände etc. (nicht via Einstellungen zu Paketen) %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\parindent}{0 cm} % keine Einrückung
+\setlength{\parskip}{10 pt} % „Nach“ (s. S. 2 Formatvorlage)
+\setlength{\abovecaptionskip}{0.5\baselineskip}
+\setlength{\belowcaptionskip}{0.5\baselineskip}
+\onehalfspacing % \usepackage{setspace} % Zeilenabstand
+
+% Eigene Befehle und Umgebungen. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+% Einstellungen zu Paketen. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% enumitem:
+
+\setlist{
+  topsep=0pt,
+  partopsep=0pt,
+  parsep=0.25\baselineskip
+}
+
+% fontspec:
+
+\setmainfont{TeX Gyre Termes}
+
+% unicode-math:
+
+\setmathfont[math-style=ISO,bold-style=ISO,vargreek-shape=TeX]{TeX Gyre Termes Math}
+
+% longtable:
+
+\setcounter{LTchunksize}{10}
+
+% Beginn des Dokuments. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Titelblatt. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{TITEL}
+\author{Renke Christian von Seggern}
+\date{DATUM}
+
+\begin{document}
+
+\begin{titlepage}
+
+\begin{center}
+
+\vspace*{0.17\paperheight}
+
+{\LARGE Elemente des Gleichungssystems \\ $A \cdot \delta = f$ \par}
+
+\vspace{0.07\paperheight}
+
+{\large Autor:\\ Renke Christian von Seggern \par}
+
+{\large Matrikelnummer: \\ 21027478 \par}
+
+\vspace{0.07\paperheight}
+
+{\normalsize Modul: \\ Projekt Waldökosystemanalyse und Informationsverarbeitung \par}
+
+\vspace{0.02\paperheight}
+
+{\normalsize Abgabedatum: \\ 31.03.2016 \par}
+
+\vspace{0.02\paperheight}
+
+%{\normalsize Dozent: \\ NAME DES DOZENTEN \par}
+
+\end{center}
+
+\end{titlepage}
+
+\newpage
+
+% Inhaltsverzeichnis. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagenumbering{Roman}
+
+{
+\renewcommand{\MakeUppercase}[1]{#1} % http://tex.stackexchange.com/questions/179966/fancyhdr-chaptermark-and-table-of-contents
+
+%\singlespacing % http://tex.stackexchange.com/questions/56546/how-to-change-spaces-between-items-in-table-of-contents
+
+\tableofcontents
+
+}
+
+% Fließtext. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+\pagenumbering{arabic}
+
+\section{Konventionen}
+
+\begin{itemize}
+\item $i$: Nummer des Knotens ($i = 1,2, \ldots, o$)
+\item $m$: Nummer des Iterationsschrittes
+\item $n$: Nummer des Zeitschrittes
+\end{itemize}
+
+\section{Elemente von $A$}
+
+\begin{math}
+  A = 
+  \begin{pmatrix}
+    b_1 & c_1 & & & & & \\
+    a_2 & b_2 & c_2 & & & & \\
+    & a_3 & b_3 & c_3 & & & \\
+    & & a_4 & b_4 & c_4 & & \\
+    & & & \ddots & \ddots & \ddots & \\
+    & & & & a_{o-1} & b_{o-1} & c_{o-1} \\
+    & & & & & a_o & b_o
+  \end{pmatrix}
+\end{math}
+
+\subsection{Allgemein für $i \neq 1,o$}
+
+\begin{equation*}
+  \begin{split}
+    &a_i = - \frac{K_{i-\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2} \\
+    &b_i = C_i^{n+1,m} \cdot \frac{1}{\Delta t} + \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2} + \frac{K_{i-\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2} \\
+    &c_i = - \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}
+  \end{split}
+\end{equation*}
+
+\subsection{Beispielhaft für $i = 2$}
+
+\begin{equation*}
+  \begin{split}
+    &C_2^{n+1,m} \cdot \frac{\delta_2^m}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{2+\frac{1}{2}}^{n+1,m} \cdot \left(\delta_3^m - \delta_2^m\right) - K_{2-\frac{1}{2}}^{n+1,m} \cdot \left(\delta_2^m - \delta_1^m\right)\right] \\
+    = &C_2^{n+1,m} \cdot \frac{\textcolor{blue}{\delta_2^m}}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[\left(K_{2\frac{1}{2}}^{n+1,m} \cdot \textcolor{red}{\delta_3^m} - K_{2\frac{1}{2}}^{n+1,m} \cdot \textcolor{blue}{\delta_2^m}\right) - \left(K_{1\frac{1}{2}}^{n+1,m} \cdot \textcolor{blue}{\delta_2^m} - K_{1\frac{1}{2}}^{n+1,m} \cdot \textcolor{green}{\delta_1^m}\right)\right] \\
+    = &C_2^{n+1,m} \cdot \frac{\textcolor{blue}{\delta_2^m}}{\Delta t} - \left[\left(\frac{K_{2\frac{1}{2}}^{n+1,m} \cdot \textcolor{red}{\delta_3^m}}{\left(\Delta z\right)^2} - \frac{K_{2\frac{1}{2}}^{n+1,m} \cdot \textcolor{blue}{\delta_2^m}}{\left(\Delta z\right)^2}\right) - \left(\frac{K_{2\frac{1}{2}}^{n+1,m} \cdot \textcolor{blue}{\delta_2^m}}{\left(\Delta z\right)^2} - \frac{K_{1\frac{1}{2}}^{n+1,m} \cdot \textcolor{green}{\delta_1^m}}{\left(\Delta z\right)^2}\right)\right] \\
+    = &C_2^{n+1,m} \cdot \frac{\textcolor{blue}{\delta_2^m}}{\Delta t} - \frac{K_{2\frac{1}{2}}^{n+1,m} \cdot \textcolor{red}{\delta_3^m}}{\left(\Delta z\right)^2} + \frac{K_{2\frac{1}{2}}^{n+1,m} \cdot \textcolor{blue}{\delta_2^m}}{\left(\Delta z\right)^2} + \frac{K_{2\frac{1}{2}}^{n+1,m} \cdot \textcolor{blue}{\delta_2^m}}{\left(\Delta z\right)^2} - \frac{K_{1\frac{1}{2}}^{n+1,m} \cdot \textcolor{green}{\delta_1^m}}{\left(\Delta z\right)^2}
+  \end{split}
+\end{equation*}
+
+\begin{equation*}
+  \begin{split}
+    &\textcolor{green}{a_2} = - \frac{K_{1\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2} \\
+    &\textcolor{blue}{b_2} = C_2^{n+1,m} \cdot \frac{1}{\Delta t} + \frac{K_{2\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2} + \frac{K_{1\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2} \\
+    &\textcolor{red}{c_2} = - \frac{K_{2\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}
+  \end{split}
+\end{equation*}
+
+\section{Elemente von $\delta$}
+
+\begin{math}
+  \delta = 
+  \begin{pmatrix}
+    \delta_1 \\
+    \delta_2 \\
+    \delta_3 \\
+    \delta_4 \\
+    \vdots \\
+    \delta_{o-1} \\
+    \delta_o
+  \end{pmatrix}
+\end{math}
+
+\subsection{Allgemein für $i \neq 1,o$}
+
+\begin{equation*}
+  \delta_i^m = H_i^{n+1,m+1} - H_i^{n+1,m}
+\end{equation*}
+
+\section{Elemente von $f$}
+
+\begin{math}
+  f = 
+  \begin{pmatrix}
+    f_1 \\
+    f_2 \\
+    f_3 \\
+    f_4 \\
+    \vdots \\
+    f_{o-1} \\
+    f_o
+  \end{pmatrix}
+\end{math}
+
+\subsection{Allgemein für $i \neq 1,o$}
+
+\subsubsection{$h$-basierte Richardsgleichung}
+
+\begin{equation*}
+  \begin{split}
+    f_i = &\frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(H_{i+1}^{n+1,m} - H_i^{n+1,m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(H_{i}^{n+1,m} - H_{i-1}^{n+1,m}\right)\right] \\
+    + &\frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - C_i^{n+1,m} \cdot \frac{H_i^{n+1,m} - H_i^n}{\Delta t}
+  \end{split}
+\end{equation*}
+
+\subsubsection{Gemischte Richardsgleichung}
+
+\begin{equation*}
+  \begin{split}
+    f_i = &\frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(H_{i+1}^{n+1,m} - H_i^{n+1,m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(H_{i}^{n+1,m} - H_{i-1}^{n+1,m}\right)\right] \\
+    + &\frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - \frac{\theta_i^{n+1,m} - \theta_i^n}{\Delta t}
+  \end{split}
+\end{equation*}
+
+\section{Nicht berechenbare Variablen und Elemente}
+
+\begin{itemize}
+\item $K_{i-\frac{1}{2}}^{n+1,m}$ für $i = 1$ \\
+  $\Rightarrow a_1 = ?$ \\
+  $\Rightarrow b_1 = ?$ \\
+  $\Rightarrow f_1 = ?$
+\item $K_{i+\frac{1}{2}}^{n+1,m}$ für $i = o$ \\
+  $\Rightarrow b_o = ?$ \\
+  $\Rightarrow c_o = ?$ \\
+  $\Rightarrow f_o = ?$
+\item $H_{i-1}^{n+1,m}$ für $i = 1$ \\
+  $\Rightarrow f_1 = ?$
+\item $H_{i+1}^{n+1,m}$ für $i = o$ \\
+  $\Rightarrow f_o = ?$
+\end{itemize}
+
+% Einfügen des Literaturverzeichnisses. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+\printbibliography[sorting=nyt]
+
+\end{document}

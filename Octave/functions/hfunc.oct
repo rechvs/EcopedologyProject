@@ -1,0 +1,8 @@
+## Function `hfunc(theta, VGP)´ for calculating `h´ (resolution of function `theta(h)´ (see above))
+function [h] = hfunc(theta, VGP)
+  alpha = VGP(1);
+  n = VGP(2);
+  m = VGP(3);
+  theta_S = VGP(4);
+  h = nthroot (nthroot (theta_S ./ theta, m) - 1, n) ./ alpha; ## WRONG; not sure whether `theta(h)´ can be solved for `h´
+endfunction

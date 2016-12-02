@@ -1,0 +1,248 @@
+\documentclass[oneside, a4paper, 12pt, titlepage]{report}
+\usepackage[english]{babel}
+% \usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fixltx2e} % ermöglicht \textsubscript
+\usepackage{fontspec} % erfordert XeLaTeX oder LuaLaTeX
+\usepackage{booktabs}
+%\usepackage{lipsum}
+\usepackage{paralist} % s.S. 136 Companion
+\usepackage{setspace} % notwendig zur Festsetzung des Zeilenabstands http://tex.stackexchange.com/questions/74496/how-to-use-times-roman-nimbus-roman-with-fontspec-under-linux-and-lualatex
+\usepackage{fancyhdr} % aus PFA_woerterbuch.tex
+\usepackage[a4paper,margin=2.5cm,left=3.5cm]{geometry} % notwendig zur Festsetzung der Seitenränder
+%\usepackage[a4paper,inner=2.5cm,outer=3.5cm]{geometry} % bei Erstellung von zweiseitig zu druckenden Dokumenten (\documentclass[twoside... muss gesetzt werden);
+\PassOptionsToPackage{hyphens}{url}\usepackage[colorlinks=false]{hyperref} % s.S. 50 biblatex-Dokumentation und http://tex.stackexchange.com/questions/3033/forcing-linebreaks-in-url
+\usepackage{csquotes} % ermöglicht die Verwendung sprachspezifischer Anführungszeichen durch biblatex
+%\usepackage{array} 
+\usepackage{tabularx} % notwendig für Zeilenumbruch in Tabellenzelle http://tex.stackexchange.com/questions/2441/how-to-add-a-forced-line-break-inside-a-table-cell
+\usepackage[singlelinecheck={false},font={scriptsize},labelfont={bf},aboveskip=0pt]{caption} % s. S. 308 ff. Companion
+\usepackage{siunitx} % notwendig für Einheiten in textmode s. http://tex.stackexchange.com/questions/9043/should-greek-letters-inserted-in-text-using-math-mode-mostly-always-be-italic
+\usepackage{textcomp} % um in textmode Minuszeichen schreiben zu können s. http://tex.stackexchange.com/questions/24423/writing-a-negative-number-in-text-mode-9-or-9
+\usepackage{graphicx} % notwendig für das Einbetten von Bildern s. http://en.wikibooks.org/wiki/LaTeX/Importing_Graphics
+%\usepackage{float} % s. http://tex.stackexchange.com/questions/119799/text-next-to-image
+\usepackage{floatrow}
+%\usepackage{mdwlist} % http://en.wikibooks.org/wiki/LaTeX/List_Structures#Using_packages
+\usepackage{enumitem}
+\usepackage{calc}
+\usepackage{upgreek}
+\usepackage{unicode-math}
+\usepackage{tikz} % Ermöglicht das Erstellen von Grafiken in LaTeX
+\usepackage{chngcntr} % Ermöglicht das Umschalten von Zählern
+
+% Bibliographie. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[backend=biber,
+bibstyle=/home/renke/DATEN02/Uni/Formatvorlagen/LaTeX/bibstyle_HA,
+citestyle=/home/renke/DATEN02/Uni/Formatvorlagen/LaTeX/citestyle_HA,
+natbib=false,
+mcite=false,
+sorting=nyt,
+sortcase=false,
+sortcites=true,
+maxbibnames=99,
+autocite=plain,
+language=autobib,
+hyperref=false,
+urldate=long,
+dateabbrev=false,
+firstinits=true,
+bibencoding=utf8 % s.S. 42 ff. biblatex-Dokumentation
+]{biblatex} % s.S. 45 ff. biblatex-Dokumentation
+
+\addbibresource[location=local]{../Literatur/Projekt_Literaturliste_abstracts.bib} % s. S. 71 f. biblatex-Dokumentation
+
+\renewcommand*{\nameyeardelim}{\space} % http://tex.stackexchange.com/questions/134063/how-to-add-a-comma-between-author-and-year
+\renewcommand*{\revsdnamepunct}{\space}
+\renewcommand*{\finentrypunct}{}
+\renewcommand*\finalnamedelim{%
+  \ifnumgreater{\value{liststop}}{2}{\addspace\bibstring{and}\addspace}%
+  {\addspace\biband\addspace}}% http://tex.stackexchange.com/questions/67621/biblatex-have-and-in-the-citation-but-in-the-bibliography
+
+\DeclareNameAlias{sortname}{last-first} % http://tex.stackexchange.com/questions/12806/guidelines-for-customizing-biblatex-styles/13076#13076
+
+\DeclareNosort{} % http://tex.stackexchange.com/questions/171492/biblatex-biber-is-incorrectly-sorting-entries-with-hyphens-in-their-respective-a
+\DeclareNoinit{
+  \noinit{\regexp{[\x{2bf}\x{2018}]}}} % http://tex.stackexchange.com/questions/171492/biblatex-biber-is-incorrectly-sorting-entries-with-hyphens-in-their-respective-a
+
+\newcommand{\biband}{\ifcurrentname{labelname}{\addspace u. \addspace}{\addspace \addcomma \addspace}} % http://tex.stackexchange.com/questions/67621/biblatex-have-and-in-the-citation-but-in-the-bibliography
+
+% Längen, Abstände etc. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\parindent}{0 cm} % keine Einrückung
+\setlength{\parskip}{10 pt} % „Nach“ (s. S. 2 Formatvorlage)
+\newlength{\ueberoben}
+\setlength{\ueberoben}{2\baselineskip}
+\onehalfspacing % \usepackage{setspace} % Zeilenabstand
+\newlength{\bildbreite}
+\setlength{\bildbreite}{5.65cm}
+\newlength{\capabstand}
+\setlength{\capabstand}{-0.35cm}
+\setlist[itemize]{topsep=0cm, partopsep=0cm, itemsep=0cm} % s. S. 9 enumitem
+
+% Zähler %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\counterwithout{figure}{chapter} % Der Zähler `figure´ wird nicht mehr zurückgesetzt wenn ein neues Kapitel beginnt. 
+
+% Eigene Befehle und Umgebungen. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newenvironment{mytable}[2]{\begin{table}[htb]\scriptsize\caption{#1\vspace{\capabstand}}\label{#2}}{\end{table}\par} % \vspace notwendig wegen floatrow
+
+% Einstellungen zu Paketen. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% fancyhdr:
+
+\fancypagestyle{kurzfassung}{  % http://texblog.org/2013/09/16/multiple-page-styles-with-fancyhdr/
+\fancyhead{}
+\fancyhead[R]{\fontsize{10pt}{1\baselineskip} \thepage \\}
+\fancyfoot{}}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[L]{\fontsize{12pt}{1\baselineskip} \selectfont \leftmark \\}
+\fancyhead[R]{\fontsize{10pt}{1\baselineskip} \thepage \\}
+\fancyfoot{}
+\fancypagestyle{standard}{ % http://texblog.org/2013/09/16/multiple-page-styles-with-fancyhdr/
+\fancyhead{}
+\fancyhead[L]{\fontsize{12pt}{1\baselineskip} \selectfont \leftmark \\}
+\fancyhead[R]{\fontsize{10pt}{1\baselineskip} \thepage \\}
+\fancyfoot{}}
+
+% paralist:
+
+\setdefaultitem{\textendash}{\textbullet}{$\square$}{}
+
+% fontspec:
+
+\setmainfont{TeX Gyre Termes}
+
+% unicode-math:
+
+\setmathfont[math-style=ISO,bold-style=ISO,vargreek-shape=TeX]{TeX Gyre Termes Math}
+
+% floatrow:
+
+\floatsetup[table]{style={plaintop},font={scriptsize}}
+\floatsetup[figure]{capposition=bottom}
+\newfloatcommand{myffigbox}{figure}[][\bildbreite]
+\newfloatcommand{mykarte}{figure}[][\textwidth]
+
+% siunitx:
+
+\sisetup{locale = DE} % steuert die länderspezifische Darstellung von Zahlen, SI-Einheiten, usw.
+
+% LaTeX-Interna. ############################################################################################################################################
+
+\renewcommand\chaptermark[1]{\markboth{ #1}{}} % s. S. 230 Companion
+\setcounter{topnumber}{2} % s. S. 284 ff. Companion
+\setcounter{bottomnumber}{1} % s. S. 284 ff. Companion
+\setcounter{totalnumber}{3} % s. S. 284 ff. Companion
+\setcounter{figure}{0}
+\renewcommand\topfraction{1.0} % s. S. 284 ff. Companion
+\renewcommand\bottomfraction{1.0} % s. S. 284 ff. Companion
+\renewcommand\textfraction{0.0} % s. S. 284 ff. Companion 
+\renewcommand\floatpagefraction{0.75} % s. S. 284 ff. Companion 
+\makeatletter
+\renewcommand{\thefigure}{\arabic{figure}}
+\renewcommand{\thetable}{\arabic{table}}
+\makeatother
+\makeatletter
+\renewcommand\chapter{\@startsection % s. S. 29 Companion
+  {chapter}{0}{0 mm}
+  {\ueberoben}
+  {0.25\baselineskip}
+  {\normalfont\large\bfseries}}
+\renewcommand\section{\@startsection
+  {section}{1}{0 mm}
+  {\ueberoben}
+  {0.25\baselineskip}
+  {\normalfont\normalsize\bfseries}}
+\renewcommand\subsection{\@startsection
+  {subsection}{2}{0 mm}
+  {\ueberoben}
+  {0.25\baselineskip}
+  {\normalfont\normalsize\itshape}}
+\renewcommand\subsubsection{\@startsection
+  {subsubsection}{2}{0 mm}
+  {0 pt}
+  {0.05\baselineskip}
+  {\normalfont\normalsize}}
+\makeatother
+
+% Beginn des Dokuments. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{titlepage}
+
+\begin{center}
+
+\vspace*{5cm}
+
+{\LARGE ÜBERSCHRIFT \par}
+{\Large  UNTERSCHRIFT \par}
+
+\vspace{2cm}
+
+{\large Verfasser:\\ Renke Christian von Seggern \par}
+
+\vspace{2cm}
+
+{\normalsize MODULNAME \par}
+
+\vspace{0.5cm}
+
+{\normalsize Abgabedatum: \\ XX.XX.XXXX \par}
+
+\vspace{0.5cm}
+
+{\normalsize Dozent(in): \\  \par}
+
+\end{center}
+
+\end{titlepage}
+
+\newpage
+
+\thispagestyle{empty} % http://nw360.blogspot.de/2007/10/creat-empty-page-in-latex.html
+\mbox{}
+
+% Einfügen des Inhaltsverzeichnisses. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{standard}
+
+\pagenumbering{Roman}
+
+{
+\renewcommand{\MakeUppercase}[1]{#1} % http://tex.stackexchange.com/questions/179966/fancyhdr-chaptermark-and-table-of-contents
+
+\singlespacing % http://tex.stackexchange.com/questions/56546/how-to-change-spaces-between-items-in-table-of-contents
+
+\tableofcontents
+
+}
+
+% Beginn des Fließtextes. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+\pagenumbering{arabic}
+
+text \\
+\parencite{Hillel1998}
+
+% Einfügen des Literaturverzeichnisses. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+{
+
+\renewcommand{\MakeUppercase}[1]{#1} % http://tex.stackexchange.com/questions/179966/fancyhdr-chaptermark-and-table-of-contents
+
+
+
+\printbibliography[sorting=nyt] % http://tex.stackexchange.com/questions/60307/biblatex-quote-in-chronological-order-but-bibliography-list-must-be-alphabetic
+
+}
+
+\end{document}

@@ -1,0 +1,46 @@
+\message{ !name(Projekt_Vortrag.tex)}%Time-stamp: <2016-01-07 10:45:22 renke>
+\documentclass[xcolor=dvipsnames]{beamer}
+
+% Einbinden von Paketen: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{beamerthemesplit} % Zweiteilung von Kopf- und Fußzeile
+%\usepackage[utf8]{inputenc} % Übersetzung von Sonderzeichen usw. in von LaTeX verarbeitbare Befehle
+\usepackage[ngerman]{babel} % Typografische (und andere) Regeln sowie Silbentrennung für verschiedene Sprachen
+\usepackage{roboto} % Festlegen des Fonts
+\usepackage{fixltx2e} % Diverse Verbesserungen von LaTeX
+\usepackage{graphicx} % Ermöglicht das Einbinden von Grafiken (bequemer als bei reinem graphics)
+\usepackage{url} % Ermöglicht das Einbinden von URLs
+\usepackage{xcolor} % Ermöglicht das Erstellen eigener Farben
+%\usepackage{textcomp} % LaTeX-Unterstützung für die Text-Companion-Fonts
+%\usepackage{gensymb} % Stellt die Befehle \degree, \celsius, \perthousand, \micro und \ohm zur Verfügung, die sowohl in text als auch im math mode funktionieren
+\usepackage{calc} % Ermöglicht das Berechnen von Textlängen
+\usepackage{tikz} % Ermöglicht das Erstellen von Grafiken in LaTeX
+\usepackage{fp} % Ermöglicht einfache arithmetische Berechnungen innerhalb von LaTeX
+
+% Einstellungen zu Paketen: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usecolortheme{crane} % Farbschema der Folien (beamer)
+\setbeamertemplate{footline}[frame number] % Anzeigen der Foliennummer in der Fußzeile (beamer)
+\setbeamertemplate{itemize subitem}{\textcolor{letters}{\textbullet}} % Festlegen der Stichpunktsymbole in Listen (itemize, 2. Ebene, beamer)
+\setbeamersize{text margin left=1mm} % Festlegen des Abstands zwischen rechter Kante der linken Sidebar (falls vorhanden, ansonsten linker Kante des Papiers) und linker Kante des Texts
+\setbeamersize{text margin right=1mm} % Festlegen des Abstands zwischen linker Kante der rechten Sidebar (falls vorhanden, ansonsten rechter Kante des Papiers) und rechter Kante des Texts
+
+\urlstyle{same} % Festlegen des Fonts für URLs (url)
+
+\definecolor{letters}{HTML}{04064C} % Definieren von Farben (xcolor)
+\definecolor{boxes}{HTML}{FCBB06} % Definieren von Farben (xcolor)
+
+\usetikzlibrary{decorations.pathreplacing} % Ermöglicht das Dekorieren von TikZ-Figuren
+
+% Eigene Kommandos und Umgebungen: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\mycaption}[1]{\tiny\raggedright{#1}}
+
+\begin{document}
+
+\message{ !name(Projekt_Vortrag.tex) !offset(231) }
+\frac{K_{i-\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}
+\message{ !name(Projekt_Vortrag.tex) !offset(321) }
+
+\end{document}
+

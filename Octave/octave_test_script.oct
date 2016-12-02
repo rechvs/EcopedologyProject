@@ -1,0 +1,19 @@
+## Festlegen und Anzeigen der Matrix `A´:
+A = [2,3,0,0,0;
+     1,2,3,0,0;
+     0,1,2,3,0;
+     0,0,1,2,3;
+     0,0,0,1,2];
+A
+
+## Festlegen und Anzeigen des Vektors `f´:
+f = [1;
+     2;
+     3;
+     4;
+     5];
+f
+
+## Berechnung und Anzeigen des Vektors `delta´:
+delta = A \ f;
+delta

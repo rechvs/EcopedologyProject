@@ -1,0 +1,95 @@
+This is LuaTeX, Version beta-0.79.1 (TeX Live 2015/dev/Debian) (rev 4971)  (format=lualatex 2015.5.2)  30 MAR 2016 17:03
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+**\input Projekt.tex
+(./Projekt.tex (/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
+Document Class: report 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/home/renke/texmf/tex/generic/babel/babel.sty
+Package: babel 2016/02/24 3.9q The Babel package
+
+(/home/renke/texmf/tex/generic/babel/switch.def
+File: switch.def 2016/02/24 3.9q Babel switching mechanism
+)
+(/home/renke/texmf/tex/generic/babel/luababel.def
+\l@dumylang=\language3
+Package babel Info: Non-standard hyphenation setup on input line 122.
+\l@nohyphenation=\language4
+)
+(/usr/share/texlive/texmf-dist/tex/generic/babel-english/english.ldf
+Language: english 2012/08/20 v3.3p English support from the babel system
+
+(/home/renke/texmf/tex/generic/babel/babel.def
+File: babel.def 2016/02/24 3.9q Babel common definitions
+\babel@savecnt=\count88
+\U@D=\dimen103
+
+(/home/renke/texmf/tex/generic/babel/luababel.def))
+\l@british = a dialect from \language\l@english 
+\l@UKenglish = a dialect from \language\l@english 
+\l@canadian = a dialect from \language\l@american 
+\l@australian = a dialect from \language\l@british 
+\l@newzealand = a dialect from \language\l@british 
+
+(/usr/share/texlive/texmf-dist/tex/generic/hyphen/hyphen.tex)))
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2014/04/30 v1.2b Input encoding file
+\inpenc@prehook=\toks14
+\inpenc@posthook=\toks15
+
+
+Package inputenc Warning: inputenc package ignored with utf8 based engines.
+
+) (/usr/share/texlive/texmf-dist/tex/latex/base/fixltx2e.sty
+Package: fixltx2e 2014/09/29 v1.1s fixes to LaTeX
+LaTeX Info: Redefining \em on input line 430.
+)
+(/home/renke/texmf/tex/latex/fontspec/fontspec.sty
+(/home/renke/texmf/tex/latex/l3kernel/expl3.sty
+Package: expl3 2016/03/26 v6466 L3 programming layer (loader) 
+
+(/home/renke/texmf/tex/latex/l3kernel/expl3-code.tex
+Package: expl3 2016/03/26 v6466 L3 programming layer (code)
+L3 Module: l3bootstrap 2016/02/12 v6412 L3 Bootstrap code
+
+
+! LaTeX Error: File `ltluatex.tex' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: tex)
+
+Enter file name: 
+/home/renke/texmf/tex/latex/l3kernel/expl3-code.tex:275: Emergency stop.
+<read *> 
+   
+l.275       \input{ltluatex}
+                          %
+*** (cannot \read from terminal in nonstop modes)
+
+
+
+Here is how much of LuaTeX's memory you used:
+ 801 strings out of 494810
+ 100000,106986 words of node,token memory allocated 241 words of node memory still in use:
+   1 hlist, 1 rule, 38 glue_spec, 3 if_stack, 1 write, 1 dir nodes
+   avail lists: 2:9,3:1,4:2,6:2,9:3
+ 4414 multiletter control sequences out of 65536+600000
+ 15 fonts using 431615 bytes
+ 24i,0n,23p,205b,44s stack positions out of 5000i,500n,10000p,200000b,100000s
+/home/renke/texmf/tex/latex/l3kernel/expl3-code.tex:275:  ==> Fatal error occurr
+ed, no output PDF file produced!

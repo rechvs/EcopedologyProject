@@ -1,0 +1,387 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The following part is based on `info octave´. %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+cd ~/DATEN02_3.Sem/Projekt/Octave
+
+## Testing the solution of a set of linear equations (see Octave Info 1.2.4)
+
+A = [2,3,0,0,0;
+     1,2,3,0,0;
+     0,1,2,3,0;
+     0,0,1,2,3;
+     0,0,0,1,2];
+
+f = [1;
+     2;
+     3;
+     4;
+     5];
+
+x = A \ f
+
+## Testing function definition (see Octave Info 11.2):
+
+function retval = avg (v)
+  reval = 0;
+  if (nargin != 1)
+    usage ("avg (vector)");
+  endif
+  if (isvector (v))
+    retval = sum (v) / length (v);
+  else
+    error ("avg: expecting vector argument");
+  endif
+endfunction
+avg([1;2;3])
+
+function retval = K(h)
+  ## from Celia et al. 1990 p. 1485 eq. (10b):
+  K_s = 0.00944;
+  A = 1.175 * 10^6;
+  gamma = 4.74;
+  retval = 0;
+  if (nargin != 1)
+    usage ("K (vector)");
+  endif
+  if (isvector (h))
+    retval = K_s * (A/(A+abs(h)^gamma));
+  else
+    error ("K: expecting vector argument");
+  endif
+endfunction
+K(2)
+
+## Calculating the dimensionless slope S_p from Eq. [27a] for a slope of 0.34 in point P (van Genuchten 1980) (result should be 0.85, see p. 895):
+
+S = (1/(0.5-0.1)) * 0.34;
+S
+
+## Testing random matrix generation (see 'help randn') and selection of matrix elements based on indexing (Octave Info 8.1):
+
+A = randn (5);
+A
+
+A (2,3) ## element of row 2, column 3
+A (3, :) ## all elements of row 3
+A (:, 4) ## all elements of column 4
+A ([1;2])
+A (12) ## 12th element of the matrix (in a 5x5 matrix this is the element of the 2nd row and the 3rd column)
+A ([15; 8]) ## the 15th and the 8th element of the matrix (in a 5x5 matrix these are the element of the 5th row and the 3rd column and the element of the 3rd row and the 2nd column, respectively)
+A (2:4, :) ## selects the elements of the rows in the range of 2nd to 4th row and all columns
+
+## Testing writing of matrix elements based on indexing (Octave Info 8.1):
+
+A = [] ## write an empty matrix
+A (5, 5) = 10 ## write scalar '10' to element of 5th row and and 5th column (automatically extends matrix)
+A (7, 8) = 3 ## write scalar '3' to element of 7th row and 8th column (automatically extends matrix)
+
+## Testing 'for' loops and writing of matrix elements based on indexing:
+R = [];
+for TIMESTEP = 1:100
+  for NODENUMBER = 1:10
+    R (NODENUMBER, TIMESTEP) = randn(1);
+  endfor
+endfor
+
+## Testing 'if' expressions within 'for' loops:
+R = [];
+MAXTIMESTEPS = 10;
+MAXNODENUMBER = 5;
+for TIMESTEP = 1:MAXTIMESTEPS
+  for NODENUMBER = 1:MAXNODENUMBER
+    if (NODENUMBER == 1 || NODENUMBER == MAXNODENUMBER)
+      R (NODENUMBER, TIMESTEP) = 1;
+    else
+      R (NODENUMBER, TIMESTEP) = randn(1);
+    endif
+  endfor
+endfor
+R
+
+## Testing 'while' loops together with 'if' expressions within 'for' loops:
+R = [];
+MAXTIMESTEPS = 10;
+MAXNODENUMBER = 5;
+for TIMESTEP = 1:MAXTIMESTEPS
+  RANDOM = -1; ## setting an arbitrary value for 'RANDOM' so the iterative 'while' loop is initiated at least once within each timestep
+  while (RANDOM < 0)
+    for NODENUMBER = 1:MAXNODENUMBER
+      if (NODENUMBER == 1 || NODENUMBER == MAXNODENUMBER)
+        R (NODENUMBER, TIMESTEP) = 1;
+      else
+        R (NODENUMBER, TIMESTEP) = randn(1);
+      endif
+    endfor
+    RANDOM = randn;
+    TIMESTEP
+    R (:, TIMESTEP) ## print all results for the current time step
+  endwhile
+endfor
+R
+
+## Mohsen’s code for the van Genuchten-Mualem equation (with some additions by me):
+Par = [1;
+       2;
+       3;
+       4;
+       5;
+       6];
+function [C,K,theta] = FlowParameters(h,VGP)
+### Define a matrix for soil hydraulic properties
+    theta_S = VGP(1);
+    theta_R = VGP(2);
+    alpha   = VGP(3);
+    n       = VGP(4);
+    m       = 1-1/n;
+    Ksat    = VGP(5);
+    lambda    = VGP(6);   
+    # Compute the volumetric moisture content
+    theta = (theta_S - theta_R)./(1 + (alpha.*abs(h)).^n).^m + theta_R; 
+    # Compute the effective saturation [Theta in van Genuchten 1980]
+    Se = ((theta - theta_R)./(theta_S - theta_R)); 
+    # Compute the hydraulic conductivity
+    K = Ksat.*Se.^(lambda).*(1 - (1 - Se.^(1/m)).^m).^2;
+    # Compute the specific moisture storage
+    C=(alpha.*m.*n.*sign(h).*(alpha.*abs(h)).^(n - 1).*(theta_R - theta_S))./((alpha.*abs(h)).^n + 1).^(m + 1);
+end
+
+### Testing function calls within `for´ loops
+Kvec = [];
+for I = 1:10
+  Kvec(I) = randn();
+endfor
+Kvec = Kvec(:);
+Cvec = [];
+for I = 1:10
+  Cvec(I) = randn();
+endfor
+Cvec = Cvec(:);
+
+function retval = Test(i,K,C,deltat,deltaz)
+  retval = C(i) * 1 / deltat + (((K(i) + K(i+1)) / 2) / deltaz^2) + (((K(i) + K(i-1)) / 2) / deltaz^2);
+endfunction
+
+Test(3,Kvec,Cvec,10,4) ## works fine
+Test(1:3,Kvec,Cvec,10,4) ## throws the same error as a call of `Test´ within a `for´ loop
+eye(3) ## works fine
+eye(1:3) ## throws error
+
+## for I = 1:2
+##   i = I;
+##   deltat = 10;
+##   deltaz = 4;
+##   Cvec(i) * 1 / deltat + (((Kvec(i) + Kvec(i+1)) / 2) / deltaz^2) + (((Kvec(i) + Kvec(i-1)) / 2) / deltaz^2);
+## endfor
+
+### Create an array
+c1 = {"string1",
+      "string2",
+      3,
+      4};
+c2 = {"string3",
+      "string4",
+      5,
+      6};
+
+vector1 = (ones(1,10) * 2.74)(:);
+matrix1 = diag(vector1);
+
+matrix2 = randn(5);
+c_all = {c1,
+         c2,
+         vector1,
+         matrix1,
+         matrix2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The following part is based on the following book: Wicki, Stefan (2010): Die nicht zu kurze Kurzeinführung in MATLAB. Norderstedt %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%
+%% 1. Hilfe, Hilfe! %%
+%%%%%%%%%%%%%%%%%%%%%%
+%% Commands: help, lookfor
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 1.1 Direkte Hilfeanforderung (help) %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+help plot
+%% keybinding in Emacs: `C-h d´
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 1.2 Indirekte Hilfeanforderung (lookfor) %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+lookfor annotation
+%% keybinding in Emacs: `C-h a´
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2. Variablen, Operationen, Zahlenformate %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Commands: +, -, *, /, format, whos, who, clear, clc
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 2.1 Der Workspace (Command Window) %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+0.5e-3^2*pi/4
+d=0.5e-3
+A=d^2*pi/4
+format long
+A
+%% List all variables in the current scope (verbose):
+whos
+%% List all variables in the current scope (short):
+who
+%% Delete all variables from the symbol table:
+clear
+%% Reset format:
+format short
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 3. Zahlen, Arrays (Vektoren) und Matrizen %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Commands: :, [1 2 3], [1; 2; 3], linspace, logspace, +, -, .*, *, ./, /
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 3.1 Manuelle Matrix-Definition %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define a 1x1 matrix called `a´:
+a=5
+%% Define a onedimensional matrix (i.e., a vector or array) called `b´:
+b=[1, 2, 3]
+%% Define a complete matrix called `c´ (unlike MATLAB, the surrounding brackets are mandatory in GNU Octave):
+c=[[1, 2, 3]; [4, 5, 6]]
+%% Falsely define a matrix called `d´ (using `,´ instead of `;´ to separate columns):
+d=[[1, 2, 3], [4, 5, 6]]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 3.2 Automatische Matrix-Definition &&
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define an ineger vector containing 10 elements from 1 to 10:
+e=1:10
+%% Define an odd vector, whose 6 elements are equidistant (from 0 to 2*pi):
+f=linspace(0,2*pi,6)
+%% Define an odd vector, whose 6 elements are logarithmically distant from each other (from -1 to 1):
+g=logspace(-1,1,6)
+%% Define a vector containing only the value 1 10 times:
+h=ones(1,10)
+%% Define a vector containing only the value 0 10 times:
+i=zeros(1,10)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 3.3 Stapelung von Elementen und Vektoren %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Stack defined variables:
+A=[a,b]
+B=[d;f]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 3.4 Zugriff auf Matrix-Elemente %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% General syntax for accessing single elements:
+%% variablename(row, column)
+%% Access the element in row 1, column 3 of matrix c:
+c(1,3)
+%% Access the element in row 2, column 1 of matrix c:
+c(2,1)
+%% Access the 3rd element of vector f:
+f(3)
+%% Acess every element from the 3rd onwards of vector e:
+e(3:end)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 3.5 Vektorrechnung und Matrizenrechnung %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Define 2 new vectors (`2:2:12´ results in an integer vector ranging from 2 to 12 separated by 2):
+m=1:6
+n=2:2:12
+%% Add both vectors:
+E=m+n
+%% Subtract both vectors:
+F=m-n
+%% Multiplicat both vectors elementwise (requires `.*´ instead of `*´):
+M=m.*n
+%% Execute matrix multiplication after transposing the 2nd vector (results in the scalar product of both vectors):
+N=m*n'
+%% Execut matrix multiplication after transposing the 1st vector (results in a matrix):
+O=m'*n
+%% Divide both vectors:
+P=m./n
+Q=m/n
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 4. Zweidimensionale grafische Darstellungen %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Commands: plot, subplot, grid on/off, axis, hold on/off, title, xlabel, ylabel, legend
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 4.1 Darstellung einer Achse (plot) %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Set default graphics toolkit to gnuplot:
+graphics_toolkit('gnuplot')
+%% Create an x-vector containing 200 elements ranging from 0 to 4pi (`;´ at the end of a line suppresses output of the command):
+x=linspace(0,4*pi,200);
+%% Calculate corresponding y-vector:
+y=sin(x);
+%% Calculate z-values:
+z=cos(x);
+%% Clear current figure window:
+clf;
+%% Open 1st figure:
+figure(1);
+%% Plot vectors x and y (sine function):
+plot(x,y);
+%% Add axes:
+axis([0 4*pi -1 1]);
+%% Add grid:
+grid on;
+%% Add title:
+title('Sine function');
+%% Add x-axis label:
+xlabel('Argument [rad]');
+%% Add cosine function (red, solid (since X11 does not support dashed lines)):
+hold on,
+plot(x,z,"r-");
+%% Change title:
+title('Sine and cosine function');
+%% Add legend:
+legend("Sine","Cosine");
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 4.2 Darstellung mehrerer Plots in einem Fenster (subplot) %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Open 2nd figure:
+figure(2);
+%% Plot sine function on 1st row of the figure (other settings same as above):
+subplot(211),
+plot(x,y);
+axis([0 4*pi -1 1]);
+grid on;
+title("Sine function");
+%% Plot cosine function on 2nd row of the figure (other settings same as above):
+subplot(212),
+plot(x,z);
+axis([0 4*pi -1 1]);
+grid on;
+title("Cosine function");
+%% Add x-axis label:
+xlabel("Argument [rad]");
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 5. Das M-File, der Matlab-Editor %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 5.2 Aufbau eines M-Files %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 5.2.1 Der Header %%
+%%%%%%%%%%%%%%%%%%%%%%
+%***************************************************************************
+% Project    : Introduction to GNU Octave
+% Author     : Renke von Seggern
+% Filename   : Octave_Einfuehrung.oct
+% Date begin : 06.08.2016
+% Date end   : 
+% Version    : 1.0
+%***************************************************************************
+% A short introduction to GNU Octave based on the book “Die nicht zu kurze
+% Kurzeinführung in MATLAB” by Stefan Wicki.
+%***************************************************************************
+%
+% used functions: -
+%
+% input files: -
+%
+% output files: -
+%
+%***************************************************************************
+%
+% global variables: -
+%
+%***************************************************************************

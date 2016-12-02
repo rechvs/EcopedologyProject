@@ -1,0 +1,14 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\select@language {ngerman}
+\contentsline {section}{\numberline {1}Konventionen}{1}{section.1}
+\contentsline {section}{\numberline {2}Elemente von $A$}{1}{section.2}
+\contentsline {subsection}{\numberline {2.1}Allgemein für $i \ne 1,o$}{1}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Beispielhaft für $i = 2$}{1}{subsection.2.2}
+\contentsline {section}{\numberline {3}Elemente von $\mitdelta $}{2}{section.3}
+\contentsline {subsection}{\numberline {3.1}Allgemein für $i \ne 1,o$}{2}{subsection.3.1}
+\contentsline {section}{\numberline {4}Elemente von $f$}{2}{section.4}
+\contentsline {subsection}{\numberline {4.1}Allgemein für $i \ne 1,o$}{3}{subsection.4.1}
+\contentsline {subsubsection}{\numberline {4.1.1}$h$-basierte Richardsgleichung}{3}{subsubsection.4.1.1}
+\contentsline {subsubsection}{\numberline {4.1.2}Gemischte Richardsgleichung}{3}{subsubsection.4.1.2}
+\contentsline {section}{\numberline {5}Nicht berechenbare Variablen und Elemente}{3}{section.5}

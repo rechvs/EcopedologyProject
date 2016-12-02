@@ -1,0 +1,132 @@
+* TODO
+** CURRENT rewrite/improve function definitions in separate [[file:/automnt/DATEN02/Uni/Master/3.Sem/Projekt/Octave/functions][files]] (e.g., with respect to documentation (s. [[info:octave#Function%20Headers][here]]), input checking (s. [[info:octave#Defining%20Functions][here]]), etc.)
+*** Things to check:
+    + number of input arguments (`nargin()´, s. [[info:octave#Multiple%20Return%20Values][here]])
+    + type of input arguments
+** CURRENT set Hi = const. and calculate elements of A
+** CURRENT look for books on numerical models in hydrology/soil science
+*** TITLE
+    AUTHOR(S)
+    YEAR
+    SIGNATURE
+    LOCATION (SUB or BBF, Lesesaal or Magazin)
+    FOR LOAN
+    ORDERED
+    + [X] read and bibliographical data saved
+*** Quantitative solutions in hydrogeology and groundwater modeling
+    Krešić, Neven
+    1997
+    VBQ 100 = 2004 B 2249 [a]
+    SUB, Lesesaal 1
+    yes
+    + [ ] read and bibliographical data saved
+*** Groundwater hydrology. Engineering, planning and management
+    Karamouz, Mohammad and Ahmadi, Azadeh and Akhbari, Masih
+    2011
+    2011 A 11231
+    SUB, Magazin
+    yes
+    + [ ] read and bibliographical data saved
+*** Soil hydrology
+    Kutilek, Miroslav and Nielsen, Donald R.
+    1994
+    VOC 200:k = 95 A 1638
+    SUB, Lesesaal 1
+    yes
+    + [ ] read and bibliographical data saved
+*** Efficient numerical methods and information-processing techniques for modeling hydro- and environmental systems
+    Hinkelmann, Reinhard
+    2005
+    2005 A 21211
+    SUB, Magazin
+    yes
+    yes
+    + [X] read and bibliographical data saved
+*** Investigation of water drainage through an alpine glacier by tracer experiments and numerical modeling
+    Schuler, Thomas
+    2002
+    2003 A 27546
+    SUB, Magazin
+    yes
+    + [ ] read and bibliographical data saved
+*** Effective parameters of hydrogeological models
+    Gorokhovski, Vikenti
+    2014
+    2014 A 17085
+    SUB, Magazin
+    yes
+    + [ ] read and bibliographical data saved
+*** Analysis of surface soil moisture patterns in an agricultural landscape utilizing measurements and ecohydrological modeling
+    Korres, Wolfgang
+    2013
+    DISS 2013 B 547
+    SUB, Magazin
+    yes
+    yes
+    + [X] read and bibliographical data saved
+*** Environmental hydraulics. Vol. 5. Modeling software
+    Tanguy, Jean-Michel
+    2010
+    2010 A 6094:5
+    SUB, Magazin
+    yes
+    yes
+    + [X] read and bibliographical data saved
+*** Surface water modeling
+    Huang, Wenrui
+    2008
+    2009 B 971
+    SUB, Magazin
+    yes
+    yes
+    + [X] read and bibliographical data saved
+*** A practical guide to groundwater and solute transport modeling
+    Spitz, Karlheinz and Moreno, Joanna
+    1996
+    96 A 23846
+    SUB, Magazin
+    yes
+    yes
+    + [X] read and bibliographical data saved
+** CURRENT check prefixes in Octave model
+** on hold implement mixed form of Richards equation
+   - State "on hold"    from "CURRENT"    [2016-03-23 Mi 16:55] \\
+     not sure whether this is possible, since it requires estimation of theta;
+     have to ask Andrea or Mohsen about this
+** CURRENT deduce equation for C(h) by deriving del theta/del h (s. Projekt_Octave.oct l. 54)
+** CURRENT figure out a way to use van Genuchten’s equations [ 9 ] and [ 21 ] for negative h
+   According to [[https://en.wikipedia.org/wiki/Water_retention_curve#Shape_parameters][Wikipedia]], equation [ 21 ] uses the absolute value of h; in that case, the prefix sign of h should’nt matter or should it?
+* General notes
+** Conventions for file `Projekt_Literaturliste_abstracts.bib´
+   + default language is English;
+     however, a given name is taken as is from the respective reference (e.g., `Tokio´ instead of `Tokyo´ as a location);
+     same goes for abbreviations (e.g., `USA´ instead of `U.S.A.´)
+   + entries in field `location´ need to be separated by `and´ (s. biblatex pp. 20, 14)
+   + all locations given by a reference are to be included (i.e., all locations were the publisher resides, s. biblatex p. 20)
+   + locations in the USA are accompanied by the respective state (e.g., `Hoboken, NJ´)
+   + [ ] multiple locations are truncated with [and others] (TODO: modify biber settings)
+* Timetables
+** Daily timetable
+   |        TIME | ACTIVITY   | DURATION [min] |
+   |-------------+------------+----------------|
+   | 09:00-10:00 | Work       |             60 |
+   | 10:00-10:10 | BREAK      |             10 |
+   | 10:10-11:10 | Work       |             60 |
+   | 11:10-11:20 | BREAK      |             10 |
+   | 11:20-12:20 | Work       |             60 |
+   | 12:20-13:20 | LUNCHBREAK |             60 |
+   | 13:20-14:20 | Work       |             60 |
+   | 14:20-14:30 | BREAK      |             10 |
+   | 14:30-15:30 | Work       |             60 |
+   | 15:30-15:40 | BREAK      |             10 |
+   | 15:40-16:40 | Work       |             60 |
+   | 16:40-16:50 | BREAK      |             10 |
+   | 16:50-18:00 | Work       |             70 |
+** Weekly timetable
+   |           | WEEK 1 | WEEK 2    | WEEK 3    | WEEK 4              | WEEK 5              | WEEK 6  | WEEK 7  |
+   |-----------+--------+-----------+-----------+---------------------+---------------------+---------+---------|
+   | MONDAY    | HiWi   | HiWi      | HiWi      | HiWi                | HiWi                | HiWi    | HiWi    |
+   | TUESDAY   | Octave | Modelling | Modelling | Literature research | Literature research | Writing | Writing |
+   | WEDNESDAY | Octave | Modelling | Modelling | Literature research | Literature research | Writing | Writing |
+   | THURSDAY  | Octave | Modelling | Modelling | Literature research | Literature research | Writing | Writing |
+   | FRIDAY    | Octave | Modelling | Modelling | Literature research | Literature research | Writing | Writing |

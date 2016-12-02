@@ -1,0 +1,603 @@
+%Time-stamp: <2016-03-15 07:32:31 renke>
+\documentclass[xcolor=dvipsnames]{beamer}
+
+% Einbinden von Paketen: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{beamerthemesplit} % Zweiteilung von Kopf- und Fußzeile
+%\usepackage[utf8]{inputenc} % Übersetzung von Sonderzeichen usw. in von LaTeX verarbeitbare Befehle
+\usepackage[ngerman]{babel} % Typografische (und andere) Regeln sowie Silbentrennung für verschiedene Sprachen
+\usepackage{roboto} % Festlegen des Fonts
+\usepackage{fixltx2e} % Diverse Verbesserungen von LaTeX
+\usepackage{graphicx} % Ermöglicht das Einbinden von Grafiken (bequemer als bei reinem graphics)
+\usepackage{url} % Ermöglicht das Einbinden von URLs
+\usepackage{xcolor} % Ermöglicht das Erstellen eigener Farben
+%\usepackage{textcomp} % LaTeX-Unterstützung für die Text-Companion-Fonts
+%\usepackage{gensymb} % Stellt die Befehle \degree, \celsius, \perthousand, \micro und \ohm zur Verfügung, die sowohl in text als auch im math mode funktionieren
+\usepackage{calc} % Ermöglicht das Berechnen von Textlängen
+\usepackage{tikz} % Ermöglicht das Erstellen von Grafiken in LaTeX
+\usepackage{fp} % Ermöglicht einfache arithmetische Berechnungen innerhalb von LaTeX
+%\usepackage{pgfpages} % Ermöglicht die Erstellung von "breiten" Folien in beamer
+
+% Einstellungen (paketabhängig): %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usecolortheme{crane} % Farbschema der Folien (beamer)
+\setbeamertemplate{footline}[frame number] % Anzeigen der Foliennummer in der Fußzeile (beamer)
+\setbeamertemplate{itemize subitem}{\textcolor{letters}{\textbullet}} % Festlegen der Stichpunktsymbole in Listen (itemize, 2. Ebene, beamer)
+\setbeamersize{text margin left=1mm} % Festlegen des Abstands zwischen rechter Kante der linken Sidebar (falls vorhanden, ansonsten linker Kante des Papiers) und linker Kante des Texts
+\setbeamersize{text margin right=1mm} % Festlegen des Abstands zwischen linker Kante der rechten Sidebar (falls vorhanden, ansonsten rechter Kante des Papiers) und rechter Kante des Texts
+%\setbeameroption{previous slide on second screen=left} % "breite" Folien erstellen (aktuelle Folie links, folgende Folie rechts)
+
+\urlstyle{same} % Festlegen des Fonts für URLs (url)
+
+\definecolor{letters}{HTML}{04064C} % Definieren von Farben (xcolor)
+\definecolor{boxes}{HTML}{FCBB06} % Definieren von Farben (xcolor)
+
+\usetikzlibrary{decorations.pathreplacing} % Ermöglicht das Dekorieren von TikZ-Figuren
+
+% Einstellungen (paketunabhängig): %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\DeclareMathSizes{12}{20}{8}{10}
+
+% Eigene Kommandos und Umgebungen: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\mycaption}[1]{\tiny\raggedright{#1}}
+\newcommand*{\myscalebox}[2][0.6]{\scalebox{#1}{\ensuremath{#2}}}%
+
+% Definition von Längen, Breiten, Höhen: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newlength{\balancedcolumnwidth}
+\setlength{\balancedcolumnwidth}{0.49\textwidth}
+
+% Definition von Foliennummern zur Steuerung der Sichtbarkeit von Elementen: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{firstElement}
+\newcounter{secondElement}
+\newcounter{thirdElement}
+\newcounter{fourthElement}
+\newcounter{fifthElement}
+\newcounter{sixthElement}
+\newcounter{seventhElement}
+\newcounter{eighthElement}
+\newcounter{ninthElement}
+\newcounter{tenthElement}
+\FPset{\thefirstElement}{2}
+\FPadd{\thesecondElement}{\thefirstElement}{1}
+\FPadd{\thethirdElement}{\thesecondElement}{1}
+\FPadd{\thefourthElement}{\thethirdElement}{1}
+\FPadd{\thefifthElement}{\thefourthElement}{1}
+\FPadd{\thesixthElement}{\thefifthElement}{1}
+\FPadd{\theseventhElement}{\thesixthElement}{1}
+\FPadd{\theeighthElement}{\theseventhElement}{1}
+\FPadd{\theninthElement}{\theeighthElement}{1}
+\FPadd{\thetenthElement}{\theninthElement}{1}
+\FPround{\thesecondElement}{\thesecondElement}{0}
+\FPround{\thethirdElement}{\thethirdElement}{0}
+\FPround{\thefourthElement}{\thefourthElement}{0}
+\FPround{\thefifthElement}{\thefifthElement}{0}
+\FPround{\thesixthElement}{\thesixthElement}{0}
+\FPround{\theseventhElement}{\theseventhElement}{0}
+\FPround{\theeighthElement}{\theeighthElement}{0}
+\FPround{\theninthElement}{\theninthElement}{0}
+\FPround{\thetenthElement}{\thetenthElement}{0}
+
+% Beginn des Dokuments: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{Transekte des Wasserhaushalts in Agroforstsystemen}
+\subtitle{Vortrag zum Projekt \\ ,,Ökosystemanalyse und Modellierung``}
+\author{Renke von Seggern}
+\date[11.01.2016]{11. Januar 2016}
+
+\beamertemplatenavigationsymbolsempty
+
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+
+% \addtocounter{framenumber}{-2} %Reduktion der Folienzahl (-1 für Titelfolie, -1 für Inthaltsübersicht)
+
+% \begin{frame}[plain]
+% \frametitle{Inhaltsübersicht}
+% \end{frame}
+
+\addtocounter{framenumber}{-1} %Reduktion der Folienzahl (-1 für Titelfolie)
+
+\section{Einleitung}
+\begin{frame}[t]
+  \centerline{
+    \begin{minipage}{0.7\textwidth}
+      \only<1>{
+        \includegraphics[width=1.0\textwidth]{Grafiken/IMG_1181_beschnitten} \\
+        \mycaption{Abbildung: Beispiel für das Landnutzungsschema der Untersuchungsflächen (hier: KUP und Grünland)
+          (Quelle: Falk Richter, verändert).}}
+    \end{minipage}}
+  \begin{itemize}
+  \item<\thesecondElement-> Ziel: \\
+    Modellierung des Bodenwasserhaushalts von Ackerkulturen in Nachbarschaft zu KUPs.
+  \item<\thethirdElement-> Probleme:
+    \begin{itemize}
+    \item<\thefourthElement-> Einfluss von KUPs auf benachbarte Flächen \\
+      $\boldsymbol\Rightarrow$ keine trennscharfen Grenzen
+    \item<\thefifthElement-> nichtlineare Abhängigkeiten, vielfältige Einflussgrößen \\
+      $\boldsymbol\Rightarrow$ keine analytische Lösung möglich
+    \end{itemize}
+  \end{itemize}
+  \begin{itemize}
+  \item<\thesixthElement-> Lösungsansatz:
+    \begin{itemize}
+    \item<\theseventhElement-> räumlich kleinskalige Modellierung
+    \item<\theeighthElement-> implizite numerische Lösung (finite Differenzen + Picard-Iteration)
+    \item<\theninthElement-> Software: GNU Octave
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Modellschema}
+\begin{frame}[c]
+  \centerline{
+    % \fbox{
+    \begin{tikzpicture}[>=stealth]
+% Pappel, Acker, waagerechte Linien, senkrechte Linien
+      \visible<\thesecondElement->{\draw[green] (0.5,1.5) node{\tiny Pappel};}
+      \visible<\thesecondElement->{\draw[brown] (4.5,1.5) node{\tiny Acker};}
+% senkrechte Linien (Pappel, Acker)
+      \visible<\thesecondElement->{\draw[green] (0,1.2) -- (0,1.5);}
+      % \visible<\thesecondElement->{\draw[green] (2.49,1.2) -- (2.49,1.5);}
+      % \visible<\thesecondElement->{\draw[brown] (2.5,1.2) -- (2.5,1.5);}
+      \visible<\thesecondElement->{\draw[brown] (5,1.2) -- (5,1.5);}
+% waagerechte Linien (Pappel, Acker)
+      \visible<\thesecondElement->{\draw[green] (0,1.35) -- (3.5,1.35);}
+      \visible<\thesecondElement->{\draw[brown,dashed] (1.5,1.35) -- (3.5,1.35);}
+      \visible<\thesecondElement->{\draw[brown] (3.5,1.35) -- (5,1.35);}
+% tn
+      \visible<\thethirdElement->{\draw (-2,0) node{\tiny$t_n$};}
+% waagerechte Linien (tn)
+      \visible<\thefirstElement->{\draw[gray,thin] (0,0) -- (2.25,0);}
+      \visible<\thefirstElement->{\draw[gray,thin] (3.75,0) -- (5,0);}
+% Auslassungspunkte (tn)
+      \visible<\thefirstElement->{\draw (3,0) node{\ldots};}
+% i =
+      \visible<\thesecondElement-\thefifthElement>{\draw (-0.5,-0.5) node{\tiny$i =$};}
+% senkrechte Linien an Knoten, Knoten, Knotennummern (tn)
+      \foreach \xcoord in {0,1,2}
+      {
+        \visible<\thefirstElement->{\draw[gray,thin] (\xcoord,0.25) -- (\xcoord,-0.25);}
+        \visible<\thefirstElement->{\fill[black] (\xcoord,0) circle (0.75mm);}
+        \visible<\thesecondElement-\thefifthElement>{\draw (\xcoord,-0.5) node{\tiny$\xcoord$};}
+      }
+      \foreach \xcoord in {4,5}
+      {
+        \visible<\thefirstElement->{\draw[gray,thin] (\xcoord,0.25) -- (\xcoord,-0.25);}
+        \visible<\thefirstElement->{\fill[black] (\xcoord,0) circle (0.75mm);}
+      }
+      \visible<\thesecondElement-\thefifthElement>{\draw (4,-0.5) node{\tiny$x-1$};}
+      \visible<\thesecondElement-\thefifthElement>{\draw (5,-0.5) node{\tiny$x$};}
+% senkrechte Linien für K (tn)
+      \foreach \xcoord in {0.5,1.5}
+      {
+        \visible<\thefirstElement->{\draw[black,thin] (\xcoord,0.05) -- (\xcoord,-0.05);}
+      }
+      \visible<\thefirstElement->{\draw[black,thin] (4.5,0.05) -- (4.5,-0.05);}
+% waagerechte Linien (m=1)
+      \visible<\theseventhElement->{\draw[gray,thin] (0,-0.75) -- (2.25,-0.75);}
+      \visible<\theseventhElement->{\draw[gray,thin] (3.75,-0.75) -- (5,-0.75);}
+% Auslassungspunkte (m=1)
+      \visible<\theseventhElement->{\draw (3,-0.75) node{\ldots};}
+% senkrechte Linien an Knoten, Knoten (m=1)
+      \foreach \xcoord in {0,1,2}
+      {
+        \visible<\theseventhElement->{\draw[gray,thin] (\xcoord,-0.5) -- (\xcoord,-1);}
+        \visible<\theseventhElement->{\fill[black] (\xcoord,-0.75) circle (0.75mm);}
+      }
+      \foreach \xcoord in {4,5}
+      {
+        \visible<\theseventhElement->{\draw[gray,thin] (\xcoord,-0.5) -- (\xcoord,-1);}
+        \visible<\theseventhElement->{\fill[black] (\xcoord,-0.75) circle (0.75mm);}
+      }
+% senkrechte Linien für K (m=1)
+      \foreach \xcoord in {0.5,1.5}
+      {
+        \visible<\theseventhElement->{\draw[black,thin] (\xcoord,-0.7) -- (\xcoord,-0.8);}
+      }
+      \visible<\theseventhElement->{\draw[black,thin] (4.5,-0.7) -- (4.5,-0.8);}
+% waagerechte Linien (m=2)
+      \visible<\theseventhElement->{\draw[gray,thin] (0,-1.5) -- (2.25,-1.5);}
+      \visible<\theseventhElement->{\draw[gray,thin] (3.75,-1.5) -- (5,-1.5);}
+% Auslassungspunkte (m=2)
+      \visible<\theseventhElement->{\draw (3,-1.5) node{\ldots};}
+% senkrechte Linien an Knoten, Knoten (m=2)
+      \foreach \xcoord in {0,1,2}
+      {
+        \visible<\theseventhElement->{\draw[gray,thin] (\xcoord,-1.25) -- (\xcoord,-1.75);}
+        \visible<\theseventhElement->{\fill[black] (\xcoord,-1.5) circle (0.75mm);}
+      }
+      \foreach \xcoord in {4,5}
+      {
+        \visible<\theseventhElement->{\draw[gray,thin] (\xcoord,-1.25) -- (\xcoord,-1.75);}
+        \visible<\theseventhElement->{\fill[black] (\xcoord,-1.5) circle (0.75mm);}
+      }
+% senkrechte Linien für K (m=2)
+      \foreach \xcoord in {0.5,1.5}
+      {
+        \visible<\theseventhElement->{\draw[black,thin] (\xcoord,-1.45) -- (\xcoord,-1.55);}
+      }
+      \visible<\theseventhElement->{\draw[black,thin] (4.5,-1.45) -- (4.5,-1.55);}
+% geschwungene Klammer (tn)
+      \visible<\thesecondElement->{\draw[decorate,decoration=brace] (0,0.25) -- (1,0.25);}
+% Delta z
+      \visible<\thesecondElement->{\draw (0.5,0.5) node{\tiny$\Delta z$};}
+% Pfeil, Delta t
+      \visible<\thefourthElement->{\draw[->] (-2,-0.5) -- (-2,-2.5);}
+      \visible<\thefourthElement-\thefifthElement>{\draw (-1.75,-1.5) node{\tiny$\Delta t$};}
+% m=1
+      \visible<\theseventhElement>{\draw (-1.5,-0.75) node{\tiny$m = 1$};}
+% m=2
+      \visible<\theseventhElement>{\draw (-1.5,-1.5) node{\tiny$m = 2$};}
+% Auslassungspunkte für m=3
+      \visible<\theseventhElement>{\draw (-1.5,-2) node{\tiny\ldots};}
+% tn+1
+      \visible<\thefifthElement->{\draw (-2,-3) node{\tiny$t_{n+1}$};}
+% waagerechte Linien (tn+1)
+      \visible<\thefifthElement->{\draw[gray,thin] (0,-3) -- (2.75,-3);}
+      \visible<\thefifthElement->{\draw[gray,thin] (3.25,-3) -- (5,-3);}
+% Auslassungspunkte (tn+1)
+      \visible<\thefifthElement->{\draw (3,-3) node{\ldots};}
+% senkrechte Linien, Knoten (tn+1)
+      \foreach \xcoord in {0,1,2}
+      {
+        \visible<\thefifthElement->{\draw[gray,thin] (\xcoord,-2.75) -- (\xcoord,-3.25);}
+        \visible<\thefifthElement->{\fill[black] (\xcoord,-3) circle (0.75mm);}
+      }
+      \foreach \xcoord in {4,5}
+      {
+        \visible<\thefifthElement->{\draw[gray,thin] (\xcoord,-2.75) -- (\xcoord,-3.25);}
+        \visible<\thefifthElement->{\fill[black] (\xcoord,-3) circle (0.75mm);}
+      }
+% senkrechte Linien für K, Nummern für K (tn+1)
+      \foreach \xcoord in {0.5,1.5}
+      {
+        \visible<\thefifthElement->{\draw[black,thin] (\xcoord,-2.95) -- (\xcoord,-3.05);}
+      }
+      \visible<\thefifthElement->{\draw[black,thin] (4.5,-2.95) -- (4.5,-3.05);}
+    \end{tikzpicture}}
+  % }
+  \visible<\thefirstElement->{
+    \centerline{
+      \parbox{0.7\textwidth}{
+        \mycaption{Abbildung: Schematische Darstellung des zugrundeliegenden Knotenmodells und des Modellablaufs.}}}}
+\end{frame}
+
+\section{Gleichungssystem}
+\subsection{Richards-Gleichung $\boldsymbol{\rightarrow}$ Näherung $\boldsymbol{\rightarrow}$ Matrixschreibweise}
+
+\begin{frame}
+  \visible<\thefirstElement->{\frametitle{Richards-Gleichung}}
+  \only<\thefirstElement>{
+    \centerline{
+      $C(h) \frac{\delta h}{\delta t} - \nabla \cdot K(h)\nabla h - \frac{\delta K}{\delta z} = 0$
+      % $\frac{\theta}{t} - \nabla \cdot K(h)\nabla h - \frac{\delta K}{\delta z} = 0$
+      \vspace{5mm}}
+    \begin{minipage}{1.0\textwidth}
+    \centerline{
+      \mycaption{Gleichung: h-basierte Richards-Gleichung (Quelle: [1]).}}
+      % \mycaption{Gleichung: Gemischte Richards-Gleichung (Quelle: [1]).}}
+    \end{minipage}}
+
+  % \only<\thethirdElement->{
+  %   \centerline{
+  %     $C(h) \textcolor{red}{\frac{\delta h}{\delta t}} - \nabla \cdot K(h)\nabla h -
+  %     \frac{\delta K}{\delta z} = 0$
+  %   \vspace{5mm}}}
+  \only<\thefirstElement->{
+    \begin{align*}
+      \myscalebox{C(h)} & \myscalebox{: \text{spezifische Feuchtekapazitätsfunktion [m\textsuperscript{-1}]}} \\[-3mm]
+      \myscalebox{h} & \myscalebox{: \text{Wasserspannung [m]}} \\[-3mm]
+      \myscalebox{K(h)} & \myscalebox{: \text{ungesättigte hydraulische Leitfähigkeit [m $\cdot$ s\textsuperscript{-1}]}} \\[-3mm]
+      \myscalebox{t} & \myscalebox{: \text{Zeit [s]}} \\[-3mm]
+      % \myscalebox{\theta} & \myscalebox{: \text{Wassergehalt [m\textsuperscript{3} $\cdot$ m\textsuperscript{-3}]}} \\[-3mm]
+      \myscalebox{z} & \myscalebox{: \text{Strecke [m]}} \\[-3mm]
+    \end{align*}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Näherung (finite Differenzen + Picard-Iteration)}
+  \only<\thefirstElement>{
+    \vspace{-5mm}
+    \begin{gather*}
+      C_i^{n+1,m} \cdot \frac{\delta_i^m}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\delta_{i+1}^m - \delta_i^m\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\delta_i^m - \delta_{i-1}^m\right)\right] \\[+0.5mm]
+      = \\[+0.5mm]
+      \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(H_{i+1}^{n+1,m} - H_i^{n+1,m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(H_{i}^{n+1,m} - H_{i-1}^{n+1,m}\right)\right] \\[+0.5mm]
+      + \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - C_i^{n+1,m} \cdot \frac{H_i^{n+1,m} - H_i^n}{\Delta t}
+    \end{gather*}
+      \begin{minipage}{1.0\textwidth}
+        \mycaption{Gleichung: Standardmäßige (räumliche) Näherung zur Richards-Gleichung mittels finiter Differenzen nach Anwendung der Picard-Iteration (Quelle: [1]).}
+      \end{minipage}
+    \vspace{-7mm}}
+  \only<\thesecondElement->{
+    \vspace{-5mm}
+    \begin{gather*}
+      C_i^{n+1,m} \cdot \frac{\textcolor{red}{\delta_i^m}}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_{i+1}^m} - \textcolor{red}{\delta_i^m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_i^m} - \textcolor{red}{\delta_{i-1}^m}\right)\right] \\[+0.5mm]
+      = \\[+0.5mm]
+      \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(H_{i+1}^{n+1,m} - H_i^{n+1,m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(H_{i}^{n+1,m} - H_{i-1}^{n+1,m}\right)\right] \\[+0.5mm]
+      + \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - C_i^{n+1,m} \cdot \frac{H_i^{n+1,m} - H_i^n}{\Delta t}
+    \end{gather*}
+      \begin{minipage}{1.0\textwidth}
+        \mycaption{Gleichung: Standardmäßige (räumliche) Näherung zur Richards-Gleichung mittels finiter Differenzen nach Anwendung der Picard-Iteration (Quelle: [1]).}
+      \end{minipage}
+    \vspace{-7mm}}
+  \visible<\thefirstElement->{
+    \begin{columns}
+      \begin{column}{0.5\textwidth}
+        \begin{align*}
+          \myscalebox{C} & \myscalebox{: \text{spezifische Feuchtekapazität [m\textsuperscript{-1}]}} \\[-3mm]
+          \only<\thefirstElement>{\myscalebox{\delta_i^m} & \myscalebox{: H_i^{n+1,m+1} - H_i^{n+1,m}} \\[-3mm]}
+          \only<\thesecondElement->{\myscalebox{\textcolor{red}{\delta_i^m}} & \myscalebox{\textcolor{red}{: H_i^{n+1,m+1} - H_i^{n+1,m}}} \\[-3mm]}
+          \myscalebox{H} & \myscalebox{: \text{(genäherte) Wasserspannung [m $\cdot$ s\textsuperscript{-1}]}} \\[-3mm]
+          \myscalebox{i} & \myscalebox{: \text{Knotennummer} (0 \ldots x)} \\[-3mm]
+          \myscalebox{K} & \myscalebox{: \text{hydraulische Leitfähigkeit [m $\cdot$ s\textsuperscript{-1}]}} \\[-3mm]
+          % \myscalebox{m} & \myscalebox{: \text{Iterationsschritt}} \\[-3mm]
+          % \myscalebox{n} & \myscalebox{: \text{Zeitschritt}} \\[-3mm]
+          % \myscalebox{t} & \myscalebox{: \text{Zeit [s]}} \\[-3mm]
+          % \myscalebox{z} & \myscalebox{: \text{Strecke [m]}} \\[-3mm]
+        \end{align*}
+    \end{column}
+      \begin{column}{0.5\textwidth}
+        \begin{align*}
+          % \myscalebox{C} & \myscalebox{: \text{spezifische Feuchtekapazität [m\textsuperscript{-1}]}} \\[-3mm]
+          % \only<\thefirstElement>{\myscalebox{\delta_i^m} & \myscalebox{: H_i^{n+1,m+1} - H_i^{n+1,m}} \\[-3mm]}
+          % \only<\thesecondElement->{\myscalebox{\textcolor{red}{\delta_i^m}} & \myscalebox{\textcolor{red}{: H_i^{n+1,m+1} - H_i^{n+1,m}}} \\[-3mm]}
+          % \myscalebox{H} & \myscalebox{: \text{(genäherte) Wasserspannung [m $\cdot$ s\textsuperscript{-1}]}} \\[-3mm]
+          % \myscalebox{i} & \myscalebox{: \text{Knotennummer} (0 \ldots x)} \\[-3mm]
+          % \myscalebox{K} & \myscalebox{: \text{hydraulische Leitfähigkeit [m $\cdot$ s\textsuperscript{-1}]}} \\[-3mm]
+          \myscalebox{m} & \myscalebox{: \text{Iterationsschritt}} \\[-3mm]
+          \myscalebox{n} & \myscalebox{: \text{Zeitschritt}} \\[-3mm]
+          \myscalebox{t} & \myscalebox{: \text{Zeit [s]}} \\[-3mm]
+          \myscalebox{z} & \myscalebox{: \text{Strecke [m]}} \\[-3mm]
+        \end{align*}}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\begin{frame}[t]
+  \frametitle{Matrixschreibweise}
+  \only<\thefirstElement-\thefourthElement>{
+    \centerline{
+      $A \cdot \delta = f$}}
+  \only<\thefifthElement>{
+    \centerline{
+      $A \cdot \textcolor{red}{\delta} = f$}}
+
+  \only<\thesecondElement>{
+    \vspace{2mm}
+    \centerline{
+      \begin{math}
+        A =
+        \begin{pmatrix}
+          a_{11} & a_{12} & a_{13} \\
+          %\only<\thesecondElement>{a_{21} & a_{22} & a_{23} \\}
+          \textcolor{green}{a_{21}} & \textcolor{green}{a_{22}} & \textcolor{green}{a_{23}} \\
+          a_{31} & a_{32} & a_{33} \\
+        \end{pmatrix}
+        ;
+        \delta =
+        \begin{pmatrix}
+          \textcolor{green}{\delta_1} \\
+          \textcolor{green}{\delta_2} \\
+          \textcolor{green}{\delta_3} \\
+        \end{pmatrix}
+        ;
+        f =
+        \begin{pmatrix}
+          f_1 \\
+          \textcolor{green}{f_2} \\
+          f_3 \\
+        \end{pmatrix}
+      \end{math}}
+    \begin{align*}
+      % f_1 & = a_{11} \cdot \delta_1 + a_{12} \cdot \delta_2 + a_{13} \cdot \delta_3 \\
+      %\only<\thesecondElement>{f_2 & = a_{21} \cdot \delta_1 + a_{22} \cdot \delta_2 + a_{23} \cdot \delta_3 \\}
+      \textcolor{green}{f_2} & = \textcolor{green}{a_{21}} \cdot \textcolor{green}{\delta_1} + \textcolor{green}{a_{22}} \cdot \textcolor{green}{\delta_2} + \textcolor{green}{a_{23}} \cdot \textcolor{green}{\delta_3} \\
+      % f_3 & = a_{31} \cdot \delta_3 + a_{32} \cdot \delta_3 + a_{33} \cdot \delta_3 \\
+    \end{align*}}
+
+  \only<\thefourthElement>{
+    \begin{gather*}
+      C_i^{n+1,m} \cdot \frac{\delta_i^m}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\delta_{i+1}^m - \delta_i^m\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\delta_i^m - \delta_{i-1}^m\right)\right] \\[+0.5mm]
+      = \\[+0.5mm]
+      \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(H_{i+1}^{n+1,m} - H_i^{n+1,m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(H_{i}^{n+1,m} - H_{i-1}^{n+1,m}\right)\right] \\[+0.5mm]
+      + \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - C_i^{n+1,m} \cdot \frac{H_i^{n+1,m} - H_i^n}{\Delta t}
+    % \end{gather*}
+    % \begin{gather*}
+    %   C_i^{n+1,m} \cdot \frac{\textcolor{red}{\delta_i^m}}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_{i+1}^m} - \textcolor{red}{\delta_i^m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_i^m} - \textcolor{red}{\delta_{i-1}^m}\right)\right] \\[+0.5mm]
+    %   = \\[+0.5mm]
+    %   \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(H_{i+1}^{n+1,m} - H_i^{n+1,m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(H_{i}^{n+1,m} - H_{i-1}^{n+1,m}\right)\right] \\[+0.5mm]
+    %   + \frac{K_{i+\frac{1}{2}}^{n+1,m} -
+    %     K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - C_i^{n+1,m} \cdot
+    %   \frac{H_i^{n+1,m} - H_i^n}{\Delta t}
+    \end{gather*}}
+
+\only<\thefifthElement>{
+    \begin{gather*}
+      C_i^{n+1,m} \cdot \frac{\textcolor{red}{\delta_i^m}}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_{i+1}^m} - \textcolor{red}{\delta_i^m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_i^m} - \textcolor{red}{\delta_{i-1}^m}\right)\right] \\[+0.5mm]
+      = \\[+0.5mm]
+      \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(H_{i+1}^{n+1,m} - H_i^{n+1,m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(H_{i}^{n+1,m} - H_{i-1}^{n+1,m}\right)\right] \\[+0.5mm]
+      + \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - C_i^{n+1,m} \cdot \frac{H_i^{n+1,m} - H_i^n}{\Delta t}
+    \end{gather*}}
+
+\end{frame}
+
+\subsection{Matrix- und Vektorenelemente}  
+
+\begin{frame}[t]
+  \frametitle{Matrix $A$}
+  \only<\thefirstElement-\thesecondElement>{
+    \centerline{
+      \begin{math}
+        A =
+        \begin{pmatrix}
+          b_0 & c_0 & & & & \\
+          a_1 & b_1 & c_1 & & & \\
+          & a_2 & b_2 & c_2 & & \\
+          & & \ddots & \ddots & \ddots & \\
+          & & & a_{x-1} & b_{x-1} & c_{x-1} \\
+          & & & & a_x & b_x
+        \end{pmatrix}
+      \end{math}}}
+  \only<\thesecondElement>{
+    \begin{gather*}
+      C_i^{n+1,m} \cdot \frac{\textcolor{red}{\delta_i^m}}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_{i+1}^m} - \textcolor{red}{\delta_i^m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_i^m} - \textcolor{red}{\delta_{i-1}^m}\right)\right] \\[+1mm]
+      = \\[+1mm]
+      \textcolor{black}{C_i^{n+1,m} \cdot \frac{1}{\Delta t}} \cdot \textcolor{red}{\delta_i^m}
+      \textcolor{black}{ - \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_{i+1}^m}
+      \textcolor{black}{ + \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_i^m}
+      \textcolor{black}{ + \frac{K_{i-\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_i^m}
+      \textcolor{black}{ - \frac{K_{i-\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_{i-1}^m}
+    \end{gather*}}
+
+  \only<\thethirdElement->{
+    \centerline{
+      \begin{math}
+        A =
+        \begin{pmatrix}
+          \textcolor{brown}{b_0} & \textcolor{orange}{c_0} & & & & \\
+          \textcolor{blue}{a_1} & \textcolor{brown}{b_1} & \textcolor{orange}{c_1} & & & \\
+          & \textcolor{blue}{a_2} & \textcolor{brown}{b_2} & \textcolor{orange}{c_2} & & \\
+          & & \ddots & \ddots & \ddots & \\
+          & & & \textcolor{blue}{a_{x-1}} & \textcolor{brown}{b_{x-1}} & \textcolor{orange}{c_{x-1}} \\
+          & & & & \textcolor{blue}{a_x} & \textcolor{brown}{b_x}
+        \end{pmatrix}
+      \end{math}}}
+  \only<\thethirdElement->{
+    \begin{gather*}
+      C_i^{n+1,m} \cdot \frac{\textcolor{red}{\delta_i^m}}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_{i+1}^m} - \textcolor{red}{\delta_i^m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_i^m} - \textcolor{red}{\delta_{i-1}^m}\right)\right] \\[+1mm]
+      = \\[+1mm]
+      \textcolor{brown}{C_i^{n+1,m} \cdot \frac{1}{\Delta t}} \cdot \textcolor{red}{\delta_i^m}
+      \textcolor{orange}{ - \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_{i+1}^m}
+      \textcolor{brown}{ + \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_i^m}
+      \textcolor{brown}{ + \frac{K_{i-\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_i^m}
+      \textcolor{blue}{ - \frac{K_{i-\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_{i-1}^m}
+    \end{gather*}}
+\end{frame}
+
+\begin{frame}[t]
+  \frametitle{Vektor $\delta$}
+  \visible<1->{
+    \centerline{
+      \begin{math}
+        \delta =
+        \begin{pmatrix}
+          \delta_0 \\
+          \delta_1 \\
+          \delta_2 \\
+          \vdots \\
+          \delta_{x-1} \\
+          \delta_x
+        \end{pmatrix}
+      \end{math}}
+    \begin{gather*}
+      C_i^{n+1,m} \cdot \frac{\textcolor{red}{\delta_i^m}}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_{i+1}^m} - \textcolor{red}{\delta_i^m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_i^m} - \textcolor{red}{\delta_{i-1}^m}\right)\right]
+    \end{gather*}}
+\end{frame}
+
+\begin{frame}[t]
+  \frametitle{Vektor $f$}
+  \visible<1->{
+    \centerline{
+      \begin{math}
+        f =
+        \begin{pmatrix}
+          f_0 \\
+          f_1 \\
+          f_2 \\
+          \vdots \\
+          f_{x-1} \\
+          f_x
+        \end{pmatrix}
+      \end{math}}
+    \begin{gather*}
+      f_i = \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(H_{i+1}^{n+1,m} - H_i^{n+1,m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(H_{i}^{n+1,m} - H_{i-1}^{n+1,m}\right)\right] \\[+1mm]
+      + \frac{K_{i+\frac{1}{2}}^{n+1,m} -
+        K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - C_i^{n+1,m} \cdot
+      \frac{H_i^{n+1,m} - H_i^n}{\Delta t}
+    \end{gather*}}
+\end{frame}
+
+\subsection{Code-Beispiel}
+\begin{frame}
+  \only<1>{
+    \centerline{
+      \begin{minipage}{0.75\textwidth}
+        \includegraphics[width=1\textwidth]{Grafiken/octave01_beschnitten} \\
+        \mycaption{Abbildung: Beispiel für die Lösung eines Gleichungssystems mithilfe von GNU Octave (links: Quelltext, rechts: Octave-Konsole).}
+      \end{minipage}}}
+  \only<\thefirstElement>{
+    \centerline{
+      \begin{minipage}{0.75\textwidth}
+        \includegraphics[width=1\textwidth]{Grafiken/octave02_beschnitten} \\
+        \mycaption{Abbildung: Beispiel für die Lösung eines Gleichungssystems mithilfe von GNU Octave (links: Quelltext, rechts: Octave-Konsole).}
+      \end{minipage}}}
+  \only<\thesecondElement>{
+    \centerline{
+      \begin{minipage}{0.75\textwidth}
+        \includegraphics[width=1\textwidth]{Grafiken/octave03_beschnitten} \\
+        \mycaption{Abbildung: Beispiel für die Lösung eines Gleichungssystems mithilfe von GNU Octave (links: Quelltext, rechts: Octave-Konsole).}
+      \end{minipage}}}
+  \only<\thethirdElement>{
+    \centerline{
+      \begin{minipage}{0.75\textwidth}
+        \includegraphics[width=1\textwidth]{Grafiken/octave04_beschnitten} \\
+        \mycaption{Abbildung: Beispiel für die Lösung eines Gleichungssystems mithilfe von GNU Octave (links: Quelltext, rechts: Octave-Konsole).}
+      \end{minipage}}}
+\end{frame}
+
+\section{Zusammenfassung}
+\begin{frame}[t]
+  \centerline{
+    \begin{minipage}{0.7\textwidth}
+      \visible<1->{
+        \includegraphics[width=1.0\textwidth]{Grafiken/IMG_1181_beschnitten} \\
+        \mycaption{Abbildung: Beispiel für das Landnutzungsschema der Untersuchungsflächen (hier: KUP und Grünland)
+          (Quelle: Falk Richter, verändert).}}
+    \end{minipage}}
+  \begin{itemize}
+  \item<\thefirstElement-> Ziel: \\
+    Modellierung des Bodenwasserhaushalts von Ackerkulturen in Nachbarschaft zu KUPs.
+  \item<\thesecondElement-> Lösungsansatz:
+    \begin{itemize}
+    \item<\thethirdElement-> räumlich kleinskalige Modellierung \\
+      $\boldsymbol\Rightarrow$ Erfassung von Randeffekten
+    \item<\thefourthElement-> implizite numerische Lösung (finite Differenzen + Picard-Iteration) \\
+      $\boldsymbol\Rightarrow$ komplexere Implementierung aber stabilere Ergebnisse als explizite Lösung
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\addtocounter{framenumber}{-1} %Reduktion der Folienzahl (-1 für Danksagung und Quellen)
+
+% Festlegen des Absatzeinzugs für die folgenden Seiten (Quellen):
+\setlength\parindent{0.5em}
+\setlength\baselineskip{0pt}
+
+\section*{}
+
+\begin{frame}[plain]
+  \begin{center}
+    \colorbox{boxes}{\parbox[c][2cm]{0.75\textwidth}
+      {\begin{center}
+          \textcolor{letters}{\textbf{\huge Vielen Dank \\ {\small für die Aufmerksamkeit.}}}
+        \end{center}
+      }
+    }
+  \end{center} 
+  \vspace{1.0cm}
+  \begin{block}{Quellen}
+    \begin{tiny}
+      [1] \textit{Celia Michael A., Bouloutas Efthimios T. \& Zarba Rebecca L.} (1990): A General Mass-Conservative Numerical Solution for the Unsaturated Flow Equation. \textit{Water Resources Research}, 26: 1483-1496.
+
+      [2] \textit{de Jong van Lier Quirijn, Metselaar Klaas \& van Dam Jos C.} (2006): Root Water Extraction and Limiting Soil Hydraulic Conditions Estimated by Numerical Solution. \textit{Vadose Zone Journal}, 5: 1264-1277.
+    \end{tiny}
+  \end{block}
+\end{frame}
+
+\end{document}

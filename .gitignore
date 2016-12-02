@@ -1,0 +1,14 @@
+## exe files:
+*.exe
+
+## pdf files:
+*.pdf
+
+## Image files:
+*.png
+*.jpg
+*.JPG
+
+## PowerPoint files:
+*.ppt
+*.pptx

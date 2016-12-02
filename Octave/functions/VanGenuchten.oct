@@ -1,0 +1,21 @@
+## usage: [THETA, K, C] = VanGenuchten(H, VGP)
+##
+## Calculate water content (THETA), hydraulic conductivity (K), and specific moisture capacity (C), based on current pressure head (H) and CONTINUE HERE
+
+## Function `VanGenuchten(h, VGP)´ for calculating `theta´, `K´, and `C´
+function [theta, K, C] = VanGenuchten(h,VGP)
+  ## FUNCTION VARIABLES
+  alpha = VGP(1);
+  n = VGP(2);
+  m = VGP(3);
+  theta_S = VGP(4);
+  theta_R = VGP(5);
+  ## FUNCTION BODY
+  ## Function to calculate `K(h)´ (see van Genuchten 1980 p. 893 Eq. [9]; [K(h)] = m/s ?]
+#K = (1 - (alpha .* h) .^ (n - 1) .* (1+(alpha .* h) .^ n) .^  - m) .^ 2 ./ (1+(alpha .* h) .^ n) .^ (m ./ 2); # form requiring `h´ to be positive
+  K = (1 - (alpha .* abs (h)) .^ (n - 1) .* (1+(alpha .* abs (h)) .^ n) .^  - m) .^ 2 ./ (1+(alpha .* abs (h)) .^ n) .^ (m ./ 2); # form using `abs (h)´ for `h´
+  ## Function to caclulate `C(h)´ (see Mohsen’s code; result of deriving (del theta/del h); [C(h) = 1 / m ?])
+  C = (alpha .* m .* n .* sign(h) .* (alpha .* abs (h)) .^ (n - 1) .* (theta_R - theta_S)) ./ ((alpha .* abs (h)) .^ n + 1) .^ (m + 1); # form using `abs (h)´ for `h´
+  ## Function to calculate `theta(h)´ (see van Genuchten 1980 p. 894 Eq. [21]; dimensionless)
+  theta = theta_R + ((theta_S - theta_R) ./ (1 + (alpha .* abs (h)).^n).^m); # form using `abs (h)´ for `h´
+endfunction
