@@ -1,0 +1,3 @@
+## usage: [alpha, H, n, m] = (K)
+##
+## Calculate hydraulic conductivity (K) based on current pressure head (H) and several empirical parameters (alpha, n, m).  Reference: van Genuchten, Th. M. (1980), eq. (9).
