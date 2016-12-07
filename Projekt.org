@@ -1,4 +1,5 @@
 * TODO
+** find example data to check results of “van_Genuchten_variables”
 ** CURRENT rewrite/improve function definitions in separate [[file:Octave/functions][files]] (e.g., with respect to documentation (s. [[info:octave#Function%20Headers][here]]), input checking (s. [[info:octave#Defining%20Functions][here]]), etc.)
 *** Things to check:
     + number of input arguments (`nargin()´, s. [[info:octave#Multiple%20Return%20Values][here]])
