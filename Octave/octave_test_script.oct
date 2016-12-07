@@ -1,68 +1,99 @@
-########################
-## Scalar arithmetics ##
-########################
-## addition:
-5 + 5
-
-## subtraction:
-10 - 5
-
-## multiplication:
-2 * 5
-
-## division:
-720 / 30
-
-########################
-## Vector arithmetics ##
-########################
-v1 = [0; 1; 2; 3; 4];
-v2 = [5; 6; 7; 8; 9];
-
-## addition:
-v1 .+ v2
-v1 + v2
-v1 .+ 2
-v1 + 2
-
-## subtraction:
-v2 .- v1
-v2 - v1
-v2 .- 1
-v2 - 1
-
-## element by element multiplication:
-#v1 * v2  ## WRONG!
-v1 .* v2
-2 .* v2
-
-## element by element division:
-#v2 / v1 ## WRONG!
-v2 ./ v1
-v2 ./ 2
-
 ##############################
 ## Testing custom functions ##
 ##############################
-## values for variables taken from Celia et al. (1990), p. 1487 below eq. (13b)
 
+## Add directory of function files to search path (not working due to invalid ELF header):
+## addpath("functions/");
+## Source function files:
+source("functions/van_Genuchten_variables.oct");
+## Set graphics toolkit:
+graphics_toolkit("gnuplot");
+## Set function parameters (values taken from Celia et al. (1990), p. 1487 below eq. (13b)):
 alpha = 0.03335;
 theta_s =0.368;
 theta_r = 0.102;
 n = 2;
 K_s = 0.00922;
 h = randi([-10000, -5000], 10,1);
+## Single execution of “van_Genuchten_variables” (worked as expected on 2016-12-07):
 ## [K, theta] = van_Genuchten_variables(alpha = alpha,
 ## n = n,
 ## theta_r = theta_r,
 ## theta_s = theta_s,
 ## K_s = K_s,
 ## h = h)
+## Execution of “van_Genuchten_variables” in for-loop (worked as expected on 2016-12-07):
 for timestep = 1:10
   [K(:, timestep), theta(:, timestep)] = van_Genuchten_variables(alpha = alpha,
-						 n = n,
-						 theta_r = theta_r,
-						 theta_s = theta_s,
-						 K_s = K_s,
-						 h = h);
+						     n = n,
+						     theta_r = theta_r,
+						     theta_s = theta_s,
+						     K_s = K_s,
+						     h = h);
 endfor
+## Vary results for plotting:
+for column = 1:columns(K)
+  K_rand(:,column) = K(:, column) .* randi([1, 10], 1, 1);
+endfor
+## Create vector with values for x-axis:
+time = 1:10;
+
+## Testing “plot(VECTOR, MATRIX)” (it seems that “plot”, when called like this (i.e., when plotting the columns of MATRIX against VECTOR), considers each row of MATRIX as an individual series of observations of the same variable, connecting its elements with lines): 
+figure(1);
+Y = [repelems(X = [5],R = [1;10]);
+     repelems(X = [10],R = [1;10])];
+plot(time,
+     Y,
+     "-r",
+     "markersize",
+     5)
+
+## Plot “K” against “time”:
+figure(2);
+plot(time,
+     K_rand,
+     "-pk",
+     "markersize",
+     5)
+
+## Create figure template for plotting “K” against “time”:
+figure(3)
+axis([0;
+      11;
+      min(min(K_rand)) - 1 * (10 ^ -13);
+      max(max(K_rand)) + 1 * (10 ^ -13)],
+     "tic",
+     "label")
+linestyles = ["-k";
+	    "-r";
+	    "-g";
+	    "-b";
+	    "-m";
+	    "-c";
+	    "-k";
+	    "-r";
+	    "-g";
+	    "-b"];
+markerstyles = ["+k";
+	      "ok";
+	      "xk";
+	      "sk";
+	      "dk";
+	      "^k";
+	      "vk";
+	      ">k";
+	      "<k";
+	      "pk"];
+## Create plots using for-loop:
+for row = 1:rows(K)
+  line(time,
+       K_rand(row,:).',
+       ## K_rand(:,column).', ## does not have the desired effect
+       "linestyle",
+       linestyles(row,1),
+       "color",
+       linestyles(row,2))
+endfor
+
+## Close all figure windows:
+close all;
