@@ -1,5 +1,5 @@
 * TODO
-** CURRENT rewrite/improve function definitions in separate [[file:/automnt/DATEN02/Uni/Master/3.Sem/Projekt/Octave/functions][files]] (e.g., with respect to documentation (s. [[info:octave#Function%20Headers][here]]), input checking (s. [[info:octave#Defining%20Functions][here]]), etc.)
+** CURRENT rewrite/improve function definitions in separate [[file:Octave/functions][files]] (e.g., with respect to documentation (s. [[info:octave#Function%20Headers][here]]), input checking (s. [[info:octave#Defining%20Functions][here]]), etc.)
 *** Things to check:
     + number of input arguments (`nargin()´, s. [[info:octave#Multiple%20Return%20Values][here]])
     + type of input arguments
@@ -94,8 +94,6 @@
      not sure whether this is possible, since it requires estimation of theta;
      have to ask Andrea or Mohsen about this
 ** CURRENT deduce equation for C(h) by deriving del theta/del h (s. Projekt_Octave.oct l. 54)
-** CURRENT figure out a way to use van Genuchten’s equations [ 9 ] and [ 21 ] for negative h
-   According to [[https://en.wikipedia.org/wiki/Water_retention_curve#Shape_parameters][Wikipedia]], equation [ 21 ] uses the absolute value of h; in that case, the prefix sign of h should’nt matter or should it?
 * General notes
 ** Conventions for file `Projekt_Literaturliste_abstracts.bib´
    + default language is English;
