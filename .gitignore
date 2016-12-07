@@ -12,3 +12,6 @@
 ## PowerPoint files:
 *.ppt
 *.pptx
+
+## GNU Octave workspaces:
+octave-workspace
