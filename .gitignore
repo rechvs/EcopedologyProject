@@ -14,4 +14,4 @@
 *.pptx
 
 ## GNU Octave workspaces:
-octave-workspace
+**/octave-workspace
