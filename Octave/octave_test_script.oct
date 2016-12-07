@@ -8,6 +8,8 @@
 source("functions/van_Genuchten_variables.oct");
 ## Set graphics toolkit:
 graphics_toolkit("gnuplot");
+## Set working directory:
+cd("/home/renke/home_Projekt/Octave");
 ## Set function parameters (values taken from Celia et al. (1990), p. 1487 below eq. (13b)):
 alpha = 0.03335;
 theta_s =0.368;
@@ -57,43 +59,61 @@ plot(time,
      5)
 
 ## Create figure template for plotting “K” against “time”:
-figure(3)
+close all;
+handle = figure("papertype",
+	      "a4",
+	      "paperorientation",
+	      "landscape",
+	      "paperunits",
+	      "centimeters",
+	      "paperposition",
+	      [2 2 17 25.6],
+	      "visible",
+	      "off");
 axis([0;
       11;
       min(min(K_rand)) - 1 * (10 ^ -13);
-      max(max(K_rand)) + 1 * (10 ^ -13)],
+      max(max(K_rand)) + 5 * (10 ^ -13)],
      "tic",
      "label")
-linestyles = ["-k";
-	    "-r";
-	    "-g";
-	    "-b";
-	    "-m";
-	    "-c";
-	    "-k";
-	    "-r";
-	    "-g";
-	    "-b"];
-markerstyles = ["+k";
-	      "ok";
-	      "xk";
-	      "sk";
-	      "dk";
-	      "^k";
-	      "vk";
-	      ">k";
-	      "<k";
-	      "pk"];
+colors = ["k";
+	"r";
+	"g";
+	"b";
+	"m";
+	"c";
+	"k";
+	"r";
+	"g";
+	"b"];
+linestyle = "-";
+markerstyles = ["+";
+	      "o";
+	      "x";
+	      "s";
+	      "d";
+	      "^";
+	      "v";
+	      ">";
+	      "<";
+	      "p"];
 ## Create plots using for-loop:
 for row = 1:rows(K)
   line(time,
        K_rand(row,:).',
        ## K_rand(:,column).', ## does not have the desired effect
        "linestyle",
-       linestyles(row,1),
+       linestyle,
        "color",
-       linestyles(row,2))
+       colors(row),
+       "marker",
+       markerstyles(row),
+       "markeredgecolor",
+       "k");
 endfor
-
+print(handle,
+      "../Grafiken/plot.pdf");
+system("mupdf -r 66 ../Grafiken/plot.pdf &");
+      
 ## Close all figure windows:
 close all;
