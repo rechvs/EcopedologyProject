@@ -1,19 +1,68 @@
-## Festlegen und Anzeigen der Matrix `A´:
-A = [2,3,0,0,0;
-     1,2,3,0,0;
-     0,1,2,3,0;
-     0,0,1,2,3;
-     0,0,0,1,2];
-A
+########################
+## Scalar arithmetics ##
+########################
+## addition:
+5 + 5
 
-## Festlegen und Anzeigen des Vektors `f´:
-f = [1;
-     2;
-     3;
-     4;
-     5];
-f
+## subtraction:
+10 - 5
 
-## Berechnung und Anzeigen des Vektors `delta´:
-delta = A \ f;
-delta
+## multiplication:
+2 * 5
+
+## division:
+720 / 30
+
+########################
+## Vector arithmetics ##
+########################
+v1 = [0; 1; 2; 3; 4];
+v2 = [5; 6; 7; 8; 9];
+
+## addition:
+v1 .+ v2
+v1 + v2
+v1 .+ 2
+v1 + 2
+
+## subtraction:
+v2 .- v1
+v2 - v1
+v2 .- 1
+v2 - 1
+
+## element by element multiplication:
+#v1 * v2  ## WRONG!
+v1 .* v2
+2 .* v2
+
+## element by element division:
+#v2 / v1 ## WRONG!
+v2 ./ v1
+v2 ./ 2
+
+##############################
+## Testing custom functions ##
+##############################
+## values for variables taken from Celia et al. (1990), p. 1487 below eq. (13b)
+
+alpha = 0.03335;
+theta_s =0.368;
+theta_r = 0.102;
+n = 2;
+K_s = 0.00922;
+h = randi([-10000, -5000], 10,1);
+## [K, theta] = van_Genuchten_variables(alpha = alpha,
+## n = n,
+## theta_r = theta_r,
+## theta_s = theta_s,
+## K_s = K_s,
+## h = h)
+for timestep = 1:10
+  [K(:, timestep), theta(:, timestep)] = van_Genuchten_variables(alpha = alpha,
+						 n = n,
+						 theta_r = theta_r,
+						 theta_s = theta_s,
+						 K_s = K_s,
+						 h = h);
+endfor
