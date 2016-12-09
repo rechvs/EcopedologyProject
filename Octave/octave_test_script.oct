@@ -39,6 +39,9 @@ endfor
 for column = 1:columns(K)
   K_rand(:,column) = K(:, column) .* randi([1, 10], 1, 1);
 endfor
+for column = 1:columns(theta)
+  theta_rand(:,column) = theta(:, column) .* randi([1, 10], 1, 1);
+endfor
 ## Create vector with values for x-axis:
 time = 1:10;
 
@@ -121,10 +124,94 @@ legend("Node 01",
        "Node 08",
        "Node 09",
        "Node 10");
-system("rm -vf ../Grafiken/plot.pdf");
+system("rm -vf ../Grafiken/K_rand_plot.pdf");
 print(figurehandle,
-      "../Grafiken/plot.pdf");
-system("mupdf -r 66 ../Grafiken/plot.pdf &");
+      "../Grafiken/K_rand_plot.pdf");
+system("mupdf -r 66 ../Grafiken/K_rand_plot.pdf &");
+
+#################################
+## Plot “theta” against “time” ##
+#################################
+
+close all;
+figurehandle = figure("papertype",
+		  "a4",
+		  "paperorientation",
+		  "landscape",
+		  "paperunits",
+		  "centimeters",
+		  "paperposition",
+		  [2 2 17 25.6],
+		  "visible",
+		  "off");
+		  ## "on");
+xlabel("Time [s]");
+ylabel("Water content [cm^3/cm^3]");
+axis([0;
+      11;
+      min(min(theta_rand)) - 1 * (10 ^ -13);
+      max(max(theta_rand)) + 1 * (10 ^ -9)],
+     "tic",
+     "label");
+## Convert tick labels to “10^” notation (needs some work):
+## START CONVERSION
+## yt = get(gca,
+         ## "ytick");
+## [yex,ymant] = exp_notation(yt);
+## set(gca,
+    ## "yticklabel",
+    ## sprintf("%3.3gx10^{%d}|",
+## [ymant,yex](:)));
+## END CONVERSION
+color = ["k"];
+linestyle = "-";
+linewidth = 2;
+markerstyles = ["o";
+	      "o";
+	      "s";
+	      "s";
+	      "d";
+	      "d";
+	      "^";
+	      "^";
+	      "v";
+	      "v"];
+markeredgecolor = ["k"];
+markerfacecolor = ["auto";
+	         "none"];
+## Create plots using for-loop:
+for row = 1:rows(theta_rand)
+  line(time,
+       ## theta_rand(row,:).', ## transposing seems to result in plotting the same line mutlitple times
+       theta_rand(row,:),
+       "linewidth",
+       linewidth,
+       "linestyle",
+       linestyle,
+       "color",
+       color,
+       "marker",
+       markerstyles(row),
+       "markeredgecolor",
+       markeredgecolor,
+       "markerfacecolor",
+       markerfacecolor(1 .+ rem(row, 2)));
+endfor
+## Add legend:
+legend("Node 01",
+       "Node 02",
+       "Node 03",
+       "Node 04",
+       "Node 05",
+       "Node 06",
+       "Node 07",
+       "Node 08",
+       "Node 09",
+       "Node 10");
+system("rm -vf ../Grafiken/theta_rand_plot.pdf");
+print(figurehandle,
+      "../Grafiken/theta_rand_plot.pdf");
+system("mupdf -r 66 ../Grafiken/theta_rand_plot.pdf &");
       
 ## Close all figure windows:
 close all;
