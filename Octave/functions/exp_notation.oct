@@ -1,0 +1,8 @@
+function [ex, mant] = exp_notation(x)
+  ## Find the indices of all non-zero values in “x”:
+  nz = find(x);
+  ## Set the corresponding elements of “ex” to the largest integer exponent to base 10 of these non-zero elements:
+  ex(nz) = floor(log10(abs(x(nz))));
+  ## Set the corresponding elements of “mant”:
+  mant(nz) = x(nz) ./ 10 .^ ex(nz);
+endfunction
