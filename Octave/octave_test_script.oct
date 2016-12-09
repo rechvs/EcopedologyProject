@@ -2,10 +2,12 @@
 ## Testing custom functions ##
 ##############################
 
+
 ## Add directory of function files to search path (not working due to invalid ELF header):
 ## addpath("functions/");
 ## Source function files:
 source("functions/van_Genuchten_variables.oct");
+source("functions/exp_notation.oct");
 ## Set graphics toolkit:
 graphics_toolkit("gnuplot");
 ## Set working directory:
@@ -16,7 +18,7 @@ theta_s =0.368;
 theta_r = 0.102;
 n = 2;
 K_s = 0.00922;
-h = randi([-10000, -5000], 10,1);
+h = randi([-1000, -500], 10,1);
 ## Single execution of “van_Genuchten_variables” (worked as expected on 2016-12-07):
 ## [K, theta] = van_Genuchten_variables(alpha = alpha,
 ## n = n,
@@ -40,78 +42,87 @@ endfor
 ## Create vector with values for x-axis:
 time = 1:10;
 
-## Testing “plot(VECTOR, MATRIX)” (it seems that “plot”, when called like this (i.e., when plotting the columns of MATRIX against VECTOR), considers each row of MATRIX as an individual series of observations of the same variable, connecting its elements with lines): 
-figure(1);
-Y = [repelems(X = [5],R = [1;10]);
-     repelems(X = [10],R = [1;10])];
-plot(time,
-     Y,
-     "-r",
-     "markersize",
-     5)
+#############################
+## Plot “K” against “time” ##
+#############################
 
-## Plot “K” against “time”:
-figure(2);
-plot(time,
-     K_rand,
-     "-pk",
-     "markersize",
-     5)
-
-## Create figure template for plotting “K” against “time”:
 close all;
-handle = figure("papertype",
-	      "a4",
-	      "paperorientation",
-	      "landscape",
-	      "paperunits",
-	      "centimeters",
-	      "paperposition",
-	      [2 2 17 25.6],
-	      "visible",
-	      "off");
+figurehandle = figure("papertype",
+		  "a4",
+		  "paperorientation",
+		  "landscape",
+		  "paperunits",
+		  "centimeters",
+		  "paperposition",
+		  [2 2 17 25.6],
+		  "visible",
+		  "off");
+		  ## "on");
+xlabel("Time [s]");
+ylabel("Hydraulic conductivity [cm/s]");
 axis([0;
       11;
       min(min(K_rand)) - 1 * (10 ^ -13);
-      max(max(K_rand)) + 5 * (10 ^ -13)],
+      max(max(K_rand)) + 1 * (10 ^ -9)],
      "tic",
-     "label")
-colors = ["k";
-	"r";
-	"g";
-	"b";
-	"m";
-	"c";
-	"k";
-	"r";
-	"g";
-	"b"];
+     "label");
+## Convert tick labels to “10^” notation (needs some work):
+## START CONVERSION
+## yt = get(gca,
+         ## "ytick");
+## [yex,ymant] = exp_notation(yt);
+## set(gca,
+    ## "yticklabel",
+    ## sprintf("%3.3gx10^{%d}|",
+## [ymant,yex](:)));
+## END CONVERSION
+color = ["k"];
 linestyle = "-";
-markerstyles = ["+";
+linewidth = 2;
+markerstyles = ["o";
 	      "o";
-	      "x";
+	      "s";
 	      "s";
 	      "d";
+	      "d";
+	      "^";
 	      "^";
 	      "v";
-	      ">";
-	      "<";
-	      "p"];
+	      "v"];
+markeredgecolor = ["k"];
+markerfacecolor = ["auto";
+	         "none"];
 ## Create plots using for-loop:
-for row = 1:rows(K)
+for row = 1:rows(K_rand)
   line(time,
-       K_rand(row,:).',
-       ## K_rand(:,column).', ## does not have the desired effect
+       ## K_rand(row,:).', ## transposing seems to result in plotting the same line mutlitple times
+       K_rand(row,:),
+       "linewidth",
+       linewidth,
        "linestyle",
        linestyle,
        "color",
-       colors(row),
+       color,
        "marker",
        markerstyles(row),
        "markeredgecolor",
-       "k");
+       markeredgecolor,
+       "markerfacecolor",
+       markerfacecolor(1 .+ rem(row, 2)));
 endfor
-print(handle,
+## Add legend:
+legend("Node 01",
+       "Node 02",
+       "Node 03",
+       "Node 04",
+       "Node 05",
+       "Node 06",
+       "Node 07",
+       "Node 08",
+       "Node 09",
+       "Node 10");
+system("rm -vf ../Grafiken/plot.pdf");
+print(figurehandle,
       "../Grafiken/plot.pdf");
 system("mupdf -r 66 ../Grafiken/plot.pdf &");
       
