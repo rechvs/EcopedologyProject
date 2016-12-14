@@ -1,9 +1,5 @@
 * TODO
 ** find example data to check results of “van_Genuchten_variables”
-** CURRENT rewrite/improve function definitions in separate [[file:Octave/functions][files]] (e.g., with respect to documentation (s. [[info:octave#Function%20Headers][here]]), input checking (s. [[info:octave#Defining%20Functions][here]]), etc.)
-*** Things to check:
-    + number of input arguments (`nargin()´, s. [[info:octave#Multiple%20Return%20Values][here]])
-    + type of input arguments
 ** CURRENT set Hi = const. and calculate elements of A
 ** CURRENT look for books on numerical models in hydrology/soil science
 *** TITLE
@@ -89,12 +85,6 @@
     yes
     yes
     + [X] read and bibliographical data saved
-** CURRENT check prefixes in Octave model
-** on hold implement mixed form of Richards equation
-   - State "on hold"    from "CURRENT"    [2016-03-23 Mi 16:55] \\
-     not sure whether this is possible, since it requires estimation of theta;
-     have to ask Andrea or Mohsen about this
-** CURRENT deduce equation for C(h) by deriving del theta/del h (s. Projekt_Octave.oct l. 54)
 ** done fix axis tic labels (from “5e-08” to “5 * 10^-8”)
    - State "done"       from "on hold"    [2016-12-09 Fr 09:59]
      [[http://octave.1599824.n4.nabble.com/Exponential-notation-in-tick-labels-td1637496.html][This]] is working.
@@ -104,6 +94,20 @@
    - State "done"       from              [2016-12-14 Mi 16:00]
 ** done make Octave obey my choice of line colors in 3D plots
    - State "done"       from              [2016-12-14 Mi 16:00]
+** done implement mixed form of Richards equation
+   - State "done"       from "on hold"    [2016-12-14 Mi 16:12]
+   - State "on hold"    from "CURRENT"    [2016-03-23 Mi 16:55] \\
+     not sure whether this is possible, since it requires estimation of theta;
+     have to ask Andrea or Mohsen about this
+** done deduce equation for C(h) by deriving del theta/del h (s. Projekt_Octave.oct l. 54)
+   - State "done"       from "CURRENT"    [2016-12-14 Mi 16:13]
+** done check prefixes in Octave model
+   - State "done"       from "CURRENT"    [2016-12-14 Mi 16:13]
+** done rewrite/improve function definitions in separate [[file:Octave/functions][files]] (e.g., with respect to documentation (s. [[info:octave#Function%20Headers][here]]), input checking (s. [[info:octave#Defining%20Functions][here]]), etc.)
+   - State "done"       from "CURRENT"    [2016-12-14 Mi 16:13]
+*** Things to check:
+    + number of input arguments (`nargin()´, s. [[info:octave#Multiple%20Return%20Values][here]])
+    + type of input arguments
 * General notes
 ** Conventions for file `Projekt_Literaturliste_abstracts.bib´
    + default language is English;
