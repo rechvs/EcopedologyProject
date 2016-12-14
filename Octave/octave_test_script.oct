@@ -9,7 +9,7 @@
 ## addpath("functions/");
 ## Source function files:
 source("functions/van_Genuchten_variables.oct");
-source("functions/K_mean.oct");
+source("functions/adjacent_mean.oct");
 source("functions/exp_notation.oct");
 ## Set graphics toolkit:
 graphics_toolkit("gnuplot");
