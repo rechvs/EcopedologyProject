@@ -95,6 +95,15 @@
      not sure whether this is possible, since it requires estimation of theta;
      have to ask Andrea or Mohsen about this
 ** CURRENT deduce equation for C(h) by deriving del theta/del h (s. Projekt_Octave.oct l. 54)
+** done fix axis tic labels (from “5e-08” to “5 * 10^-8”)
+   - State "done"       from "on hold"    [2016-12-09 Fr 09:59]
+     [[http://octave.1599824.n4.nabble.com/Exponential-notation-in-tick-labels-td1637496.html][This]] is working.
+** done add legend to plot
+   - State "done"       from              [2016-12-09 Fr 16:18]
+** done generate 3D plots for “K”, “theta”, and “C“
+   - State "done"       from              [2016-12-14 Mi 16:00]
+** done make Octave obey my choice of line colors in 3D plots
+   - State "done"       from              [2016-12-14 Mi 16:00]
 * General notes
 ** Conventions for file `Projekt_Literaturliste_abstracts.bib´
    + default language is English;
