@@ -9,6 +9,7 @@
 ## addpath("functions/");
 ## Source function files:
 source("functions/van_Genuchten_variables.oct");
+source("functions/K_mean.oct");
 source("functions/exp_notation.oct");
 ## Set graphics toolkit:
 graphics_toolkit("gnuplot");
@@ -60,9 +61,9 @@ for column = 1:columns(C)
 endfor
 ## Save data:
 save_default_options("-text");
-save (cat(2, data_dir, "K_rand"), "K_rand");
-save (cat(2, data_dir, "theta_rand"), "theta_rand");
-save (cat(2, data_dir, "C_rand"), "C_rand");
+save (cat(2, data_dir, "K_rand.csv"), "K_rand");
+save (cat(2, data_dir, "theta_rand.csv"), "theta_rand");
+save (cat(2, data_dir, "C_rand.csv"), "C_rand");
 
 ##############################################
 ## Plot “K” against “timesteps” and “nodes” ##
@@ -91,7 +92,7 @@ axis([0;
       max(max(K_rand)) + 1 * (10 ^ -7)],
      "tic",
      "label");
-grid on;
+grid ("on");
 view(45,
      35);
 color = ["k"];
@@ -144,3 +145,12 @@ system("rm -vf ../Grafiken/K_rand_3D_plot.pdf");
 print(figurehandle,
       "../Grafiken/K_rand_3D_plot.pdf");
 system("mupdf -r 66 ../Grafiken/K_rand_3D_plot.pdf &");
+
+################################
+## Calculate mean values of K ##
+################################
+
+K_rand_mean = adjacent_mean(K_rand,"a");
+
+rows(K_rand)
+rows(K_rand_mean)
