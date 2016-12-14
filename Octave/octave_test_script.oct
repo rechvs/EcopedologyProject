@@ -2,7 +2,9 @@
 ## Testing custom functions ##
 ##############################
 
-
+##############
+## Preamble ##
+##############
 ## Add directory of function files to search path (not working due to invalid ELF header):
 ## addpath("functions/");
 ## Source function files:
@@ -12,6 +14,24 @@ source("functions/exp_notation.oct");
 graphics_toolkit("gnuplot");
 ## Set working directory:
 cd("/home/renke/home_Projekt/Octave");
+## Set destination directory for test data:
+data_dir = "../Daten/Probelaeufe/";
+
+######################
+## (Re-)Create data ##
+######################
+## Load data:
+load (cat(2, data_dir, "K_rand"));
+load (cat(2, data_dir, "theta_rand"));
+load (cat(2, data_dir, "C_rand"));
+## Set model parameters:
+nr_of_timesteps = 10;
+nr_of_nodes = 10;
+## Create vector with values for x-axis:
+timesteps = 1:nr_of_timesteps;
+## Create vector with values for y-axis:
+nodes = 1:nr_of_nodes;
+
 ## Set function parameters (values taken from Celia et al. (1990), p. 1487 below eq. (13b)):
 alpha = 0.03335;
 theta_s =0.368;
@@ -19,21 +39,14 @@ theta_r = 0.102;
 n = 2;
 K_s = 0.00922;
 h = randi([-1000, -500], 10,1);
-## Single execution of “van_Genuchten_variables” (worked as expected on 2016-12-07):
-## [K, theta] = van_Genuchten_variables(alpha = alpha,
-## n = n,
-## theta_r = theta_r,
-## theta_s = theta_s,
-## K_s = K_s,
-## h = h)
-## Execution of “van_Genuchten_variables” in for-loop (worked as expected on 2016-12-07):
-for timestep = 1:10
-  [K(:, timestep), theta(:, timestep)] = van_Genuchten_variables(alpha = alpha,
-						     n = n,
-						     theta_r = theta_r,
-						     theta_s = theta_s,
-						     K_s = K_s,
-						     h = h);
+## Calculate:
+for timestep = 1:nr_of_timesteps
+  [K(:, timestep), theta(:, timestep), C(:, timestep)] = van_Genuchten_variables(alpha = alpha,
+								 n = n,
+								 theta_r = theta_r,
+								 theta_s = theta_s,
+								 K_s = K_s,
+								 h = h);
 endfor
 ## Vary results for plotting:
 for column = 1:columns(K)
@@ -42,12 +55,18 @@ endfor
 for column = 1:columns(theta)
   theta_rand(:,column) = theta(:, column) .* randi([1, 10], 1, 1);
 endfor
-## Create vector with values for x-axis:
-time = 1:10;
+for column = 1:columns(C)
+  C_rand(:,column) = C(:, column) .* randi([1, 10], 1, 1);
+endfor
+## Save data:
+save_default_options("-text");
+save (cat(2, data_dir, "K_rand"), "K_rand");
+save (cat(2, data_dir, "theta_rand"), "theta_rand");
+save (cat(2, data_dir, "C_rand"), "C_rand");
 
-#############################
-## Plot “K” against “time” ##
-#############################
+##################################
+## Plot “K” against “timesteps” ##
+##################################
 
 close all;
 figurehandle = figure("papertype",
@@ -61,7 +80,7 @@ figurehandle = figure("papertype",
 		  "visible",
 		  "off");
 		  ## "on");
-xlabel("Time [s]");
+xlabel("Timestep");
 ylabel("Hydraulic conductivity [cm/s]");
 axis([0;
       11;
@@ -97,7 +116,7 @@ markerfacecolor = ["auto";
 	         "none"];
 ## Create plots using for-loop:
 for row = 1:rows(K_rand)
-  line(time,
+  line(timesteps,
        ## K_rand(row,:).', ## transposing seems to result in plotting the same line mutlitple times
        K_rand(row,:),
        "linewidth",
@@ -129,9 +148,9 @@ print(figurehandle,
       "../Grafiken/K_rand_plot.pdf");
 system("mupdf -r 66 ../Grafiken/K_rand_plot.pdf &");
 
-#################################
-## Plot “theta” against “time” ##
-#################################
+######################################
+## Plot “theta” against “timesteps” ##
+######################################
 
 close all;
 figurehandle = figure("papertype",
@@ -145,7 +164,7 @@ figurehandle = figure("papertype",
 		  "visible",
 		  "off");
 		  ## "on");
-xlabel("Time [s]");
+xlabel("Timestep");
 ylabel("Water content [cm^3/cm^3]");
 axis([0;
       11;
@@ -181,7 +200,7 @@ markerfacecolor = ["auto";
 	         "none"];
 ## Create plots using for-loop:
 for row = 1:rows(theta_rand)
-  line(time,
+  line(timesteps,
        ## theta_rand(row,:).', ## transposing seems to result in plotting the same line mutlitple times
        theta_rand(row,:),
        "linewidth",
@@ -215,3 +234,84 @@ system("mupdf -r 66 ../Grafiken/theta_rand_plot.pdf &");
       
 ## Close all figure windows:
 close all;
+
+##############################################
+## Plot “K” against “timesteps” and “nodes” ##
+##############################################
+
+close all;
+figurehandle = figure("papertype",
+		  "a4",
+		  "paperorientation",
+		  "landscape",
+		  "paperunits",
+		  "centimeters",
+		  "paperposition",
+		  [2 2 17 25.6],
+		  "visible",
+		  "off");
+		  ## "on");
+xlabel("Timestep");
+ylabel("Node");
+zlabel("Hydraulic conductivity [cm/s]");
+axis([0;
+      nr_of_timesteps + 1;
+      0;
+      nr_of_nodes + 1;
+      min(min(K_rand)) - 1 * (10 ^ -9);
+      max(max(K_rand)) + 1 * (10 ^ -7)],
+     "tic",
+     "label");
+grid on;
+view(45,
+     35);
+color = ["k"];
+linestyle = "-";
+linewidth = 2;
+markerstyles = ["o";
+	      "o";
+	      "s";
+	      "s";
+	      "d";
+	      "d";
+	      "^";
+	      "^";
+	      "v";
+	      "v"];
+markeredgecolor = ["k"];
+markerfacecolor = ["auto";
+	         "none"];
+## Create plots using for-loop:
+for row = 1:rows(K_rand)
+  line(timesteps,
+       nodes(row),
+       ## K_rand(row,:).', ## transposing seems to result in plotting the same line mutlitple times
+       K_rand(row,:),
+       "linewidth",
+       linewidth,
+       "linestyle",
+       linestyle,
+       "color",
+       color,
+       "marker",
+       markerstyles(row),
+       "markeredgecolor",
+       markeredgecolor,
+       "markerfacecolor",
+       markerfacecolor(1 .+ rem(row, 2)));
+endfor
+## Add legend:
+legend("Node 01",
+       "Node 02",
+       "Node 03",
+       "Node 04",
+       "Node 05",
+       "Node 06",
+       "Node 07",
+       "Node 08",
+       "Node 09",
+       "Node 10");
+system("rm -vf ../Grafiken/K_rand_3D_plot.pdf");
+print(figurehandle,
+      "../Grafiken/K_rand_3D_plot.pdf");
+system("mupdf -r 66 ../Grafiken/K_rand_3D_plot.pdf &");
