@@ -26,6 +26,9 @@ function retvalk_mean = adjacent_mean (INPUT, type)
     usage ("adjacent_mean (matrix, string)");
   endif
   if (and (ismatrix (INPUT), ischar (type)))
+    if (isrow(INPUT))
+      INPUT = INPUT';
+    endif
     for column = 1:columns (INPUT)
       for row = 1:(rows (INPUT(:,column)) -1)
         retvalk_mean(row,column) = mean ([INPUT(row,column);
