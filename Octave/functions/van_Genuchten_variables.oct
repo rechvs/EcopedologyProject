@@ -1,6 +1,6 @@
-## usage: [alpha, n, theta_r, theta_s, K_s, h] = (K, theta, C)
+## usage: [K, theta, C] = van_Genuchten_variables (alpha, n, theta_r, theta_s, K_s, h)
 ##
-## Calculate the hydraulic conductivity “K” (unit: [cm/s]), the water content “theta” (unit: [cm^3/cm^3]), and the specific moisture capacity "C" (unit: [cm^-1]) based on empirical parameters “alpha” (unit: m^-1), and “n” (unit: none), residual water content “theta_r” (unit: [cm^3/cm^3]), water content at saturation “theta_s” (unit: [cm^3/cm^3]), hydraulic conductivitiy at saturation “K_s” (unit: [cm/s]), and pressure head “h” (unit: [cm]; Note: large absolute values of “h”indicate dryness).
+## Calculate the hydraulic conductivity “K” (unit: [cm/s]), the water content “theta” (unit: [cm^3/cm^3]), and the specific moisture capacity "C" (unit: [cm^-1]) based on empirical parameters “alpha” (unit: cm^-1), and “n” (unit: none), residual water content “theta_r” (unit: [cm^3/cm^3]), water content at saturation “theta_s” (unit: [cm^3/cm^3]), hydraulic conductivitiy at saturation “K_s” (unit: [cm/s]), and pressure head “h” (unit: [cm]; Note: large absolute values of “h”indicate dryness).
 ##
 ## Reference: van Genuchten, Th. M. (1980): “A Closed-form Equation for
 ## Predicting the Hydraulic Conductivity of Unsaturated Soils”, Soil Sci. Soc.
