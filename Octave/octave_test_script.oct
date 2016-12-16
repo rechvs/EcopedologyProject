@@ -34,7 +34,7 @@ timesteps = 1:nr_of_timesteps;
 nodes = 1:nr_of_nodes;
 
 ## Set function parameters (values taken from Celia et al. (1990), p. 1487 below eq. (13b)):
-alpha = 0.03335;
+alpha = 0.0335;
 theta_s =0.368;
 theta_r = 0.102;
 n = 2;
@@ -154,3 +154,64 @@ K_rand_mean = adjacent_mean(K_rand,"a");
 
 rows(K_rand)
 rows(K_rand_mean)
+
+###########
+## Model ##
+###########
+
+## Set model parameters:
+nr_of_timesteps = 10;
+nr_of_nodes = 10; ## total number of nodes (including boundary nodes)
+delta_z = 10; ## distance between nodes in cm
+delta_t = 1; ## distance between time levels in s
+H_top = -75; ## boundary condition at the top node in cm
+H_bottom = -1000; ## boundary condition at bottom node in cm
+H_initial = repelems(-1000,
+		 [1;nr_of_nodes])'; ## initial condition at all nodes in cm
+## Set parameters for “van_Genuchten_variables” (values taken from Celia et al. (1990), p. 1487 below eq. (13b)):
+alpha = 0.0335;
+theta_s =0.368;
+theta_r = 0.102;
+n = 2;
+K_s = 0.00922;
+[K_initial, theta_initial, C_initial] = van_Genuchten_variables(alpha,
+						    n,
+						    theta_r,
+						    theta_s,
+						    K_s,
+						    H_initial);
+H_n = H_initial;
+K_n = K_initial;
+theta_n = theta_initial;
+C_n = C_initial;
+
+## Template for single iteration:
+H_n(1) = H_bottom; ## set H of bottom node to constant value
+H_n(nr_of_nodes) = H_top; ## set H of top node to constant value
+H_n_plus_1_m = H_n; ## use estimation of last time step as starting value of current iterationn 
+[K_n_plus_1_m, theta_n_plus_1_m, C_n_plus_1_m] = van_Genuchten_variables(alpha,
+							   n,
+							   theta_r,
+							   theta_s,
+							   K_s,
+							   H_n_plus_1_m); ## calculate K, theta, and C using latest estimate of H
+K_mean_n_plus_1_m = adjacent_mean(K_n_plus_1_m,
+			    "a"); ## calculate K_i_plus_minus_1_over_2
+
+## Create matrix A:
+## Note: the matrix elements can only be computed for all nodes excluding the boundary nodes. Therefore, the length of Beta is “nr_of_nodes - 2” and the length of Alpha and Gamma is “nr_of_nodes - 3”.
+Alpha = -(K_mean_n_plus_1_m(2:(length(K_mean_n_plus_1_m) -1)) ./ ((delta_z) .^ 2)); ## calculate leftmost diagonal elements of matrix A
+Beta = (C_n_plus_1_m(2:(length(C_n_plus_1_m) -1)) ./ delta_t) .+ ((K_mean_n_plus_1_m(1:(length(K_mean_n_plus_1_m) .-1))) ./ (delta_z .^ 2)) + ((K_mean_n_plus_1_m(2:length(K_mean_n_plus_1_m))) ./ (delta_z .^ 2)); ## calculate central diagonal elements of matrix A (excluding the boundary nodes, since Beta cannot be calculated completely for them)
+Gamma = Alpha; ## set rightmost diagonal elements of matrix A
+A = full(gallery("tridiag",
+	       Alpha,
+	       Beta,
+	       Gamma)); ## create matrix A
+
+H_n_plus_1_m_plus_1 = H_n_plus_1_m .* (1 + (1 / 10 ^ 4)); ## calculate H for next iteration step
+
+delta = H_n_plus_1_m_plus_1(2:(length(H_n_plus_1_m_plus_1)-1)) .- H_n_plus_1_m(2:(length(H_n_plus_1_m)-1)); ## calculate vector delta
+
+f = A \ delta; ## compute residual
+
+fmax = max(f); ## determine maximum value of residual
