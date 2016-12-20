@@ -1,10 +1,4 @@
-##############################
-## Testing custom functions ##
-##############################
-
-##############
 ## Preamble ##
-##############
 ## Add directory of function files to search path (not working due to invalid ELF header):
 ## addpath("functions/");
 ## Source function files:
@@ -15,150 +9,12 @@ source("functions/exp_notation.oct");
 graphics_toolkit("gnuplot");
 ## Set working directory:
 cd("/home/renke/home_Projekt/Octave");
-## Set destination directory for test data:
+## Set destination directory for saving data:
 data_dir = "../Daten/Probelaeufe/";
-
-######################
-## (Re-)Create data ##
-######################
-## Load data:
-load (cat(2, data_dir, "K_rand"));
-load (cat(2, data_dir, "theta_rand"));
-load (cat(2, data_dir, "C_rand"));
-## Set model parameters:
-nr_of_timesteps = 10;
-nr_of_nodes = 10;
-## Create vector with values for x-axis:
-timesteps = 1:nr_of_timesteps;
-## Create vector with values for y-axis:
-nodes = 1:nr_of_nodes;
-
-## Set function parameters (values taken from Celia et al. (1990), p. 1487 below eq. (13b)):
-alpha = 0.0335;
-theta_s =0.368;
-theta_r = 0.102;
-n = 2;
-K_s = 0.00922;
-h = randi([-1000, -500], 10,1);
-## Calculate:
-for timestep = 1:nr_of_timesteps
-  [K(:, timestep), theta(:, timestep), C(:, timestep)] = van_Genuchten_variables(alpha = alpha,
-								 n = n,
-								 theta_r = theta_r,
-								 theta_s = theta_s,
-								 K_s = K_s,
-								 h = h);
-endfor
-## Vary results for plotting:
-for column = 1:columns(K)
-  K_rand(:,column) = K(:, column) .* randi([1, 10], 1, 1);
-endfor
-for column = 1:columns(theta)
-  theta_rand(:,column) = theta(:, column) .* randi([1, 10], 1, 1);
-endfor
-for column = 1:columns(C)
-  C_rand(:,column) = C(:, column) .* randi([1, 10], 1, 1);
-endfor
-## Save data:
+## Set default file type for saving data:
 save_default_options("-text");
-save (cat(2, data_dir, "K_rand.csv"), "K_rand");
-save (cat(2, data_dir, "theta_rand.csv"), "theta_rand");
-save (cat(2, data_dir, "C_rand.csv"), "C_rand");
 
-##############################################
-## Plot “K” against “timesteps” and “nodes” ##
-##############################################
-
-close all;
-figurehandle = figure("papertype",
-		  "a4",
-		  "paperorientation",
-		  "landscape",
-		  "paperunits",
-		  "centimeters",
-		  "paperposition",
-		  [2 2 17 25.6],
-		  "visible",
-		  "off");
-		  ## "on");
-xlabel("Timestep");
-ylabel("Node");
-zlabel("Hydraulic conductivity [cm/s]");
-axis([0;
-      nr_of_timesteps + 1;
-      0;
-      nr_of_nodes + 1;
-      min(min(K_rand)) - 1 * (10 ^ -9);
-      max(max(K_rand)) + 1 * (10 ^ -7)],
-     "tic",
-     "label");
-grid ("on");
-view(45,
-     35);
-color = ["k"];
-linestyle = "-";
-linewidth = 2;
-markerstyles = ["o";
-	      "o";
-	      "s";
-	      "s";
-	      "d";
-	      "d";
-	      "^";
-	      "^";
-	      "v";
-	      "v"];
-markeredgecolor = ["k"];
-markerfacecolor = ["auto";
-	         "none"];
-## Create plots using for-loop:
-for row = 1:rows(K_rand)
-  line(timesteps,
-       nodes(row),
-       ## K_rand(row,:).', ## transposing seems to result in plotting the same line mutlitple times
-       K_rand(row,:),
-       "linewidth",
-       linewidth,
-       "linestyle",
-       linestyle,
-       "color",
-       color,
-       "marker",
-       markerstyles(row),
-       "markeredgecolor",
-       markeredgecolor,
-       "markerfacecolor",
-       markerfacecolor(1 .+ rem(row, 2)));
-endfor
-## Add legend:
-legend("Node 01",
-       "Node 02",
-       "Node 03",
-       "Node 04",
-       "Node 05",
-       "Node 06",
-       "Node 07",
-       "Node 08",
-       "Node 09",
-       "Node 10");
-system("rm -vf ../Grafiken/K_rand_3D_plot.pdf");
-print(figurehandle,
-      "../Grafiken/K_rand_3D_plot.pdf");
-system("mupdf -r 66 ../Grafiken/K_rand_3D_plot.pdf &");
-
-################################
-## Calculate mean values of K ##
-################################
-
-K_rand_mean = adjacent_mean(K_rand,"a");
-
-rows(K_rand)
-rows(K_rand_mean)
-
-###########
 ## Model ##
-###########
-
 ## Set model parameters:
 nr_of_timesteps = 10;
 nr_of_nodes = 10; ## total number of nodes (including boundary nodes)
@@ -222,3 +78,85 @@ for timestep = 1##:nr_of_timesteps ## start loop over all timesteps
   H_n = H_n_plus_1_m_plus_1; ## use estimate of H from iteration as estimate for the current time step
   H_mat(:,timestep) = H_n; ## save current estimate of H to matrix object
 endfor
+
+## Save data ##
+H_mat_file = cat(2, data_dir, "H_mat.csv");
+save (H_mat_file, "H_mat");
+
+## Plot results ##
+close all;
+figurehandle = figure("papertype",
+		  "a4",
+		  "paperorientation",
+		  "landscape",
+		  "paperunits",
+		  "centimeters",
+		  "paperposition",
+		  [2 2 17 25.6],
+		  "visible",
+		  "off");
+		  ## "on");
+xlabel("Timestep");
+ylabel("Node");
+zlabel("Pressure head [cm]");
+axis([0;
+      nr_of_timesteps + 1;
+      0;
+      nr_of_nodes + 1;
+      min(min(H_mat)) - 1 * (10 ^ -9);
+      max(max(H_mat)) + 1 * (10 ^ -7)],
+     "tic",
+     "label");
+grid ("on");
+view(45,
+     35);
+color = ["k"];
+linestyle = "-";
+linewidth = 2;
+markerstyles = ["o";
+	      "o";
+	      "s";
+	      "s";
+	      "d";
+	      "d";
+	      "^";
+	      "^";
+	      "v";
+	      "v"];
+markeredgecolor = ["k"];
+markerfacecolor = ["auto";
+	         "none"];
+## Create plots using for-loop:
+for row = 1:rows(H_mat)
+  line(1:nr_of_timesteps,
+       (1:nr_of_nodes)(row),
+       ## H_mat(row,:).', ## transposing seems to result in plotting the same line mutlitple times
+       H_mat(row,:),
+       "linewidth",
+       linewidth,
+       "linestyle",
+       linestyle,
+       "color",
+       color,
+       "marker",
+       markerstyles(row),
+       "markeredgecolor",
+       markeredgecolor,
+       "markerfacecolor",
+       markerfacecolor(1 .+ rem(row, 2)));
+endfor
+## Add legend:
+legend("Node  1",
+       "Node  2",
+       "Node  3",
+       "Node  4",
+       "Node  5",
+       "Node  6",
+       "Node  7",
+       "Node  8",
+       "Node  9",
+       "Node 10");
+system("rm -vf ../Grafiken/H_mat_3D_plot.pdf");
+print(figurehandle,
+      "../Grafiken/H_mat_3D_plot.pdf");
+system("mupdf -r 66 ../Grafiken/H_mat_3D_plot.pdf &");
