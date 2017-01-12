@@ -14,6 +14,21 @@ data_dir = "../Daten/Probelaeufe/";
 ## Set default file type for saving data:
 save_default_options("-text");
 
+## Compare results of “van_Genuchten_variables“ to Roth (2012), p. 68, fig. 3.26:
+theta_r = 0.03;
+theta_s = 0.32;
+alpha = -2.3; ## unit: m ^ -1
+n = 4.17;
+m = (1 .- (1 ./ n));
+K_s = 2.2 .* 10 .^ -5; ## unit: m s ^ -1 (Note: “K_s” is called “K_0” in Roth (2012))
+H = [-(10 .^ 2);-(10 .^ 1);-(10 .^ 0);-(10 .^ -1);-(10 .^ -2)]; ## unit: m
+K = K_s .* ((1 .- (alpha .* abs(H)) .^ (n .- 1) .* (1 .+ (alpha .* abs(H)) .^ n) .^ -m) .^ 2) ./ (1 .+ (alpha .* abs(H)) .^ n) .^ (m ./ 2);
+close all;
+plot(log10(H),log10(K));
+xlabel("Pressure head [log10(m)]");
+ylabel("Hydraulic conductivity [log10(m / s)]");
+grid ("on");
+
 ## Model ##
 ## Set model parameters:
 nr_of_timesteps = 10;
@@ -26,7 +41,7 @@ H_initial = repelems(-1000,
 		 [1;nr_of_nodes])'; ## initial condition at all nodes in cm
 H_mat = zeros(nr_of_nodes,
 	    nr_of_timesteps); ## create matrix object for storing valid estimates of H
-threshold_value = 10 .^ 10; ## set threshold value for residual
+threshold_value = 0.001; ## set threshold value for residual
 ## Set parameters for “van_Genuchten_variables” (values taken from Celia et al. (1990), p. 1487 below eq. (13b)):
 alpha = 0.0335;
 theta_s =0.368;
@@ -43,8 +58,7 @@ H_n = H_initial;
 K_n = K_initial;
 theta_n = theta_initial;
 C_n = C_initial;
-## Template for single timestep:
-for timestep = 1##:nr_of_timesteps ## start loop over all timesteps
+for timestep = 1:nr_of_timesteps ## start loop over all timesteps
   H_n(1) = H_bottom; ## set H of bottom node to constant value
   H_n(nr_of_nodes) = H_top; ## set H of top node to constant value
   H_n_plus_1_m = H_n; ## use estimation of last time step as starting value of current iteration
@@ -60,7 +74,7 @@ for timestep = 1##:nr_of_timesteps ## start loop over all timesteps
     K_mean_n_plus_1_m = adjacent_mean(K_n_plus_1_m,
 			        "a"); ## calculate K_i_plus_minus_1_over_2
     ## Create matrix A:
-    ## Note: the matrix elements can only be computed for all nodes excluding the boundary nodes. Therefore, the length of Beta is “nr_of_nodes - 2” and the length of Alpha and Gamma is “nr_of_nodes - 3”.
+    ## Note: the matrix elements cannot be computed for the boundary nodes. Therefore, the length of Beta is “nr_of_nodes - 2” and the length of Alpha and Gamma is “nr_of_nodes - 3”.
     Alpha = -(K_mean_n_plus_1_m(2:(length(K_mean_n_plus_1_m) -1)) ./ ((delta_z) .^ 2)); ## calculate leftmost diagonal elements of matrix A
     Beta = (C_n_plus_1_m(2:(length(C_n_plus_1_m) -1)) ./ delta_t) .+ ((K_mean_n_plus_1_m(1:(length(K_mean_n_plus_1_m) .-1))) ./ (delta_z .^ 2)) + ((K_mean_n_plus_1_m(2:length(K_mean_n_plus_1_m))) ./ (delta_z .^ 2)); ## calculate central diagonal elements of matrix A (excluding the boundary nodes, since Beta cannot be calculated completely for them)
     Gamma = Alpha; ## set rightmost diagonal elements of matrix A
@@ -68,7 +82,7 @@ for timestep = 1##:nr_of_timesteps ## start loop over all timesteps
 		 Alpha,
 		 Beta,
 		 Gamma)); ## create matrix A
-    H_n_plus_1_m_plus_1 = H_n_plus_1_m .* (1 + (10 ^ -4)); ## calculate H for next iteration step
+    H_n_plus_1_m_plus_1 = H_n_plus_1_m .* (1 - (10 ^ -4)); ## calculate H for next iteration step
     delta = H_n_plus_1_m_plus_1(2:(length(H_n_plus_1_m_plus_1)-1)) .- H_n_plus_1_m(2:(length(H_n_plus_1_m)-1)); ## calculate vector delta
     f = A \ delta; ## compute residual
     fmax = max(f); ## determine maximum value of residual
@@ -146,16 +160,16 @@ for row = 1:rows(H_mat)
        markerfacecolor(1 .+ rem(row, 2)));
 endfor
 ## Add legend:
-legend("Node  1",
-       "Node  2",
-       "Node  3",
-       "Node  4",
-       "Node  5",
-       "Node  6",
-       "Node  7",
-       "Node  8",
-       "Node  9",
-       "Node 10");
+## legend("Node  1",
+       ## "Node  2",
+       ## "Node  3",
+       ## "Node  4",
+       ## "Node  5",
+       ## "Node  6",
+       ## "Node  7",
+       ## "Node  8",
+       ## "Node  9",
+       ## "Node 10");
 system("rm -vf ../Grafiken/H_mat_3D_plot.pdf");
 print(figurehandle,
       "../Grafiken/H_mat_3D_plot.pdf");
