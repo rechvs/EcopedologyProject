@@ -1,6 +1,8 @@
 ## Preamble ##
 ## Add directory of function files to search path (not working due to invalid ELF header):
 ## addpath("functions/");
+## Clear workspace:
+clear;
 ## Source function files:
 source("functions/van_Genuchten_variables.oct");
 source("functions/adjacent_mean.oct");
@@ -14,57 +16,46 @@ data_dir = "../Daten/Probelaeufe/";
 ## Set default file type for saving data:
 save_default_options("-text");
 
-## Compare results of “van_Genuchten_variables“ to Roth (2012), p. 68, fig. 3.26:
-theta_r = 0.03;
-theta_s = 0.32;
-alpha = -2.3; ## unit: m ^ -1
-n = 4.17;
-m = (1 .- (1 ./ n));
-K_s = 2.2 .* 10 .^ -5; ## unit: m s ^ -1 (Note: “K_s” is called “K_0” in Roth (2012))
-H = [-(10 .^ 2);-(10 .^ 1);-(10 .^ 0);-(10 .^ -1);-(10 .^ -2)]; ## unit: m
-K = K_s .* ((1 .- (alpha .* abs(H)) .^ (n .- 1) .* (1 .+ (alpha .* abs(H)) .^ n) .^ -m) .^ 2) ./ (1 .+ (alpha .* abs(H)) .^ n) .^ (m ./ 2);
-close all;
-plot(log10(H),log10(K));
-xlabel("Pressure head [log10(m)]");
-ylabel("Hydraulic conductivity [log10(m / s)]");
-grid ("on");
-
 ## Model ##
 ## Set model parameters:
-nr_of_timesteps = 10;
-nr_of_nodes = 10; ## total number of nodes (including boundary nodes)
-delta_z = 10; ## distance between nodes in cm
-delta_t = 1; ## distance between time levels in s
+delta_t = 0.1; ## distance between time levels in s
+delta_z = 0.1; ## vertical distance between spatial levels in cm
+t_final = 100; ## total distance between first and last time level in s (should be 100 s)
+z_final = 30; ## total distance between first and last spatial level in cm (should be 30 cm)
+t = [0:delta_t:t_final]'; ## vector of time levels in s
+z = [0:delta_z:z_final]'; ## vector of spatial levels in cm
 H_top = -75; ## boundary condition at the top node in cm
-H_bottom = -1000; ## boundary condition at bottom node in cm
-H_initial = repelems(-1000,
-		 [1;nr_of_nodes])'; ## initial condition at all nodes in cm
-H_mat = zeros(nr_of_nodes,
-	    nr_of_timesteps); ## create matrix object for storing valid estimates of H
-threshold_value = 0.001; ## set threshold value for residual
+H_bot = -1000; ## boundary condition at bottom node in cm
+H_0 = [H_bot:(H_top .- H_bot) ./ (length(z) .- 1):H_top]'; ## initial condition
 ## Set parameters for “van_Genuchten_variables” (values taken from Celia et al. (1990), p. 1487 below eq. (13b)):
-alpha = 0.0335;
-theta_s =0.368;
 theta_r = 0.102;
+theta_s =0.368;
+alpha = 0.0335;
 n = 2;
 K_s = 0.00922;
-[K_initial, theta_initial, C_initial] = van_Genuchten_variables(alpha,
-						    n,
-						    theta_r,
-						    theta_s,
-						    K_s,
-						    H_initial);
-H_n = H_initial;
-K_n = K_initial;
-theta_n = theta_initial;
-C_n = C_initial;
-for timestep = 1:nr_of_timesteps ## start loop over all timesteps
-  H_n(1) = H_bottom; ## set H of bottom node to constant value
-  H_n(nr_of_nodes) = H_top; ## set H of top node to constant value
+[K_0, theta_0, C_0] = van_Genuchten_variables(alpha,
+				      n,
+				      theta_r,
+				      theta_s,
+				      K_s,
+				      H_0); ## calculate initial values of K, theta, and C using initial values of H
+H_mat = zeros(length(z),
+	    length(t)); ## create matrix object for storing valid estimates of H
+theta_mat = zeros(length(z),
+	    length(t)); ## create matrix object for storing valid estimates of theta
+threshold_value = 0.001; ## set threshold value for residual
+H_n = H_0; ## set H for the first timestep
+K_n = K_0; ## set K for the first timestep
+theta_n = theta_0; ## set theta for the first timestep
+C_n = C_0; ## set C for the first timestep
+for timestep = 1:length(t) ## start loop over all timesteps
+  H_n(1) = H_bot; ## set H of bottom node to constant value
+  H_n(length(z)) = H_top; ## set H of top node to constant value
   H_n_plus_1_m = H_n; ## use estimation of last time step as starting value of current iteration
-  fmax = threshold_value + 1; ## set fmax to an arbitrary value to initiate iteration
+  H_n_plus_1_m_plus_1 = 0; ## set H_n_plus_1_m_plus_1 to an arbitrary value so it is defined and can be referred to later in the model
   iteration_cntr = 0; ## set iteration counter
-  while fmax > threshold_value ## start iteration
+  flag = 0; ## set flag to start iteration
+  while ( (flag == 0) ) ## start iteration
     [K_n_plus_1_m, theta_n_plus_1_m, C_n_plus_1_m] = van_Genuchten_variables(alpha,
 							       n,
 							       theta_r,
@@ -74,28 +65,44 @@ for timestep = 1:nr_of_timesteps ## start loop over all timesteps
     K_mean_n_plus_1_m = adjacent_mean(K_n_plus_1_m,
 			        "a"); ## calculate K_i_plus_minus_1_over_2
     ## Create matrix A:
-    ## Note: the matrix elements cannot be computed for the boundary nodes. Therefore, the length of Beta is “nr_of_nodes - 2” and the length of Alpha and Gamma is “nr_of_nodes - 3”.
-    Alpha = -(K_mean_n_plus_1_m(2:(length(K_mean_n_plus_1_m) -1)) ./ ((delta_z) .^ 2)); ## calculate leftmost diagonal elements of matrix A
-    Beta = (C_n_plus_1_m(2:(length(C_n_plus_1_m) -1)) ./ delta_t) .+ ((K_mean_n_plus_1_m(1:(length(K_mean_n_plus_1_m) .-1))) ./ (delta_z .^ 2)) + ((K_mean_n_plus_1_m(2:length(K_mean_n_plus_1_m))) ./ (delta_z .^ 2)); ## calculate central diagonal elements of matrix A (excluding the boundary nodes, since Beta cannot be calculated completely for them)
-    Gamma = Alpha; ## set rightmost diagonal elements of matrix A
+    ## Note: the matrix elements cannot be computed for the boundary nodes. Therefore, the length of Beta is “length(z) - 2” and the length of Alpha and Gamma is “length(z) - 3”.
+    Alpha = -(K_mean_n_plus_1_m(2:end .- 1) ./ ((delta_z) .^ 2)); ## calculate leftmost diagonal elements of matrix A
+    Beta = (C_n_plus_1_m(2:end .- 1) ./ delta_t) .+ ((K_mean_n_plus_1_m(1:end .- 1)) ./ (delta_z .^ 2)) .+ ((K_mean_n_plus_1_m(2:end)) ./ (delta_z .^ 2)); ## calculate central diagonal elements of matrix A (excluding the boundary nodes, since Beta cannot be calculated completely for them)
+    Gamma = Alpha; ## set rightmost diagonal elements of matrix A (HAS TO BE CHANGED FOR FLUX BOUNDARY CONDITION AT TOP NODE)
     A = full(gallery("tridiag",
 		 Alpha,
 		 Beta,
 		 Gamma)); ## create matrix A
-    H_n_plus_1_m_plus_1 = H_n_plus_1_m .* (1 - (10 ^ -4)); ## calculate H for next iteration step
-    delta = H_n_plus_1_m_plus_1(2:(length(H_n_plus_1_m_plus_1)-1)) .- H_n_plus_1_m(2:(length(H_n_plus_1_m)-1)); ## calculate vector delta
-    f = A \ delta; ## compute residual
-    fmax = max(f); ## determine maximum value of residual
-    H_n_plus_1_m = H_n_plus_1_m_plus_1; ## use estimate of H from current iteration step as estimate for next iteration step
-    iteration_cntr ++; ## increment iteration counter
+    H_diff_n_plus_1_m = diff(H_n_plus_1_m); ## calculate H_i_plus_1_n_plus_1_m - H_i_n_plus_1_m
+    f = (1 ./ ((delta_z) .^ 2)) .* (K_mean_n_plus_1_m(1:end .- 1) .* (H_diff_n_plus_1_m(1:end .- 1)) .- K_mean_n_plus_1_m(2:end) .* (H_diff_n_plus_1_m(2:end))) .+ ((K_mean_n_plus_1_m(1:end .-1) .- K_mean_n_plus_1_m(2:end)) ./ delta_z) .- ((theta_n_plus_1_m(2:end .- 1) .- theta_n(2:end .- 1)) ./ delta_t); ## calculate vector f
+    delta = (f \ A)'; ## calculate vector delta
+    if ( (abs(min(delta)) >= abs(threshold_value)) )
+      delta = [0; delta; 0]; ## correct number of elements of delta
+      H_n_plus_1_m = delta .+ H_n_plus_1_m; ## calculate H
+      flag = 0; ## set flag to continue iteration
+      iteration_cntr ++; ## increment iteration counter
+    else
+      delta = [0; delta; 0]; ## correct number of elements of delta
+      H_n_plus_1_m_plus_1 = delta .+ H_n_plus_1_m; ## calculate H
+      flag = 1; ## set flag to exit iteration
+    endif
   endwhile
   H_n = H_n_plus_1_m_plus_1; ## use estimate of H from iteration as estimate for the current time step
+  [K_n, theta_n, C_n] = van_Genuchten_variables(alpha,
+				        n,
+				        theta_r,
+				        theta_s,
+				        K_s,
+				        H_n); ## calculate K, theta, and C using latest estimate of H
   H_mat(:,timestep) = H_n; ## save current estimate of H to matrix object
+  theta_mat(:,timestep) = theta_n; ## save current value of theta to matrix object
 endfor
 
 ## Save data ##
 H_mat_file = cat(2, data_dir, "H_mat.csv");
 save (H_mat_file, "H_mat");
+theta_mat_file = cat(2, data_dir, "theta_mat.csv");
+save (theta_mat_file, "theta_mat");
 
 ## Plot results ##
 close all;
@@ -108,15 +115,15 @@ figurehandle = figure("papertype",
 		  "paperposition",
 		  [2 2 17 25.6],
 		  "visible",
-		  "off");
-		  ## "on");
+		  ## "off");
+		  "on");
 xlabel("Timestep");
 ylabel("Node");
 zlabel("Pressure head [cm]");
 axis([0;
-      nr_of_timesteps + 1;
+      length(t) + 1;
       0;
-      nr_of_nodes + 1;
+      length(z) + 1;
       min(min(H_mat)) - 1 * (10 ^ -9);
       max(max(H_mat)) + 1 * (10 ^ -7)],
      "tic",
@@ -141,9 +148,10 @@ markeredgecolor = ["k"];
 markerfacecolor = ["auto";
 	         "none"];
 ## Create plots using for-loop:
-for row = 1:rows(H_mat)
-  line(1:nr_of_timesteps,
-       (1:nr_of_nodes)(row),
+for row = [1, median(1:rows(H_mat)), rows(H_mat)]
+## for row = 1:rows(H_mat)
+  line(1:length(t),
+       (1:length(z))(row),
        ## H_mat(row,:).', ## transposing seems to result in plotting the same line mutlitple times
        H_mat(row,:),
        "linewidth",
@@ -152,10 +160,10 @@ for row = 1:rows(H_mat)
        linestyle,
        "color",
        color,
-       "marker",
-       markerstyles(row),
-       "markeredgecolor",
-       markeredgecolor,
+       ## "marker",
+       ## markerstyles(row),
+       ## "markeredgecolor",
+       ## markeredgecolor,
        "markerfacecolor",
        markerfacecolor(1 .+ rem(row, 2)));
 endfor
