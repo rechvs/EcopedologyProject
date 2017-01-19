@@ -2,8 +2,8 @@
 \select@language {ngerman}
 \beamer@sectionintoc {1}{Einleitung}{2}{0}{1}
 \beamer@sectionintoc {2}{Modellschema}{12}{0}{2}
-\beamer@sectionintoc {3}{Gleichungssystem}{20}{0}{3}
-\beamer@subsectionintoc {3}{1}{Richards-Gleichung $\boldsymbol {\rightarrow }$ Näherung $\boldsymbol {\rightarrow }$ Matrixschreibweise}{20}{0}{3}
-\beamer@subsectionintoc {3}{2}{Matrix- und Vektorenelemente}{31}{0}{3}
-\beamer@subsectionintoc {3}{3}{Code-Beispiel}{37}{0}{3}
-\beamer@sectionintoc {4}{Zusammenfassung}{41}{0}{4}
+\beamer@sectionintoc {3}{Gleichungssystem}{17}{0}{3}
+\beamer@subsectionintoc {3}{1}{Richards-Gleichung $\boldsymbol {\rightarrow }$ Näherung $\boldsymbol {\rightarrow }$ Matrixschreibweise}{17}{0}{3}
+\beamer@subsectionintoc {3}{2}{Matrix- und Vektorenelemente}{28}{0}{3}
+\beamer@subsectionintoc {3}{3}{Code-Beispiel}{34}{0}{3}
+\beamer@sectionintoc {4}{Zusammenfassung}{38}{0}{4}
