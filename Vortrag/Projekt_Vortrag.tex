@@ -1,4 +1,4 @@
-%Time-stamp: <2017-01-19 11:07:02 renke>
+%Time-stamp: <2017-01-19 12:21:02 renke>
 \documentclass[xcolor=dvipsnames]{beamer}
 
 % Einbinden von Paketen: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -137,128 +137,87 @@
   \centerline{
     % \fbox{
     \begin{tikzpicture}[>=stealth]
-% Pappel, Acker, waagerechte Linien, senkrechte Linien
-      % \visible<\thesecondElement->{\draw[green] (0.5,1.5) node{\tiny Pappel};}
-      % \visible<\thesecondElement->{\draw[brown] (4.5,1.5) node{\tiny Acker};}
-% senkrechte Linien (Pappel, Acker)
-      % \visible<\thesecondElement->{\draw[green] (0,1.2) -- (0,1.5);}
-      % \visible<\thesecondElement->{\draw[green] (2.49,1.2) -- (2.49,1.5);}
-      % \visible<\thesecondElement->{\draw[brown] (2.5,1.2) -- (2.5,1.5);}
-      % \visible<\thesecondElement->{\draw[brown] (5,1.2) -- (5,1.5);}
-% waagerechte Linien (Pappel, Acker)
-      % \visible<\thesecondElement->{\draw[green] (0,1.35) -- (3.5,1.35);}
-      % \visible<\thesecondElement->{\draw[brown,dashed] (1.5,1.35) -- (3.5,1.35);}
-      % \visible<\thesecondElement->{\draw[brown] (3.5,1.35) -- (5,1.35);}
-% tn
-      \visible<\thethirdElement->{\draw (-2,0) node{\tiny$t_n$};}
-% waagerechte Linien (tn)
-      \visible<\thefirstElement->{\draw[gray,thin] (0,0) -- (2.25,0);}
-      \visible<\thefirstElement->{\draw[gray,thin] (3.75,0) -- (5,0);}
-% Auslassungspunkte (tn)
-      \visible<\thefirstElement->{\draw (3,0) node{\ldots};}
-% i =
-      \visible<\thesecondElement-\thefifthElement>{\draw (-0.5,-0.5) node{\tiny$i =$};}
-% senkrechte Linien an Knoten, Knoten, Knotennummern (tn)
-      \foreach \xcoord in {0,1,2}
+      % tn
+      \visible<\thesecondElement->{\draw (0,0) node{\tiny$t_n$};}
+      % Pfeil, Delta t
+      \visible<\thethirdElement->{\draw[->] (0.5,0) -- (3.5,0);}
+      \visible<\thethirdElement->{\draw (2,0.5) node{\tiny$\Delta t$};}
+      % tn+1
+      \visible<\thethirdElement->{\draw (4,0) node{\tiny$t_{n+1}$};}
+      % m=1
+      \visible<\thefourthElement->{\draw (1,-0.5) node{\tiny$m = 1$};}
+      % m=2
+      \visible<\thefourthElement->{\draw (2,-0.5) node{\tiny$m = 2$};}
+      % Auslassungspunkte für m=3
+      \visible<\thefourthElement->{\draw (3,-0.5) node{\tiny\ldots};}
+      % % senkrechte Linien (tn)
+      \visible<\thefirstElement->{\draw[gray,thin] (0,-1) -- (0,-2);}
+      \visible<\thefirstElement->{\draw[gray,thin] (0,-3) -- (0,-5);}
+      % % Auslassungspunkte (tn)
+      \visible<\thefirstElement->{\draw (0,-2.4) node{\vdots};}
+      % Knoten (tn)
+      \foreach \ycoord in {-1,-2}
       {
-        \visible<\thefirstElement->{\draw[gray,thin] (\xcoord,0.25) -- (\xcoord,-0.25);}
-        \visible<\thefirstElement->{\fill[black] (\xcoord,0) circle (0.75mm);}
-        \visible<\thesecondElement-\thefifthElement>{\draw (\xcoord,-0.5) node{\tiny$\xcoord$};}
+        \visible<\thefirstElement->{\fill[black] (0,\ycoord) circle (0.75mm);}
       }
-      \foreach \xcoord in {4,5}
+      \foreach \ycoord in {-3,-4,-5}
       {
-        \visible<\thefirstElement->{\draw[gray,thin] (\xcoord,0.25) -- (\xcoord,-0.25);}
-        \visible<\thefirstElement->{\fill[black] (\xcoord,0) circle (0.75mm);}
+        \visible<\thefirstElement->{\fill[black] (0,\ycoord) circle (0.75mm);}
       }
-      \visible<\thesecondElement-\thefifthElement>{\draw (4,-0.5) node{\tiny$x-1$};}
-      \visible<\thesecondElement-\thefifthElement>{\draw (5,-0.5) node{\tiny$x$};}
-% senkrechte Linien für K (tn)
-      \foreach \xcoord in {0.5,1.5}
+      % % i=
+      \visible<\thesecondElement->{\draw (-1,-1) node{\tiny$i =$};}
+      % Knotennummern
+      \visible<\thesecondElement->{\draw (-0.5,-1) node{\tiny$x$};}
+      \visible<\thesecondElement->{\draw (-0.5,-2) node{\tiny$x-1$};}
+      \visible<\thesecondElement->{\draw (-0.5,-3) node{\tiny$2$};}
+      \visible<\thesecondElement->{\draw (-0.5,-4) node{\tiny$1$};}
+      \visible<\thesecondElement->{\draw (-0.5,-5) node{\tiny$0$};}
+      % % Delta z
+      \visible<\thesecondElement->{\draw (0.35,-4.5) node{\tiny$\Delta z$};}
+      % geschwungene Klammer (zu Delta z)
+      \visible<\thesecondElement->{\draw[decorate,decoration=brace] (0.075,-4) -- (0.075,-5);}
+      % % senkrechte Linien (m=1)
+      \visible<\thefourthElement->{\draw[gray,thin] (1,-1) -- (1,-2);}
+      \visible<\thefourthElement->{\draw[gray,thin] (1,-3) -- (1,-5);}
+      % % Auslassungspunkte (m=1)
+      \visible<\thefourthElement->{\draw[gray] (1,-2.4) node{\vdots};}
+      % Knoten (m=1)
+      \foreach \ycoord in {-1,-2}
       {
-        \visible<\thefirstElement->{\draw[black,thin] (\xcoord,0.05) -- (\xcoord,-0.05);}
+        \visible<\thefourthElement->{\fill[gray] (1,\ycoord) circle (0.5mm);}
       }
-      \visible<\thefirstElement->{\draw[black,thin] (4.5,0.05) -- (4.5,-0.05);}
-% waagerechte Linien (m=1)
-      \visible<\theseventhElement->{\draw[gray,thin] (0,-0.75) -- (2.25,-0.75);}
-      \visible<\theseventhElement->{\draw[gray,thin] (3.75,-0.75) -- (5,-0.75);}
-% Auslassungspunkte (m=1)
-      \visible<\theseventhElement->{\draw (3,-0.75) node{\ldots};}
-% senkrechte Linien an Knoten, Knoten (m=1)
-      \foreach \xcoord in {0,1,2}
+      \foreach \ycoord in {-3,-4,-5}
       {
-        \visible<\theseventhElement->{\draw[gray,thin] (\xcoord,-0.5) -- (\xcoord,-1);}
-        \visible<\theseventhElement->{\fill[black] (\xcoord,-0.75) circle (0.75mm);}
+        \visible<\thefourthElement->{\fill[gray] (1,\ycoord) circle (0.5mm);}
       }
-      \foreach \xcoord in {4,5}
+      % % senkrechte Linien (m=2)
+      \visible<\thefourthElement->{\draw[gray,thin] (2,-1) -- (2,-2);}
+      \visible<\thefourthElement->{\draw[gray,thin] (2,-3) -- (2,-5);}
+      % % Auslassungspunkte (m=2)
+      \visible<\thefourthElement->{\draw[gray] (2,-2.4) node{\vdots};}
+      % Knoten (m=2)
+      \foreach \ycoord in {-1,-2}
       {
-        \visible<\theseventhElement->{\draw[gray,thin] (\xcoord,-0.5) -- (\xcoord,-1);}
-        \visible<\theseventhElement->{\fill[black] (\xcoord,-0.75) circle (0.75mm);}
+        \visible<\thefourthElement->{\fill[gray] (2,\ycoord) circle (0.5mm);}
       }
-% senkrechte Linien für K (m=1)
-      \foreach \xcoord in {0.5,1.5}
+      \foreach \ycoord in {-3,-4,-5}
       {
-        \visible<\theseventhElement->{\draw[black,thin] (\xcoord,-0.7) -- (\xcoord,-0.8);}
+        \visible<\thefourthElement->{\fill[gray] (2,\ycoord) circle (0.5mm);}
       }
-      \visible<\theseventhElement->{\draw[black,thin] (4.5,-0.7) -- (4.5,-0.8);}
-% waagerechte Linien (m=2)
-      \visible<\theseventhElement->{\draw[gray,thin] (0,-1.5) -- (2.25,-1.5);}
-      \visible<\theseventhElement->{\draw[gray,thin] (3.75,-1.5) -- (5,-1.5);}
-% Auslassungspunkte (m=2)
-      \visible<\theseventhElement->{\draw (3,-1.5) node{\ldots};}
-% senkrechte Linien an Knoten, Knoten (m=2)
-      \foreach \xcoord in {0,1,2}
+      % % senkrechte Linien (tn+1)
+      \visible<\thethirdElement->{\draw[gray,thin] (4,-1) -- (4,-2);}
+      \visible<\thethirdElement->{\draw[gray,thin] (4,-3) -- (4,-5);}
+      % % Auslassungspunkte (tn+1)
+      \visible<\thethirdElement->{\draw (4,-2.4) node{\vdots};}
+      % Knoten (tn+1)
+      \foreach \ycoord in {-1,-2}
       {
-        \visible<\theseventhElement->{\draw[gray,thin] (\xcoord,-1.25) -- (\xcoord,-1.75);}
-        \visible<\theseventhElement->{\fill[black] (\xcoord,-1.5) circle (0.75mm);}
+        \visible<\thethirdElement->{\fill[black] (4,\ycoord) circle (0.75mm);}
       }
-      \foreach \xcoord in {4,5}
+      \foreach \ycoord in {-3,-4,-5}
       {
-        \visible<\theseventhElement->{\draw[gray,thin] (\xcoord,-1.25) -- (\xcoord,-1.75);}
-        \visible<\theseventhElement->{\fill[black] (\xcoord,-1.5) circle (0.75mm);}
+        \visible<\thethirdElement->{\fill[black] (4,\ycoord) circle (0.75mm);}
       }
-% senkrechte Linien für K (m=2)
-      \foreach \xcoord in {0.5,1.5}
-      {
-        \visible<\theseventhElement->{\draw[black,thin] (\xcoord,-1.45) -- (\xcoord,-1.55);}
-      }
-      \visible<\theseventhElement->{\draw[black,thin] (4.5,-1.45) -- (4.5,-1.55);}
-% geschwungene Klammer (tn)
-      \visible<\thesecondElement->{\draw[decorate,decoration=brace] (0,0.25) -- (1,0.25);}
-% Delta z
-      \visible<\thesecondElement->{\draw (0.5,0.5) node{\tiny$\Delta z$};}
-% Pfeil, Delta t
-      \visible<\thefourthElement->{\draw[->] (-2,-0.5) -- (-2,-2.5);}
-      \visible<\thefourthElement-\thefifthElement>{\draw (-1.75,-1.5) node{\tiny$\Delta t$};}
-% m=1
-      \visible<\theseventhElement>{\draw (-1.5,-0.75) node{\tiny$m = 1$};}
-% m=2
-      \visible<\theseventhElement>{\draw (-1.5,-1.5) node{\tiny$m = 2$};}
-% Auslassungspunkte für m=3
-      \visible<\theseventhElement>{\draw (-1.5,-2) node{\tiny\ldots};}
-% tn+1
-      \visible<\thefifthElement->{\draw (-2,-3) node{\tiny$t_{n+1}$};}
-% waagerechte Linien (tn+1)
-      \visible<\thefifthElement->{\draw[gray,thin] (0,-3) -- (2.75,-3);}
-      \visible<\thefifthElement->{\draw[gray,thin] (3.25,-3) -- (5,-3);}
-% Auslassungspunkte (tn+1)
-      \visible<\thefifthElement->{\draw (3,-3) node{\ldots};}
-% senkrechte Linien, Knoten (tn+1)
-      \foreach \xcoord in {0,1,2}
-      {
-        \visible<\thefifthElement->{\draw[gray,thin] (\xcoord,-2.75) -- (\xcoord,-3.25);}
-        \visible<\thefifthElement->{\fill[black] (\xcoord,-3) circle (0.75mm);}
-      }
-      \foreach \xcoord in {4,5}
-      {
-        \visible<\thefifthElement->{\draw[gray,thin] (\xcoord,-2.75) -- (\xcoord,-3.25);}
-        \visible<\thefifthElement->{\fill[black] (\xcoord,-3) circle (0.75mm);}
-      }
-% senkrechte Linien für K, Nummern für K (tn+1)
-      \foreach \xcoord in {0.5,1.5}
-      {
-        \visible<\thefifthElement->{\draw[black,thin] (\xcoord,-2.95) -- (\xcoord,-3.05);}
-      }
-      \visible<\thefifthElement->{\draw[black,thin] (4.5,-2.95) -- (4.5,-3.05);}
     \end{tikzpicture}}
   % }
   \visible<\thefirstElement->{
