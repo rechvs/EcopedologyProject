@@ -1,4 +1,4 @@
-%Time-stamp: <2016-03-15 07:32:31 renke>
+%Time-stamp: <2017-01-19 11:07:02 renke>
 \documentclass[xcolor=dvipsnames]{beamer}
 
 % Einbinden von Paketen: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -86,7 +86,7 @@
 \title{Transekte des Wasserhaushalts in Agroforstsystemen}
 \subtitle{Vortrag zum Projekt \\ ,,Ökosystemanalyse und Modellierung``}
 \author{Renke von Seggern}
-\date[11.01.2016]{11. Januar 2016}
+\date[23.01.2017]{23. Januar 2017}
 
 \beamertemplatenavigationsymbolsempty
 
@@ -138,17 +138,17 @@
     % \fbox{
     \begin{tikzpicture}[>=stealth]
 % Pappel, Acker, waagerechte Linien, senkrechte Linien
-      \visible<\thesecondElement->{\draw[green] (0.5,1.5) node{\tiny Pappel};}
-      \visible<\thesecondElement->{\draw[brown] (4.5,1.5) node{\tiny Acker};}
+      % \visible<\thesecondElement->{\draw[green] (0.5,1.5) node{\tiny Pappel};}
+      % \visible<\thesecondElement->{\draw[brown] (4.5,1.5) node{\tiny Acker};}
 % senkrechte Linien (Pappel, Acker)
-      \visible<\thesecondElement->{\draw[green] (0,1.2) -- (0,1.5);}
+      % \visible<\thesecondElement->{\draw[green] (0,1.2) -- (0,1.5);}
       % \visible<\thesecondElement->{\draw[green] (2.49,1.2) -- (2.49,1.5);}
       % \visible<\thesecondElement->{\draw[brown] (2.5,1.2) -- (2.5,1.5);}
-      \visible<\thesecondElement->{\draw[brown] (5,1.2) -- (5,1.5);}
+      % \visible<\thesecondElement->{\draw[brown] (5,1.2) -- (5,1.5);}
 % waagerechte Linien (Pappel, Acker)
-      \visible<\thesecondElement->{\draw[green] (0,1.35) -- (3.5,1.35);}
-      \visible<\thesecondElement->{\draw[brown,dashed] (1.5,1.35) -- (3.5,1.35);}
-      \visible<\thesecondElement->{\draw[brown] (3.5,1.35) -- (5,1.35);}
+      % \visible<\thesecondElement->{\draw[green] (0,1.35) -- (3.5,1.35);}
+      % \visible<\thesecondElement->{\draw[brown,dashed] (1.5,1.35) -- (3.5,1.35);}
+      % \visible<\thesecondElement->{\draw[brown] (3.5,1.35) -- (5,1.35);}
 % tn
       \visible<\thethirdElement->{\draw (-2,0) node{\tiny$t_n$};}
 % waagerechte Linien (tn)
@@ -274,13 +274,13 @@
   \visible<\thefirstElement->{\frametitle{Richards-Gleichung}}
   \only<\thefirstElement>{
     \centerline{
-      $C(h) \frac{\delta h}{\delta t} - \nabla \cdot K(h)\nabla h - \frac{\delta K}{\delta z} = 0$
-      % $\frac{\theta}{t} - \nabla \cdot K(h)\nabla h - \frac{\delta K}{\delta z} = 0$
+      % $C(h) \frac{\delta h}{\delta t} - \nabla \cdot K(h)\nabla h - \frac{\delta K}{\delta z} = 0$
+      $\frac{\delta \theta}{\delta t} - \nabla \cdot K(h)\nabla h - \frac{\delta K}{\delta z} = 0$
       \vspace{5mm}}
     \begin{minipage}{1.0\textwidth}
     \centerline{
-      \mycaption{Gleichung: h-basierte Richards-Gleichung (Quelle: [1]).}}
-      % \mycaption{Gleichung: Gemischte Richards-Gleichung (Quelle: [1]).}}
+      % \mycaption{Gleichung: h-basierte Richards-Gleichung (Quelle: [1]).}}
+      \mycaption{Gleichung: Gemischte Richards-Gleichung (Quelle: [1]).}}
     \end{minipage}}
 
   % \only<\thethirdElement->{
@@ -290,12 +290,12 @@
   %   \vspace{5mm}}}
   \only<\thefirstElement->{
     \begin{align*}
-      \myscalebox{C(h)} & \myscalebox{: \text{spezifische Feuchtekapazitätsfunktion [m\textsuperscript{-1}]}} \\[-3mm]
+      % \myscalebox{C(h)} & \myscalebox{: \text{spezifische Feuchtekapazitätsfunktion [m\textsuperscript{-1}]}} \\[-3mm]
       \myscalebox{h} & \myscalebox{: \text{Wasserspannung [m]}} \\[-3mm]
       \myscalebox{K(h)} & \myscalebox{: \text{ungesättigte hydraulische Leitfähigkeit [m $\cdot$ s\textsuperscript{-1}]}} \\[-3mm]
       \myscalebox{t} & \myscalebox{: \text{Zeit [s]}} \\[-3mm]
-      % \myscalebox{\theta} & \myscalebox{: \text{Wassergehalt [m\textsuperscript{3} $\cdot$ m\textsuperscript{-3}]}} \\[-3mm]
-      \myscalebox{z} & \myscalebox{: \text{Strecke [m]}} \\[-3mm]
+      \myscalebox{\theta} & \myscalebox{: \text{Wassergehalt [m\textsuperscript{3} $\cdot$ m\textsuperscript{-3}]}} \\[-3mm]
+      \myscalebox{z} & \myscalebox{: \text{vertikale Distanz [m]}} \\[-3mm]
     \end{align*}}
 \end{frame}
 
@@ -304,10 +304,14 @@
   \only<\thefirstElement>{
     \vspace{-5mm}
     \begin{gather*}
+      % C_i^{n+1,m} \cdot \frac{\delta_i^m}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\delta_{i+1}^m - \delta_i^m\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\delta_i^m - \delta_{i-1}^m\right)\right] \\[+0.5mm]
+      % = \\[+0.5mm]
+      % \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(H_{i+1}^{n+1,m} - H_i^{n+1,m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(H_{i}^{n+1,m} - H_{i-1}^{n+1,m}\right)\right] \\[+0.5mm]
+      % + \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - C_i^{n+1,m} \cdot \frac{H_i^{n+1,m} - H_i^n}{\Delta t}
       C_i^{n+1,m} \cdot \frac{\delta_i^m}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\delta_{i+1}^m - \delta_i^m\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\delta_i^m - \delta_{i-1}^m\right)\right] \\[+0.5mm]
       = \\[+0.5mm]
       \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(H_{i+1}^{n+1,m} - H_i^{n+1,m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(H_{i}^{n+1,m} - H_{i-1}^{n+1,m}\right)\right] \\[+0.5mm]
-      + \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - C_i^{n+1,m} \cdot \frac{H_i^{n+1,m} - H_i^n}{\Delta t}
+      + \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - \frac{\theta_i^{n+1,m}-\theta_i^{n}}{\Delta t}
     \end{gather*}
       \begin{minipage}{1.0\textwidth}
         \mycaption{Gleichung: Standardmäßige (räumliche) Näherung zur Richards-Gleichung mittels finiter Differenzen nach Anwendung der Picard-Iteration (Quelle: [1]).}
@@ -316,10 +320,14 @@
   \only<\thesecondElement->{
     \vspace{-5mm}
     \begin{gather*}
+      % C_i^{n+1,m} \cdot \frac{\textcolor{red}{\delta_i^m}}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_{i+1}^m} - \textcolor{red}{\delta_i^m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_i^m} - \textcolor{red}{\delta_{i-1}^m}\right)\right] \\[+0.5mm]
+      % = \\[+0.5mm]
+      % \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(H_{i+1}^{n+1,m} - H_i^{n+1,m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(H_{i}^{n+1,m} - H_{i-1}^{n+1,m}\right)\right] \\[+0.5mm]
+      % + \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - C_i^{n+1,m} \cdot \frac{H_i^{n+1,m} - H_i^n}{\Delta t}
       C_i^{n+1,m} \cdot \frac{\textcolor{red}{\delta_i^m}}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_{i+1}^m} - \textcolor{red}{\delta_i^m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_i^m} - \textcolor{red}{\delta_{i-1}^m}\right)\right] \\[+0.5mm]
       = \\[+0.5mm]
       \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(H_{i+1}^{n+1,m} - H_i^{n+1,m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(H_{i}^{n+1,m} - H_{i-1}^{n+1,m}\right)\right] \\[+0.5mm]
-      + \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - C_i^{n+1,m} \cdot \frac{H_i^{n+1,m} - H_i^n}{\Delta t}
+      + \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - \frac{\theta_i^{n+1,m}-\theta_i^{n}}{\Delta t}
     \end{gather*}
       \begin{minipage}{1.0\textwidth}
         \mycaption{Gleichung: Standardmäßige (räumliche) Näherung zur Richards-Gleichung mittels finiter Differenzen nach Anwendung der Picard-Iteration (Quelle: [1]).}
@@ -352,6 +360,7 @@
           \myscalebox{m} & \myscalebox{: \text{Iterationsschritt}} \\[-3mm]
           \myscalebox{n} & \myscalebox{: \text{Zeitschritt}} \\[-3mm]
           \myscalebox{t} & \myscalebox{: \text{Zeit [s]}} \\[-3mm]
+          \myscalebox{\theta} & \myscalebox{: \text{Wassergehalt [m\textsuperscript{3} $\cdot$ m\textsuperscript{-3}]}} \\[-3mm]
           \myscalebox{z} & \myscalebox{: \text{Strecke [m]}} \\[-3mm]
         \end{align*}}
     \end{column}
@@ -403,10 +412,14 @@
 
   \only<\thefourthElement>{
     \begin{gather*}
+      % C_i^{n+1,m} \cdot \frac{\delta_i^m}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\delta_{i+1}^m - \delta_i^m\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\delta_i^m - \delta_{i-1}^m\right)\right] \\[+0.5mm]
+      % = \\[+0.5mm]
+      % \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(H_{i+1}^{n+1,m} - H_i^{n+1,m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(H_{i}^{n+1,m} - H_{i-1}^{n+1,m}\right)\right] \\[+0.5mm]
+      % + \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - C_i^{n+1,m} \cdot \frac{H_i^{n+1,m} - H_i^n}{\Delta t}
       C_i^{n+1,m} \cdot \frac{\delta_i^m}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\delta_{i+1}^m - \delta_i^m\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\delta_i^m - \delta_{i-1}^m\right)\right] \\[+0.5mm]
       = \\[+0.5mm]
       \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(H_{i+1}^{n+1,m} - H_i^{n+1,m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(H_{i}^{n+1,m} - H_{i-1}^{n+1,m}\right)\right] \\[+0.5mm]
-      + \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - C_i^{n+1,m} \cdot \frac{H_i^{n+1,m} - H_i^n}{\Delta t}
+      + \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - \frac{\theta_i^{n+1,m}-\theta_i^{n}}{\Delta t}
     % \end{gather*}
     % \begin{gather*}
     %   C_i^{n+1,m} \cdot \frac{\textcolor{red}{\delta_i^m}}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_{i+1}^m} - \textcolor{red}{\delta_i^m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_i^m} - \textcolor{red}{\delta_{i-1}^m}\right)\right] \\[+0.5mm]
@@ -419,10 +432,14 @@
 
 \only<\thefifthElement>{
     \begin{gather*}
+      % C_i^{n+1,m} \cdot \frac{\textcolor{red}{\delta_i^m}}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_{i+1}^m} - \textcolor{red}{\delta_i^m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_i^m} - \textcolor{red}{\delta_{i-1}^m}\right)\right] \\[+0.5mm]
+      % = \\[+0.5mm]
+      % \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(H_{i+1}^{n+1,m} - H_i^{n+1,m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(H_{i}^{n+1,m} - H_{i-1}^{n+1,m}\right)\right] \\[+0.5mm]
+      % + \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - C_i^{n+1,m} \cdot \frac{H_i^{n+1,m} - H_i^n}{\Delta t}
       C_i^{n+1,m} \cdot \frac{\textcolor{red}{\delta_i^m}}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_{i+1}^m} - \textcolor{red}{\delta_i^m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_i^m} - \textcolor{red}{\delta_{i-1}^m}\right)\right] \\[+0.5mm]
       = \\[+0.5mm]
       \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(H_{i+1}^{n+1,m} - H_i^{n+1,m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(H_{i}^{n+1,m} - H_{i-1}^{n+1,m}\right)\right] \\[+0.5mm]
-      + \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - C_i^{n+1,m} \cdot \frac{H_i^{n+1,m} - H_i^n}{\Delta t}
+      + \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - \frac{\theta_i^{n+1,m}-\theta_i^{n}}{\Delta t}
     \end{gather*}}
 
 \end{frame}
@@ -516,10 +533,10 @@
         \end{pmatrix}
       \end{math}}
     \begin{gather*}
+      % f_i = \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(H_{i+1}^{n+1,m} - H_i^{n+1,m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(H_{i}^{n+1,m} - H_{i-1}^{n+1,m}\right)\right] \\[+1mm]
+      % + \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - C_i^{n+1,m} \cdot \frac{H_i^{n+1,m} - H_i^n}{\Delta t}
       f_i = \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(H_{i+1}^{n+1,m} - H_i^{n+1,m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(H_{i}^{n+1,m} - H_{i-1}^{n+1,m}\right)\right] \\[+1mm]
-      + \frac{K_{i+\frac{1}{2}}^{n+1,m} -
-        K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - C_i^{n+1,m} \cdot
-      \frac{H_i^{n+1,m} - H_i^n}{\Delta t}
+      + \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - \frac{\theta_i^{n+1,m}-\theta_i^{n}}{\Delta t}
     \end{gather*}}
 \end{frame}
 
