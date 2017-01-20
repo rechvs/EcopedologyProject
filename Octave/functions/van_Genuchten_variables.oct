@@ -22,7 +22,7 @@ function [retvalk, retvaltheta, retvalc] = van_Genuchten_variables (alpha, n, th
     Theta = (1 ./ (1 .+ (alpha .* abs(h)) .^ n)) .^ m;
     retvaltheta = theta_r .+ ((theta_s .- theta_r) ./ (1 .+ (alpha .* abs(h)) .^ n) .^ m);
     retvalk = K_s .* ((1 .- (alpha .* abs(h)) .^ (n .- 1) .* (1 .+ (alpha .* abs(h)) .^ n) .^ -m) .^ 2) ./ (1 .+ (alpha .* abs(h)) .^ n) .^ (m ./ 2);
-    retvalc = ((-alpha .* m .* (theta_s .- theta_r)) ./ (1 .- m)) .* (Theta .^ (1 ./ m)) .* (1 .- (Theta .^ (1 ./ m))) .^ m;
+    retvalc = ((- alpha .* m .* (theta_s .- theta_r)) ./ (1 .- m)) .* (Theta .^ (1 ./ m)) .* (1 .- (Theta .^ (1 ./ m))) .^ m;
   else
     error ("van_Genuchten_variables: expecting alpha, n, theta_r, theta_s, and K_s to be scalars and h to be a vector.")
   endif
