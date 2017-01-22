@@ -1,4 +1,4 @@
-%Time-stamp: <2017-01-22 13:09:36 renke>
+%Time-stamp: <2017-01-22 17:39:46 renke>
 \documentclass[xcolor=dvipsnames]{beamer}
 
 % Einbinden von Paketen: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -103,33 +103,62 @@
 \addtocounter{framenumber}{-1} %Reduktion der Folienzahl (-1 für Titelfolie)
 
 \section{Einleitung}
+\subsection{Ziele, Probleme, Lösungsansätze}
 \begin{frame}[t]
-  \centerline{
-    \begin{minipage}{0.7\textwidth}
-      \only<1>{
+  \only<1>{
+    \centerline{
+      \begin{minipage}{0.9\textwidth}
         \includegraphics[width=1.0\textwidth]{Grafiken/IMG_1181_beschnitten} \\
         \mycaption{Abbildung: Beispiel für das Landnutzungsschema der Untersuchungsflächen (hier: KUP und Grünland)
-          (Quelle: Falk Richter, verändert).}}
-    \end{minipage}}
+          (Quelle: Falk Richter, verändert).}
+      \end{minipage}}}
+
   \begin{itemize}
-  \item<\thesecondElement-> Ziel: \\
+  \item<\thefirstElement-> Ziel: \\
     Modellierung des Bodenwasserhaushalts von Ackerkulturen in Nachbarschaft zu KUPs.
-  \item<\thethirdElement-> Probleme:
+  \item<\thesecondElement-> Probleme:
     \begin{itemize}
-    \item<\thefourthElement-> Einfluss von KUPs auf benachbarte Flächen \\
+    \item<\thesecondElement-> Einfluss von KUPs auf benachbarte Flächen \\
       $\boldsymbol\Rightarrow$ keine trennscharfen Grenzen
-    \item<\thefifthElement-> nichtlineare Abhängigkeiten, vielfältige Einflussgrößen \\
+    \item<\thesecondElement-> nichtlineare Abhängigkeiten, vielfältige Einflussgrößen \\
       $\boldsymbol\Rightarrow$ keine analytische Lösung möglich
     \end{itemize}
   \end{itemize}
   \begin{itemize}
-  \item<\thesixthElement-> Lösungsansatz:
+  \item<\thethirdElement-> Lösungsansatz:
     \begin{itemize}
-    \item<\theseventhElement-> räumlich kleinskalige Modellierung
-    \item<\theeighthElement-> implizite numerische Lösung (finite Differenzen + Picard-Iteration)
-    \item<\theninthElement-> Software: GNU Octave
+    \item<\thethirdElement-> räumlich kleinskalige Modellierung
+    \item<\thethirdElement-> implizite numerische Lösung (finite Differenzen + Picard-Iteration)
+    \item<\thethirdElement-> Software: GNU Octave
     \end{itemize}
   \end{itemize}
+\end{frame}
+
+\subsection{Unterschiede gegenüber älteren Modellen}
+\begin{frame}[t]
+  \only<1>{
+    \centerline{
+      \begin{minipage}{0.9\textwidth}  
+        \includegraphics[width=1.0\textwidth]{Grafiken/alter_ansatz} \\
+        \mycaption{Abbildung: Schematische Darstellung bisheriger Modellansätze, die von trennscharfen Grenzen ausgehen
+          (Quelle: eigenes Werk).}
+      \end{minipage}}}
+
+  \only<2>{
+    \centerline{
+      \begin{minipage}{0.9\textwidth}  
+        \includegraphics[width=1.0\textwidth]{Grafiken/neuer_ansatz01} \\
+        \mycaption{Abbildung: Schematische Darstellung des zu entwickelnden Modells
+          (Quelle: eigenes Werk).}
+      \end{minipage}}}
+  
+  \only<3>{
+    \centerline{
+      \begin{minipage}{0.9\textwidth}  
+        \includegraphics[width=1.0\textwidth]{Grafiken/neuer_ansatz02} \\
+        \mycaption{Abbildung: Schematische Darstellung des zu entwickelnden Modells
+          (Quelle: eigenes Werk).}
+      \end{minipage}}}
 \end{frame}
 
 \section{Modellschema}
@@ -541,9 +570,9 @@
     Modellierung des Bodenwasserhaushalts von Ackerkulturen in Nachbarschaft zu KUPs.
   \item<\thesecondElement-> Lösungsansatz:
     \begin{itemize}
-    \item<\thethirdElement-> räumlich kleinskalige Modellierung \\
+    \item<\thesecondElement-> räumlich kleinskalige Modellierung \\
       $\boldsymbol\Rightarrow$ Erfassung von Randeffekten
-    \item<\thefourthElement-> implizite numerische Lösung (finite Differenzen + Picard-Iteration) \\
+    \item<\thesecondElement-> implizite numerische Lösung (finite Differenzen + Picard-Iteration) \\
       $\boldsymbol\Rightarrow$ komplexere Implementierung aber stabilere Ergebnisse als explizite Lösung
     \end{itemize}
   \end{itemize}
