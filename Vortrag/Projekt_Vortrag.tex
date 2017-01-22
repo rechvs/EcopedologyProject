@@ -1,4 +1,4 @@
-%Time-stamp: <2017-01-19 12:21:02 renke>
+%Time-stamp: <2017-01-22 13:09:36 renke>
 \documentclass[xcolor=dvipsnames]{beamer}
 
 % Einbinden von Paketen: %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -329,47 +329,47 @@
 
 \begin{frame}[t]
   \frametitle{Matrixschreibweise}
-  \only<\thefirstElement-\thefourthElement>{
+  \only<\thefirstElement-\thesecondElement>{
     \centerline{
       $A \cdot \delta = f$}}
-  \only<\thefifthElement>{
+  \only<\thethirdElement>{
     \centerline{
       $A \cdot \textcolor{red}{\delta} = f$}}
 
-  \only<\thesecondElement>{
+  \only<\thefirstElement>{
     \vspace{2mm}
     \centerline{
       \begin{math}
         A =
         \begin{pmatrix}
-          a_{11} & a_{12} & a_{13} \\
+          \textcolor{gray}{a_{11}} & \textcolor{gray}{a_{12}} & \textcolor{gray}{a_{13}} \\
           %\only<\thesecondElement>{a_{21} & a_{22} & a_{23} \\}
-          \textcolor{green}{a_{21}} & \textcolor{green}{a_{22}} & \textcolor{green}{a_{23}} \\
-          a_{31} & a_{32} & a_{33} \\
+          \textcolor{black}{a_{21}} & \textcolor{black}{a_{22}} & \textcolor{black}{a_{23}} \\
+          \textcolor{gray}{a_{31}} & \textcolor{gray}{a_{32}} & \textcolor{gray}{a_{33}} \\
         \end{pmatrix}
         ;
         \delta =
         \begin{pmatrix}
-          \textcolor{green}{\delta_1} \\
-          \textcolor{green}{\delta_2} \\
-          \textcolor{green}{\delta_3} \\
+          \textcolor{black}{\delta_1} \\
+          \textcolor{black}{\delta_2} \\
+          \textcolor{black}{\delta_3} \\
         \end{pmatrix}
         ;
         f =
         \begin{pmatrix}
-          f_1 \\
-          \textcolor{green}{f_2} \\
-          f_3 \\
+          \textcolor{gray}{f_1} \\
+          \textcolor{black}{f_2} \\
+          \textcolor{gray}{f_3} \\
         \end{pmatrix}
       \end{math}}
     \begin{align*}
       % f_1 & = a_{11} \cdot \delta_1 + a_{12} \cdot \delta_2 + a_{13} \cdot \delta_3 \\
       %\only<\thesecondElement>{f_2 & = a_{21} \cdot \delta_1 + a_{22} \cdot \delta_2 + a_{23} \cdot \delta_3 \\}
-      \textcolor{green}{f_2} & = \textcolor{green}{a_{21}} \cdot \textcolor{green}{\delta_1} + \textcolor{green}{a_{22}} \cdot \textcolor{green}{\delta_2} + \textcolor{green}{a_{23}} \cdot \textcolor{green}{\delta_3} \\
+      \textcolor{black}{f_2} & = \textcolor{black}{a_{21}} \cdot \textcolor{black}{\delta_1} + \textcolor{black}{a_{22}} \cdot \textcolor{black}{\delta_2} + \textcolor{black}{a_{23}} \cdot \textcolor{black}{\delta_3} \\
       % f_3 & = a_{31} \cdot \delta_3 + a_{32} \cdot \delta_3 + a_{33} \cdot \delta_3 \\
     \end{align*}}
 
-  \only<\thefourthElement>{
+  \only<\thesecondElement>{
     \begin{gather*}
       % C_i^{n+1,m} \cdot \frac{\delta_i^m}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\delta_{i+1}^m - \delta_i^m\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\delta_i^m - \delta_{i-1}^m\right)\right] \\[+0.5mm]
       % = \\[+0.5mm]
@@ -389,7 +389,7 @@
     %   \frac{H_i^{n+1,m} - H_i^n}{\Delta t}
     \end{gather*}}
 
-\only<\thefifthElement>{
+\only<\thethirdElement>{
     \begin{gather*}
       % C_i^{n+1,m} \cdot \frac{\textcolor{red}{\delta_i^m}}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_{i+1}^m} - \textcolor{red}{\delta_i^m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_i^m} - \textcolor{red}{\delta_{i-1}^m}\right)\right] \\[+0.5mm]
       % = \\[+0.5mm]
@@ -407,51 +407,51 @@
 
 \begin{frame}[t]
   \frametitle{Matrix $A$}
-  \only<\thefirstElement-\thesecondElement>{
-    \centerline{
-      \begin{math}
-        A =
-        \begin{pmatrix}
-          b_0 & c_0 & & & & \\
-          a_1 & b_1 & c_1 & & & \\
-          & a_2 & b_2 & c_2 & & \\
-          & & \ddots & \ddots & \ddots & \\
-          & & & a_{x-1} & b_{x-1} & c_{x-1} \\
-          & & & & a_x & b_x
-        \end{pmatrix}
-      \end{math}}}
-  \only<\thesecondElement>{
-    \begin{gather*}
-      C_i^{n+1,m} \cdot \frac{\textcolor{red}{\delta_i^m}}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_{i+1}^m} - \textcolor{red}{\delta_i^m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_i^m} - \textcolor{red}{\delta_{i-1}^m}\right)\right] \\[+1mm]
-      = \\[+1mm]
-      \textcolor{black}{C_i^{n+1,m} \cdot \frac{1}{\Delta t}} \cdot \textcolor{red}{\delta_i^m}
-      \textcolor{black}{ - \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_{i+1}^m}
-      \textcolor{black}{ + \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_i^m}
-      \textcolor{black}{ + \frac{K_{i-\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_i^m}
-      \textcolor{black}{ - \frac{K_{i-\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_{i-1}^m}
-    \end{gather*}}
+  % \only<\thefirstElement-\thesecondElement>{
+    % \centerline{
+      % \begin{math}
+        % A =
+        % \begin{pmatrix}
+          % b_0 & c_0 & & & & \\
+          % a_1 & b_1 & c_1 & & & \\
+          % & a_2 & b_2 & c_2 & & \\
+          % & & \ddots & \ddots & \ddots & \\
+          % & & & a_{x-1} & b_{x-1} & c_{x-1} \\
+          % & & & & a_x & b_x
+        % \end{pmatrix}
+      % \end{math}}}
+  % \only<\thefirstElement>{
+    % \begin{gather*}
+      % C_i^{n+1,m} \cdot \frac{\textcolor{red}{\delta_i^m}}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_{i+1}^m} - \textcolor{red}{\delta_i^m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_i^m} - \textcolor{red}{\delta_{i-1}^m}\right)\right] \\[+1mm]
+      % = \\[+1mm]
+      % \textcolor{black}{C_i^{n+1,m} \cdot \frac{1}{\Delta t}} \cdot \textcolor{red}{\delta_i^m}
+      % \textcolor{black}{ - \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_{i+1}^m}
+      % \textcolor{black}{ + \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_i^m}
+      % \textcolor{black}{ + \frac{K_{i-\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_i^m}
+      % \textcolor{black}{ - \frac{K_{i-\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_{i-1}^m}
+    % \end{gather*}}
 
-  \only<\thethirdElement->{
+  \only<\thefirstElement->{
     \centerline{
       \begin{math}
         A =
         \begin{pmatrix}
-          \textcolor{brown}{b_0} & \textcolor{orange}{c_0} & & & & \\
-          \textcolor{blue}{a_1} & \textcolor{brown}{b_1} & \textcolor{orange}{c_1} & & & \\
-          & \textcolor{blue}{a_2} & \textcolor{brown}{b_2} & \textcolor{orange}{c_2} & & \\
+          \textcolor{green}{b_0} & \textcolor{orange}{c_0} & & & & \\
+          \textcolor{blue}{a_1} & \textcolor{green}{b_1} & \textcolor{orange}{c_1} & & & \\
+          & \textcolor{blue}{a_2} & \textcolor{green}{b_2} & \textcolor{orange}{c_2} & & \\
           & & \ddots & \ddots & \ddots & \\
-          & & & \textcolor{blue}{a_{x-1}} & \textcolor{brown}{b_{x-1}} & \textcolor{orange}{c_{x-1}} \\
-          & & & & \textcolor{blue}{a_x} & \textcolor{brown}{b_x}
+          & & & \textcolor{blue}{a_{x-1}} & \textcolor{green}{b_{x-1}} & \textcolor{orange}{c_{x-1}} \\
+          & & & & \textcolor{blue}{a_x} & \textcolor{green}{b_x}
         \end{pmatrix}
       \end{math}}}
-  \only<\thethirdElement->{
+  \only<\thefirstElement->{
     \begin{gather*}
       C_i^{n+1,m} \cdot \frac{\textcolor{red}{\delta_i^m}}{\Delta t} - \frac{1}{\left(\Delta z\right)^2} \cdot \left[K_{i+\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_{i+1}^m} - \textcolor{red}{\delta_i^m}\right) - K_{i-\frac{1}{2}}^{n+1,m} \cdot \left(\textcolor{red}{\delta_i^m} - \textcolor{red}{\delta_{i-1}^m}\right)\right] \\[+1mm]
       = \\[+1mm]
-      \textcolor{brown}{C_i^{n+1,m} \cdot \frac{1}{\Delta t}} \cdot \textcolor{red}{\delta_i^m}
+      \textcolor{green}{C_i^{n+1,m} \cdot \frac{1}{\Delta t}} \cdot \textcolor{red}{\delta_i^m}
       \textcolor{orange}{ - \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_{i+1}^m}
-      \textcolor{brown}{ + \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_i^m}
-      \textcolor{brown}{ + \frac{K_{i-\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_i^m}
+      \textcolor{green}{ + \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_i^m}
+      \textcolor{green}{ + \frac{K_{i-\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_i^m}
       \textcolor{blue}{ - \frac{K_{i-\frac{1}{2}}^{n+1,m}}{\left(\Delta z\right)^2}} \cdot \textcolor{red}{\delta_{i-1}^m}
     \end{gather*}}
 \end{frame}
