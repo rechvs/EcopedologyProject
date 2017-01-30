@@ -1,9 +1,11 @@
 \beamer@endinputifotherversion {3.36pt}
 \select@language {ngerman}
 \beamer@sectionintoc {1}{Einleitung}{2}{0}{1}
-\beamer@sectionintoc {2}{Modellschema}{12}{0}{2}
-\beamer@sectionintoc {3}{Gleichungssystem}{17}{0}{3}
-\beamer@subsectionintoc {3}{1}{Richards-Gleichung $\boldsymbol {\rightarrow }$ Näherung $\boldsymbol {\rightarrow }$ Matrixschreibweise}{17}{0}{3}
-\beamer@subsectionintoc {3}{2}{Matrix- und Vektorenelemente}{26}{0}{3}
-\beamer@subsectionintoc {3}{3}{Code-Beispiel}{30}{0}{3}
-\beamer@sectionintoc {4}{Zusammenfassung}{34}{0}{4}
+\beamer@subsectionintoc {1}{1}{Ziele, Probleme, Lösungsansätze}{2}{0}{1}
+\beamer@subsectionintoc {1}{2}{Unterschiede gegenüber älteren Modellen}{6}{0}{1}
+\beamer@sectionintoc {2}{Modellschema}{9}{0}{2}
+\beamer@sectionintoc {3}{Gleichungssystem}{14}{0}{3}
+\beamer@subsectionintoc {3}{1}{Richards-Gleichung $\boldsymbol {\rightarrow }$ Näherung $\boldsymbol {\rightarrow }$ Matrixschreibweise}{14}{0}{3}
+\beamer@subsectionintoc {3}{2}{Matrix- und Vektorenelemente}{23}{0}{3}
+\beamer@subsectionintoc {3}{3}{Code-Beispiel}{27}{0}{3}
+\beamer@sectionintoc {4}{Zusammenfassung}{31}{0}{4}
