@@ -193,6 +193,19 @@ c_all = {c1,
          matrix1,
          matrix2}
 
+## Comparing computational effort for inverting normal and sparse matrices:
+n=100000;
+normat=diag([1:n], 0);
+normf=[n+1:2*n]';
+tic();
+normre=normat\normf;
+toc
+sparmat=sparse(normat);
+sparf=sparse(normf);
+tic();
+sparre=sparmat\sparf;
+toc
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % The following part is based on the following book: Wicki, Stefan (2010): Die nicht zu kurze Kurzeinführung in MATLAB. Norderstedt %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
