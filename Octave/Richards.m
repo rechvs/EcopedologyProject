@@ -1,7 +1,12 @@
 % Preamble %
 % Clear workspace:
 clear;
+% Set working directory:
+cd("/home/renke/laptop02_Projekt/Octave");
 % Model %
+% Take van Genuchten parameters from file "van_Genuchten_parameters.m":
+parset = "Ss";
+source("van_Genuchten_parameters.m");
 % Set model parameters:
 delta_t = 10; % distance between time levels in s
 delta_z = 0.3; % vertical distance between spatial levels in cm
@@ -13,13 +18,7 @@ z = [0:delta_z:z_final]'; % vector of spatial levels in cm
 H_top = -30000; % boundary condition at the top node in cm (equilibrium: -30)
 H_bot = -200; % boundary condition at bottom node in cm (equilibrium: 0)
 H_0 = linspace(H_bot,H_top,length(z))'; % initial conditions
-% Set parameters for "van_Genuchten_variables" (values taken from Celia et al. (1990), p. 1487 below eq. (13b)):
-theta_r = 0.102;
-theta_s =0.368;
-alpha = 0.0335;
-n = 2;
-K_s = 0.00922;
-[K_0, theta_0, C_0] = van_Genuchten_variables(alpha,n, theta_r, theta_s,    K_s,H_0);
+[K_0, theta_0, C_0] = van_Genuchten_variables(alpha, lambda, n, theta_r, theta_s, K_s, H_0);
 H_mat = zeros(length(z),length(t));
 H_mat(:,1) = H_0;
 theta_mat = zeros(length(z),length(t));
@@ -30,7 +29,7 @@ for timestep = 2:length(t)
   iteration_cntr = 0;
   flag = 0;
   while ((flag == 0))
-    [K_n_plus_1_m, theta_n_plus_1_m, C_n_plus_1_m] = van_Genuchten_variables(alpha,n,theta_r, theta_s, K_s,  H_n_plus_1_m);
+    [K_n_plus_1_m, theta_n_plus_1_m, C_n_plus_1_m] = van_Genuchten_variables(alpha, lambda, n,theta_r, theta_s, K_s, H_n_plus_1_m);
     Kmean=2./(1./K_n_plus_1_m(2:end)+1./K_n_plus_1_m(1:end-1));
     K_plus=[Kmean; Kmean(end)];
     K_minus=[Kmean(1); Kmean]; 
@@ -59,7 +58,7 @@ for timestep = 2:length(t)
       H_n = delta + H_n_plus_1_m;
       H_n(end) = H_top;
       flag = 1;
-      [K_n, theta_n, C_n] = van_Genuchten_variables(alpha, n, theta_r, theta_s,  K_s, H_n);
+      [K_n, theta_n, C_n] = van_Genuchten_variables(alpha, lambda, n, theta_r, theta_s, K_s, H_n);
     else
       flag = 0;
       H_n_plus_1_m = delta + H_n_plus_1_m;
@@ -72,8 +71,6 @@ for timestep = 2:length(t)
 endfor
 
 plot(H_mat(1,:))
-% Set working directory:
-% cd("/home/renke/laptop02_Projekt/Octave");
 % % Set graphics toolkit:
 % graphics_toolkit("gnuplot");
 % % Set destination directory for saving data:
