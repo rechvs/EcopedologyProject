@@ -1,11 +1,11 @@
 # This file contains van Genuchten parameter settings for different soil textures (and functions to translate between different units).
-# Switching between settings is done by setting the variable "parset" to the corresponding value (integer or character).
+# Switching between settings is done by setting the variable "parset" to the corresponding value (character).
 # Note: Every setting should contain a short comment and cite its source!
 ""; # This line is necessary to prevent Octave from considering the file to be a function file (and prompting for the correct function or file name at every save attempt).
 function K_s = K_s_to_cm_s(input)
   K_s = input * 1.1574 * 10^(-5);
 endfunction
-if (or((parset == 1),(parset == "Ss")))
+if (strcmp(parset,"Ss"))
 ### Source: Renger et al. (2009)
 # Comment:
 # - soil type: Ss
@@ -18,7 +18,7 @@ if (or((parset == 1),(parset == "Ss")))
   n = 1.35154;
   lambda = -0.594;
   K_s = K_s_to_cm_s(512.094);
-elseif (or((parset == 2),(parset == "Lt2")))
+elseif (strcmp(parset,"Lt2"))
 ### Source: Renger et al. (2009)
 # Comment:
 # - soil type: Lt2
@@ -31,7 +31,7 @@ elseif (or((parset == 2),(parset == "Lt2")))
   n = 1.20501;
   lambda = -3.226;
   K_s = K_s_to_cm_s(98.2);
-elseif (or((parset == 3),(parset == "Uu")))
+elseif (strcmp(parset,"Uu"))
 ### Source: Renger et al. (2009)
 # Comment:
 # - soil type: Uu
@@ -44,7 +44,7 @@ elseif (or((parset == 3),(parset == "Uu")))
   n = 1.21344;
   lambda = -0.561;
   K_s = K_s_to_cm_s(33.787);
-elseif (or((parset == 4),(parset == "Celia")))
+elseif (strcmp(parset,"Celia"))
 ### Source: Celia et al. (1990)
 # Comment:
 # - New Mexico field site
