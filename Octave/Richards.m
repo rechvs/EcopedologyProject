@@ -10,7 +10,6 @@ parset = "Lt2";
 parset = "Uu";
 parset = "Celia";
 source("van_Genuchten_parameters.m");
-
 # Set model parameters:
 delta_t = 10; # distance between time levels in s
 delta_z = 0.3; # vertical distance between spatial levels in cm
@@ -21,6 +20,8 @@ t = [(0 + delta_t):delta_t:t_final]'; # vector of time levels in s
 z = [0:delta_z:z_final]'; # vector of spatial levels in cm
 H_top = -30000; # boundary condition at the top node in cm (equilibrium: -30)
 H_bot = -200; # boundary condition at bottom node in cm (equilibrium: 0)
+H_top = -30; # boundary condition at the top node in cm (equilibrium: -30)
+H_bot = 0; # boundary condition at bottom node in cm (equilibrium: 0)
 H_0 = linspace(H_bot,H_top,length(z))'; # initial conditions
 [K_0, theta_0, C_0] = van_Genuchten_variables(alpha, lambda, n, theta_r, theta_s, K_s, H_0);
 H_mat = zeros(length(z),length(t));
