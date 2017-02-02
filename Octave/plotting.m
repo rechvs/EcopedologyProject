@@ -13,14 +13,15 @@ data_dir=[root_dir,"Daten/"];
 ## Set directory in which to save plots:
 plot_dir=[root_dir,"Grafiken/"];
 ## Set names of files from which to read data:
-H_mat_file = cat(2, data_dir, "H_mat.csv");
-theta_mat_file = cat(2, data_dir, "theta_mat.csv");
-par_struc_file = cat(2, data_dir, "par_struc.csv");
+par_set = "Ss";
+## par_set = "Lt2";
+## par_set = "Uu";
+## par_set = "Celia";
+par_struc_file = [data_dir,par_set,"_par_struc.csv"];
 ## Read data:
-load(H_mat_file);
-load(theta_mat_file);
 load(par_struc_file);
-
+load(par_struc.H_mat_file);
+load(par_struc.theta_mat_file);
 ##################
 ## Plot H in 2D ##
 ##################
@@ -32,7 +33,7 @@ current_dir = [plot_dir,"H_2D_plots/spatial_levels/"];
 ## Create "current_dir" if necessary:
 system(["mkdir -vp ",current_dir]);
 ## Remove all .pdf file from current directory:
-system(["rm -v ",current_dir,"*.pdf"]);
+## system(["rm -v ",current_dir,"*.pdf"]);
 ## for row = 1:rows(H_mat)
 for row = [1, round(median(1:rows(H_mat))), rows(H_mat)] ## plot only a selection of spatial levels
   ## row=2; ## TESTING
@@ -60,15 +61,14 @@ for row = [1, round(median(1:rows(H_mat))), rows(H_mat)] ## plot only a selectio
   limits = axis();
   text(limits(1)+0.75*(limits(2)-limits(1)),
        limits(3)+0.25*(limits(4)-limits(3)),
-       ["par\_set: ",par_struc.par_set],
+       ["par\_set: ",par_set],
        "interpreter",
        "none");
-  ## filename=([current_dir,"par_set_",par_struc.par_set,"_spatial_level_",sprintf("%03d",row),".pdf"]);
-  filename=([current_dir,par_struc.par_set,sprintf("%03d",row),".pdf"]);
+  filename=([current_dir,par_set,sprintf("_%03d",row),".pdf"]);
   print(figurehandle,
         filename);
 endfor
-system(["pdftk ",current_dir,"*.pdf cat output ",current_dir,par_struc.par_set,"_all.pdf"]);
+system(["pdftk ",current_dir,par_set,"_[0-9][0-9][0-9].pdf cat output ",current_dir,par_set,"_all.pdf"]);
 ############################################################
 ## Plot H for a single time level over all spatial levels ##
 ############################################################
@@ -77,7 +77,7 @@ current_dir = [plot_dir,"H_2D_plots/time_levels/"];
 ## Create "current_dir" if necessary:
 system(["mkdir -vp ",current_dir]);
 ## Remove all .pdf file from current directory:
-system(["rm -v ",current_dir,"*.pdf"]);
+## system(["rm -v ",current_dir,"*.pdf"]);
 ## for col = 1:columns(H_mat)
 for col = [1, round(median(1:columns(H_mat))), columns(H_mat)] ## plot only a selection of time levels
   ## col = 1; ## TESTING
@@ -105,15 +105,14 @@ for col = [1, round(median(1:columns(H_mat))), columns(H_mat)] ## plot only a se
   limits = axis();
   text(limits(1)+0.75*(limits(2)-limits(1)),
        limits(3)+0.25*(limits(4)-limits(3)),
-       ["par\_set: ",par_struc.par_set],
+       ["par\_set: ",par_set],
        "interpreter",
        "none");
-  ## filename=([current_dir,"par_set_",par_struc.par_set,"_time_level_",sprintf("%03d",col),".pdf"]);
-  filename=([current_dir,par_struc.par_set,sprintf("%03d",col),".pdf"]);
+  filename=([current_dir,par_set,sprintf("_%03d",col),".pdf"]);
   print(figurehandle,
         filename);
 endfor
-system(["pdftk ",current_dir,"*.pdf cat output ",current_dir,par_struc.par_set,"_all.pdf"]);
+system(["pdftk ",current_dir,par_set,"_[0-9][0-9][0-9].pdf cat output ",current_dir,par_set,"_all.pdf"]);
 
 ##################
 ## Plot H in 3D ##
