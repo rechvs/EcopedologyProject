@@ -5,11 +5,13 @@ clear;
 root_dir="~/laptop02_Projekt/";
 octave_dir=[root_dir,"Octave/"];
 cd(octave_dir);
+## Set destination directory for saving data:
+data_dir = "~/laptop02_Projekt/Daten/";
 ## Model #
 ## Set van Genuchten parameters using file "van_Genuchten_parameters.m":
-## par_set = "Ss";
-## par_set = "Lt2";
-## par_set = "Uu";
+par_set = "Ss";
+par_set = "Lt2";
+par_set = "Uu";
 par_set = "Celia";
 source("van_Genuchten_parameters.m");
 ## Set model parameters:
@@ -21,9 +23,10 @@ threshold_value = 0.001; ## set threshold value for delta
 t = [(0 + delta_t):delta_t:t_final]'; ## vector of time levels in s
 z = [0:delta_z:z_final]'; ## vector of spatial levels in cm
 ## Set boundary conditions using file "boundary_conditions.m":
-bound_con=1;
-## bound_con=2;
-## bound_con=3;
+bound_con=1; ## equilibrium
+bound_con=2; ## dry bottom, very dry top
+bound_con=3; ## free water at bottom, free water at top
+bound_con=4; ## ca. PWP at bottom, free water at top
 source("boundary_conditions.m");
 ## Set boundary conditions manually:
 ## H_top = -30000; ## boundary condition at the top node in cm (equilibrium: -30)
@@ -31,12 +34,18 @@ source("boundary_conditions.m");
 ## H_top = -30; ## boundary condition at the top node in cm (equilibrium: -30)
 ## H_bot = 0; ## boundary condition at bottom node in cm (equilibrium: 0)
 ## Set initial conditions using file "initial_conditions.m":
-init_con=1;
-## init_con=2;
-## init_con=3;
+init_con=1; ## linear change in pressure head using boundary conditions
+## init_con=2; ## linear change from free water at bottom to ca. PWP at top
+## init_con=3; ## linear change from free water at bottom to ca. FC at top
 source("initial_conditions.m");
 ## Set inital conditions manually:
 ## H_0 = linspace(H_bot,H_top,length(z))';
+## Set file name prefix:
+filename_prefix = [par_set,"_",num2str(bound_con),"_",num2str(init_con),"_"];
+## Create file to mark modelling attempt for the given parameter combination:
+attempt_message=["This file exists to document that the attempt to model the combination of \"par_set = \"",par_set,"\"\",  \"bound_con = ",num2str(bound_con),"\", and \"init_con = ",num2str(init_con),"\" was not successful."];
+attempt_file = [data_dir,filename_prefix,"attempted.txt"];
+save("-text",attempt_file,"attempt_message");
 [K_0, theta_0, C_0] = van_Genuchten_variables(alpha, lambda, n, theta_r, theta_s, K_s, H_0);
 H_mat = zeros(length(z),length(t));
 H_mat(:,1) = H_0;
@@ -91,16 +100,14 @@ endfor
 #################
 ## Saving data ##
 #################
-## Set destination directory for saving data:
-data_dir = "~/laptop02_Projekt/Daten/";
 ## Create "data_dir" if necessary:
 system(["mkdir -vp ",data_dir]);
 ## Remove all .csv files from "data_dir":
 ## system(["rm -v ",data_dir,"*.csv"]);
 ## Set names of files in which to save data:
-H_mat_file = [data_dir,par_set,"_H_mat.csv"];
-theta_mat_file = [data_dir,par_set,"_theta_mat.csv"];
-par_struc_file = [data_dir,par_set,"_par_struc.csv"];
+H_mat_file = [data_dir,filename_prefix,"H_mat.csv"];
+theta_mat_file = [data_dir,filename_prefix,"theta_mat.csv"];
+par_struc_file = [data_dir,filename_prefix,"par_struc.csv"];
 ## Store relevant parameters in structure "par_struc":
 par_struc.par_set = par_set;
 par_struc.alpha = alpha;
@@ -116,6 +123,7 @@ par_struc.z_final = z_final;
 par_struc.threshold_value = threshold_value;
 par_struc.bound_con = bound_con;
 par_struc.init_con = init_con;
+par_struc.filename_prefix = filename_prefix;
 par_struc.H_mat_file = H_mat_file;
 par_struc.theta_mat_file = theta_mat_file;
 ## Set default file type for saving data:
@@ -124,4 +132,5 @@ save_default_options("-text");
 save(H_mat_file, "H_mat");
 save(theta_mat_file, "theta_mat");
 save(par_struc_file, "par_struc");
-       
+## Remove dummy file after succesful modelling attempt:
+system(["rm -v ",attempt_file]);
