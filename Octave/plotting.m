@@ -1,49 +1,67 @@
+##############
+## Preamble ##
+##############
+## Set graphics toolkit:
+graphics_toolkit("gnuplot");
 ## Clear workspace:
 clear();
+## Set working directory:
+cd("/home/renke/laptop02_Projekt/Octave");
 ## Set directory from which to read data:
-data_dir = "../Daten/Probelaeufe/";
+data_dir = "../Daten/";
+## Set directory in which to save plots:
+plot_dir = "../Grafiken/";
 ## Set names of files from which to read data:
 H_mat_file = cat(2, data_dir, "H_mat.csv");
 theta_mat_file = cat(2, data_dir, "theta_mat.csv");
+par_struc_file = cat(2, data_dir, "par_struc.csv");
 ## Read data:
-H_mat = dlmread(H_mat_file," ",5,0);
-theta_mat = dlmread(theta_mat_file," ",5,0);
-## Set graphics toolkit:
-graphics_toolkit("gnuplot");
+load(H_mat_file);
+load(theta_mat_file);
+load(par_struc_file);
 
 ##################
 ## Plot H in 2D ##
 ##################
+## Set directory in which to store plots created by this paragraph:
+current_dir = [plot_dir,"H_2D_plots/spatial_levels/"];
+## Create "current_dir" if necessary:
+system(["mkdir -vp ",current_dir]);
+## Clear "current_dir":
+system(["rm -v ",current_dir,"*.pdf"]);
 ## Plot H for a single spatial level over all time levels:
-for row = 1:rows(H_mat)
-  close all;
-  y=H_mat(row,:);
-  x=1:length(y);
-  figurehandle = figure("papertype",
-		    "a4",
-		    "paperorientation",
-		    "landscape",
-		    "paperunits",
-		    "centimeters",
-		    "paperposition",
-		    [2 2 17 25.6],
-		    "visible",
-		    "off");
-  ## "on");
-  line(x,y,
-       "linewidth",
-       3);
-  xlabel("Time level");
-  ylabel("Pressure head [cm]");
-  title(["Spatial level: ",num2str(row)]);
-  grid ("on");
-  filename=(["../Grafiken/H_mat_2D_plots/spatial_levels/spatial_level_",sprintf("%03d",row),".pdf"]);
-  print(figurehandle,
-        filename);
-endfor
+## for row = 1:rows(H_mat)
+## for row = [1, median(1:rows(H_mat)), rows(H_mat)] ## plot only a selection of spatial levels
+row=1; ## TESTING
+close all;
+y=H_mat(row,:);
+x=1:length(y);
+figurehandle = figure("papertype",
+		  "a4",
+		  "paperorientation",
+		  "landscape",
+		  "paperunits",
+		  "centimeters",
+		  "paperposition",
+		  [2 2 17 25.6],
+		  "visible",
+		  "off");
+## "on");
+line(x,y,
+     "linewidth",
+     3);
+xlabel("Time level");
+ylabel("Pressure head [cm]");
+title(["Spatial level: ",num2str(row)]);
+grid ("on");
+filename=([current_dir,"spatial_level_",sprintf("%03d",row),".pdf"]);
+print(figurehandle,
+      filename);
+## endfor
 
 ## Plot H for a single time level over all spatial levels:
-for col = 1:columns(H_mat)
+## for col = 1:columns(H_mat)
+for col = [1, median(1:columns(H_mat)), columns(H_mat)] ## plot only a selection of time levels
   close all;
   y=H_mat(:,col);
   x=1:length(y);
