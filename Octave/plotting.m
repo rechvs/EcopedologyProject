@@ -13,15 +13,24 @@ data_dir=[root_dir,"Daten/"];
 ## Set directory in which to save plots:
 plot_dir=[root_dir,"Grafiken/"];
 ## Set names of files from which to read data:
-par_set = "Ss";
+## par_set = "Ss";
 ## par_set = "Lt2";
 ## par_set = "Uu";
-## par_set = "Celia";
-par_struc_file = [data_dir,par_set,"_par_struc.csv"];
+par_set = "Celia";
+bound_con = 1;
+## bound_con = 2;
+## bound_con = 3;
+## bound_con = 4;
+init_con = 1;
+## init_con = 2;
+## init_con = 3;
+## init_con = 4;
+par_struc_file = [data_dir,num2str(bound_con),"_",num2str(init_con),"_",par_set,"_","par_struc.csv"];
 ## Read data:
 load(par_struc_file);
 load(par_struc.H_mat_file);
 load(par_struc.theta_mat_file);
+filename_prefix = par_struc.filename_prefix;
 ##################
 ## Plot H in 2D ##
 ##################
@@ -64,11 +73,11 @@ for row = [1, round(median(1:rows(H_mat))), rows(H_mat)] ## plot only a selectio
        ["par\_set: ",par_set],
        "interpreter",
        "none");
-  filename=([current_dir,par_set,sprintf("_%03d",row),".pdf"]);
+  filename=([current_dir,filename_prefix,sprintf("%03d",row),".pdf"]);
   print(figurehandle,
         filename);
 endfor
-system(["pdftk ",current_dir,par_set,"_[0-9][0-9][0-9].pdf cat output ",current_dir,par_set,"_all.pdf"]);
+system(["pdftk ",current_dir,filename_prefix,"[0-9][0-9][0-9].pdf cat output ",current_dir,filename_prefix,"all.pdf"]);
 ############################################################
 ## Plot H for a single time level over all spatial levels ##
 ############################################################
@@ -108,11 +117,11 @@ for col = [1, round(median(1:columns(H_mat))), columns(H_mat)] ## plot only a se
        ["par\_set: ",par_set],
        "interpreter",
        "none");
-  filename=([current_dir,par_set,sprintf("_%03d",col),".pdf"]);
+  filename=([current_dir,filename_prefix,sprintf("%03d",col),".pdf"]);
   print(figurehandle,
         filename);
 endfor
-system(["pdftk ",current_dir,par_set,"_[0-9][0-9][0-9].pdf cat output ",current_dir,par_set,"_all.pdf"]);
+system(["pdftk ",current_dir,filename_prefix,"[0-9][0-9][0-9].pdf cat output ",current_dir,filename_prefix,"all.pdf"]);
 
 ##################
 ## Plot H in 3D ##
