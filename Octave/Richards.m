@@ -6,10 +6,10 @@ root_dir="~/laptop02_Projekt/";
 octave_dir=[root_dir,"Octave/"];
 cd(octave_dir);
 ## Model #
-## Take van Genuchten parameters from file "van_Genuchten_parameters.m":
-par_set = "Ss";
-par_set = "Lt2";
-par_set = "Uu";
+## Set van Genuchten parameters using file "van_Genuchten_parameters.m":
+## par_set = "Ss";
+## par_set = "Lt2";
+## par_set = "Uu";
 par_set = "Celia";
 source("van_Genuchten_parameters.m");
 ## Set model parameters:
@@ -20,11 +20,23 @@ z_final = 30; ## total distance between first and last spatial level in cm (shou
 threshold_value = 0.001; ## set threshold value for delta
 t = [(0 + delta_t):delta_t:t_final]'; ## vector of time levels in s
 z = [0:delta_z:z_final]'; ## vector of spatial levels in cm
-H_top = -30000; ## boundary condition at the top node in cm (equilibrium: -30)
-H_bot = -200; ## boundary condition at bottom node in cm (equilibrium: 0)
-H_top = -30; ## boundary condition at the top node in cm (equilibrium: -30)
-H_bot = 0; ## boundary condition at bottom node in cm (equilibrium: 0)
-H_0 = linspace(H_bot,H_top,length(z))'; ## initial conditions
+## Set boundary conditions using file "boundary_conditions.m":
+bound_con=1;
+## bound_con=2;
+## bound_con=3;
+source("boundary_conditions.m");
+## Set boundary conditions manually:
+## H_top = -30000; ## boundary condition at the top node in cm (equilibrium: -30)
+## H_bot = -200; ## boundary condition at bottom node in cm (equilibrium: 0)
+## H_top = -30; ## boundary condition at the top node in cm (equilibrium: -30)
+## H_bot = 0; ## boundary condition at bottom node in cm (equilibrium: 0)
+## Set initial conditions using file "initial_conditions.m":
+init_con=1;
+## init_con=2;
+## init_con=3;
+source("initial_conditions.m");
+## Set inital conditions manually:
+## H_0 = linspace(H_bot,H_top,length(z))';
 [K_0, theta_0, C_0] = van_Genuchten_variables(alpha, lambda, n, theta_r, theta_s, K_s, H_0);
 H_mat = zeros(length(z),length(t));
 H_mat(:,1) = H_0;
@@ -80,12 +92,16 @@ endfor
 ## Saving data ##
 #################
 ## Set destination directory for saving data:
-data_dir = "/home/renke/laptop02_Projekt/Daten/";
+data_dir = "~/laptop02_Projekt/Daten/";
 ## Create "data_dir" if necessary:
 system(["mkdir -vp ",data_dir]);
 ## Remove all .csv files from "data_dir":
 ## system(["rm -v ",data_dir,"*.csv"]);
-## Store current parameter setting in structure "par_struc":
+## Set names of files in which to save data:
+H_mat_file = [data_dir,par_set,"_H_mat.csv"];
+theta_mat_file = [data_dir,par_set,"_theta_mat.csv"];
+par_struc_file = [data_dir,par_set,"_par_struc.csv"];
+## Store relevant parameters in structure "par_struc":
 par_struc.par_set = par_set;
 par_struc.alpha = alpha;
 par_struc.lambda = lambda;
@@ -98,10 +114,10 @@ par_struc.delta_z = delta_z;
 par_struc.t_final = t_final;
 par_struc.z_final = z_final;
 par_struc.threshold_value = threshold_value;
-## Set names of files in which to save data:
-H_mat_file = cat(2, data_dir, "H_mat.csv");
-theta_mat_file = cat(2, data_dir, "theta_mat.csv");
-par_struc_file = cat(2, data_dir, "par_struc.csv");
+par_struc.bound_con = bound_con;
+par_struc.init_con = init_con;
+par_struc.H_mat_file = H_mat_file;
+par_struc.theta_mat_file = theta_mat_file;
 ## Set default file type for saving data:
 save_default_options("-text");
 ## Save data:
