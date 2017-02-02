@@ -1,4 +1,4 @@
-# This file contains van Genuchten parameter settings for different soil textures (and functions to translate between different units).
+## This file contains van Genuchten parameter settings for different soil textures (and functions to translate between different units).
 ## Switching between settings is done by setting the variable "par_set" to the corresponding value (character).
 ## Note: Every setting should contain a short comment and cite its source!
 ""; # This line is necessary to prevent Octave from considering the file to be a function file (and prompting for the correct function or file name at every save attempt).
