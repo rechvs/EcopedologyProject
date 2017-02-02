@@ -2,7 +2,9 @@
 ## Clear workspace:
 clear;
 ## Set working directory:
-cd("/home/renke/laptop02_Projekt/Octave");
+root_dir="~/laptop02_Projekt/";
+octave_dir=[root_dir,"Octave/"];
+cd(octave_dir);
 ## Model #
 ## Take van Genuchten parameters from file "van_Genuchten_parameters.m":
 par_set = "Ss";
@@ -78,7 +80,11 @@ endfor
 ## Saving data ##
 #################
 ## Set destination directory for saving data:
-data_dir = "../Daten/";
+data_dir = "/home/renke/laptop02_Projekt/Daten/";
+## Create "data_dir" if necessary:
+system(["mkdir -vp ",data_dir]);
+## Remove all .csv files from "data_dir":
+## system(["rm -v ",data_dir,"*.csv"]);
 ## Store current parameter setting in structure "par_struc":
 par_struc.par_set = par_set;
 par_struc.alpha = alpha;
