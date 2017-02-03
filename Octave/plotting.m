@@ -13,19 +13,19 @@ data_dir=[root_dir,"Daten/"];
 ## Set directory in which to save plots:
 plot_dir=[root_dir,"Grafiken/"];
 ## Set names of files from which to read data:
-## par_set = "Ss";
-## par_set = "Lt2";
-## par_set = "Uu";
 par_set = "Celia";
-bound_con = 1;
-## bound_con = 2;
-## bound_con = 3;
-## bound_con = 4;
-init_con = 1;
-## init_con = 2;
-## init_con = 3;
-## init_con = 4;
-par_struc_file = [data_dir,num2str(bound_con),"_",num2str(init_con),"_",par_set,"_","par_struc.csv"];
+par_set = "Lt2";
+par_set = "Ss";
+par_set = "Uu";
+bound_con = 1;    
+## init_con = 4; ## equilibrium
+## bound_con = 2; ## dry bottom, very dry top
+## bound_con = 3; ## free water at bottom, free water at top
+## bound_con = 4; ## ca. PWP at bottom, free water at top
+init_con = 1; ## linear change in pressure head using boundary conditions 
+## init_con = 2; ## linear change from free water at bottom to ca. PWP at top
+## init_con = 3; ## linear change from free water at bottom to ca. FC at top 
+par_struc_file = [data_dir,par_set,"_",num2str(bound_con),"_",num2str(init_con),"_","par_struc.csv"];
 ## Read data:
 load(par_struc_file);
 load(par_struc.H_mat_file);
