@@ -10,11 +10,12 @@ data_dir = "~/laptop02_Projekt/Daten/";
 ###########
 ## Model ##
 ###########
-for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
+## for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
+for par_set = {"Lt2","Ss","Tt","Uu"} ## DEBUGGING
 ## for par_set = {"Celia"} ## DEBUGGING
   par_set = par_set{1}; # necessary for accessing the string from the cell array
-  for bound_con = [1,2,3,4]
-  ## for bound_con = [4] ## DEBUGGING
+  ## for bound_con = [1,2,3,4]
+  for bound_con = [4] ## DEBUGGING
     for init_con = [1,2]
     ## for init_con = [1] ## DEBUGGING
       ## Begin “try” block:
@@ -86,17 +87,17 @@ for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
         [msg,msgid] = lasterr();
         ## sprintf("last error: %s",msg)
         ## Create dummy file to mark modelling attempt for the given parameter setting and conditions:
-        textbox = [sprintf("%s%s","par_set: ",par_set),
-	         sprintf("%s%s","H_top: ",num2str(H_top)),
-	         sprintf("%s%s","H_bot: ",num2str(H_bot)),
-	         sprintf("%s%s","init_con_string: ",init_con_string),
-	         sprintf("%s%s","threshold_iteration_cntr: ",num2str(threshold_iteration_cntr))];
-        attempt_message=[sprintf("%s\n",
+        textbox = {sprintf("%s%s","par_set = ",par_set),
+	         sprintf("%s%s","H_top = ",num2str(H_top)),
+	         sprintf("%s%s","H_bot = ",num2str(H_bot)),
+	         sprintf("%s%s","init_con_string = ",init_con_string),
+	         sprintf("%s%s","threshold_iteration_cntr = ",num2str(threshold_iteration_cntr))};
+        attempt_message = [sprintf("%s\n",
 			   "This file exists to document that the attempt to model the combination of ",
-			   textbox,
+			   sprintf("%s\n",textbox{1:end}),
 			   "was not successful. Last error message was: ",
 			   msg)];
-        attempt_file = [data_dir,filename_prefix,"attempted.txt"];
+        attempt_file = [data_dir,filename_prefix,"attempted.csv"];
         save("-text",attempt_file,"attempt_message");
       end_try_catch
     endfor
