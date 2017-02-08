@@ -20,10 +20,11 @@ if ((exist("outside_call") == 0))
   lambda = 0.5;
   ## H_bot = 0;
   ## H_top = -z_final;
-  H_bot = -60;
-  H_top = 0;
-  ## H_0 = linspace(H_bot,H_top,length(z))';
-  H_0 = linspace(-60,-30,length(z))';
+  H_bot = 0;
+  H_top = -100;
+  H_0 = linspace(H_bot,H_top,length(z))';
+  H_top=-28;
+  H_0(end)=H_top;
 endif
 ## Set working directory:
 root_dir="~/laptop02_Projekt/";
@@ -39,7 +40,7 @@ for timestep = 2:length(t)
   H_n_plus_1_m = H_mat(:,timestep-1);
   theta_n = theta_mat(:,timestep-1);
   iteration_cntr = 0; ## DEBUGGING
-  threshold_iteration_cntr = 10; ## DEBUGGING
+  threshold_iteration_cntr = 100; ## DEBUGGING
   flag = 0;
   while ((flag == 0))
     [K_n_plus_1_m, theta_n_plus_1_m, C_n_plus_1_m] = van_Genuchten_variables(alpha, lambda, n,theta_r, theta_s, K_s, H_n_plus_1_m);
@@ -52,21 +53,31 @@ for timestep = 2:length(t)
     Beta(node) = C_n_plus_1_m(node)/delta_t + (K_plus(node)./delta_z.^2 + K_minus(node)./delta_z.^2);
     Gamma(node) = -K_plus(node)./delta_z.^2;
     f(node) = (1./delta_z.^2) .* (K_plus(node).*(H_n_plus_1_m(node+1)-H_n_plus_1_m(node)) - K_minus(node).*(H_n_plus_1_m(node)-H_n_plus_1_m(node-1))) +(K_plus(node)- K_minus(node))/delta_z - (theta_n_plus_1_m(node) - theta_n(node))/delta_t;
-    ## bottom node
+    ## bottom node % constant pressure
     node=1;
     Alpha(node) = 0;
-    Beta(node) = C_n_plus_1_m(node)/delta_t + (K_plus(node)./delta_z.^2 + 0);
-    Gamma(node) = -K_plus(node)./delta_z.^2;
-    f(node) = (1./delta_z.^2) .* (K_plus(node).*(H_n_plus_1_m(node+1)-H_n_plus_1_m(node)) - 0) +(K_plus(node)- 0)/delta_z- (theta_n_plus_1_m(node) - theta_n(node))/delta_t;
-    ## top node
+    Beta(node) = 1;
+    Gamma(node) = 0;
+    f(node) = 0;
+    ## bottom node % no flux
+    ## node=1;
+    ## Alpha(node) = 0;
+    ## Beta(node) = C_n_plus_1_m(node)/delta_t + (K_plus(node)./delta_z.^2 + 0);
+    ## Gamma(node) = -K_plus(node)./delta_z.^2;
+    ## f(node) = (1./delta_z.^2) .* (K_plus(node).*(H_n_plus_1_m(node+1)-H_n_plus_1_m(node)) - 0) +(K_plus(node)- 0)/delta_z- (theta_n_plus_1_m(node) - theta_n(node))/delta_t;
+
+    ## top node % constant pressure
     node=size(H_n_plus_1_m,1);
     Alpha(node) = 0;
     Beta(node) = 1;
     Gamma(node) = 0;
     f(node) = 0;
+
     ## create A
     A=sparse(diag(Beta))+sparse(diag(Gamma(1:end-1),1))+sparse(diag(Alpha(2:end),-1));
     delta = full(A\sparse(f'));
+
+    ## check whether we need another iteration step
     if (max(abs(delta)) <= abs(threshold_delta))
       H_n = delta + H_n_plus_1_m;
       H_n(end) = H_top;
