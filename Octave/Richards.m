@@ -20,10 +20,11 @@ t = [(0 + delta_t):delta_t:t_final]'; ## vector of time levels in s
 z = [0:delta_z:z_final]'; ## vector of spatial levels in cm
 for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
 ## for par_set = {"Celia"}
-  par_set = par_set{1};
-  ## for bound_con = [1,2,3,4]
-  for bound_con = 4
-    for init_con = [1]
+  par_set = par_set{1}; # necessary for “for” loop
+  ## for bound_con = [1,2,3,4] # par_set = "Lt2" and bound_con = 4 does not converge
+  for bound_con = 4 ## TESTING
+    ## for init_con = [1]
+    for init_con = [2]
       ## Set van Genuchten parameters using file "van_Genuchten_parameters.m":
       ## par_set = "Celia";
       ## par_set = "Lt2";
@@ -41,8 +42,15 @@ for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
       ## Set file name prefix:
       filename_prefix = [par_set,"_",num2str(bound_con),"_",num2str(init_con),"_"];
       ## Create dummy file to mark modelling attempt for the given parameter combination:
-      textbox = ["par_set: ",par_set,sprintf("\n"),"H_top: ",num2str(H_top),sprintf("\n"),"H_bot: ",num2str(H_bot),sprintf("\n"),"init_con_string: ",init_con_string];
-      attempt_message=["This file exists to document that the attempt to model the combination of ",sprintf("\n"),textbox,sprintf("\n"),"was not successful."];
+      textbox = [sprintf("%s%s","par_set: ",par_set),
+	       sprintf("%s%s","H_top: ",num2str(H_top)),
+	       sprintf("%s%s","H_bot: ",num2str(H_bot)),
+	       sprintf("%s%s","init_con_string: ",init_con_string)];
+      ## attempt_message=["This file exists to document that the attempt to model the combination of ",sprintf("\n"),textbox,sprintf("\n"),"was not successful."];
+      attempt_message=[sprintf("%s\n%s\n%s",
+			 "This file exists to document that the attempt to model the combination of ",
+			 textbox,
+			 "was not successful.")];
       ## attempt_message=["This file exists to document that the attempt to model the combination of \"par_set = \"",par_set,"\"\",  \"bound_con = ",num2str(bound_con),"\", and \"init_con = ",num2str(init_con),"\" was not successful."];
       attempt_file = [data_dir,filename_prefix,"attempted.txt"];
       save("-text",attempt_file,"attempt_message");
@@ -123,6 +131,8 @@ for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
       par_struct.delta_z = delta_z;
       par_struct.t_final = t_final;
       par_struct.z_final = z_final;
+      par_struct.length_t = length(t);
+      par_struct.length_z = length(z);
       par_struct.threshold_value = threshold_value;
       par_struct.bound_con = bound_con;
       par_struct.init_con = init_con;
