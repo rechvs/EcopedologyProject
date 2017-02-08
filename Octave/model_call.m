@@ -11,15 +11,25 @@ data_dir = "~/laptop02_Projekt/Daten/";
 ## Model ##
 ###########
 for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
-  ## for par_set = {"Celia"} ## DEBUGGING
+## for par_set = {"Celia"} ## DEBUGGING
   par_set = par_set{1}; # necessary for accessing the string from the cell array
   for bound_con = [1,2,3,4]
-  ## for bound_con = 4 ## DEBUGGING
+  ## for bound_con = [4] ## DEBUGGING
     for init_con = [1,2]
     ## for init_con = [1] ## DEBUGGING
       ## Begin “try” block:
       try
-        ## Retrieve van Genuchten parameters and conditions from input files:
+        ## Set general model parameters:
+        delta_t = 10;
+        delta_z = 0.3;
+        t_final = 43200;
+        z_final = 30;
+        threshold_delta = 0.001;
+        t = [(0 + delta_t):delta_t:t_final]';
+        z = [0:delta_z:z_final]';
+        ## Set threshold for maximum number of iterations:
+        threshold_iteration_cntr = 100; ## DEBUGGING
+        ## Retrieve van Genuchten parameters and model conditions from input files:
         source("van_Genuchten_parameters.m");
         source("boundary_conditions.m");
         source("initial_conditions.m");
@@ -29,18 +39,6 @@ for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
         results_struct_file_name = [data_dir,filename_prefix,"results_struct.csv"];
         ## Delete results from previous run:
         system(["rm -vf ",results_struct_file_name]);
-        ## Create dummy file to mark modelling attempt for the given parameter setting and conditions:
-        textbox = [sprintf("%s%s","par_set: ",par_set),
-	         sprintf("%s%s","H_top: ",num2str(H_top)),
-	         sprintf("%s%s","H_bot: ",num2str(H_bot)),
-	         sprintf("%s%s","init_con_string: ",init_con_string),
-	         sprintf("%s%s","threshold_iteration_cntr: ",num2str(threshold_iteration_cntr))];
-        attempt_message=[sprintf("%s\n%s\n%s",
-			   "This file exists to document that the attempt to model the combination of ",
-			   textbox,
-			   "was not successful.")];
-        attempt_file = [data_dir,filename_prefix,"attempted.txt"];
-        save("-text",attempt_file,"attempt_message");
         ## Let the model know whether it was called from outside:
         outside_call = 1;
         ## RUN MODEL ##
@@ -86,7 +84,20 @@ for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
         ## Begin “catch” block:
       catch
         [msg,msgid] = lasterr();
-        sprintf("last error: %s",msg)
+        ## sprintf("last error: %s",msg)
+        ## Create dummy file to mark modelling attempt for the given parameter setting and conditions:
+        textbox = [sprintf("%s%s","par_set: ",par_set),
+	         sprintf("%s%s","H_top: ",num2str(H_top)),
+	         sprintf("%s%s","H_bot: ",num2str(H_bot)),
+	         sprintf("%s%s","init_con_string: ",init_con_string),
+	         sprintf("%s%s","threshold_iteration_cntr: ",num2str(threshold_iteration_cntr))];
+        attempt_message=[sprintf("%s\n",
+			   "This file exists to document that the attempt to model the combination of ",
+			   textbox,
+			   "was not successful. Last error message was: ",
+			   msg)];
+        attempt_file = [data_dir,filename_prefix,"attempted.txt"];
+        save("-text",attempt_file,"attempt_message");
       end_try_catch
     endfor
   endfor
