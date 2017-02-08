@@ -1,8 +1,6 @@
 ##############
 ## Preamble ##
 ##############
-## Set graphics toolkit:
-graphics_toolkit("gnuplot");
 ## Clear workspace:
 clear();
 ## Set working directory:
