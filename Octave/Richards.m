@@ -15,16 +15,17 @@ delta_t = 10; ## distance between time levels in s
 delta_z = 0.3; ## vertical distance between spatial levels in cm
 t_final = 43200; ## total distance between first and last time level in s
 z_final = 30; ## total distance between first and last spatial level in cm
-threshold_value = 0.001; ## set threshold value for delta
+threshold_delta = 0.001; ## set threshold value for delta
+threshold_iteration_cntr = 10; ## TESTING
 t = [(0 + delta_t):delta_t:t_final]'; ## vector of time levels in s
 z = [0:delta_z:z_final]'; ## vector of spatial levels in cm
 for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
 ## for par_set = {"Celia"}
   par_set = par_set{1}; # necessary for “for” loop
-  ## for bound_con = [1,2,3,4] # par_set = "Lt2" and bound_con = 4 does not converge
+  ## for bound_con = [1,2,3,4] # “par_set = "Lt2"” and “bound_con = 4” does not converge
   for bound_con = 4 ## TESTING
     ## for init_con = [1]
-    for init_con = [2]
+    for init_con = [1,2]
       ## Set van Genuchten parameters using file "van_Genuchten_parameters.m":
       ## par_set = "Celia";
       ## par_set = "Lt2";
@@ -41,11 +42,16 @@ for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
       source("initial_conditions.m");
       ## Set file name prefix:
       filename_prefix = [par_set,"_",num2str(bound_con),"_",num2str(init_con),"_"];
-      ## Create dummy file to mark modelling attempt for the given parameter combination:
+      ## Set name of file in which to save data:
+      results_struct_file_name = [data_dir,filename_prefix,"results_struct.csv"];
+      ## Delete results from previous run:
+      system(["rm -vf ",results_struct_file_name]); ## TESTING
+      ## Create dummy file to mark modelling attempt for the given options:
       textbox = [sprintf("%s%s","par_set: ",par_set),
 	       sprintf("%s%s","H_top: ",num2str(H_top)),
 	       sprintf("%s%s","H_bot: ",num2str(H_bot)),
-	       sprintf("%s%s","init_con_string: ",init_con_string)];
+	       sprintf("%s%s","init_con_string: ",init_con_string),
+	       sprintf("%s%s","threshold_iteration_cntr: ",num2str(threshold_iteration_cntr))];
       ## attempt_message=["This file exists to document that the attempt to model the combination of ",sprintf("\n"),textbox,sprintf("\n"),"was not successful."];
       attempt_message=[sprintf("%s\n%s\n%s",
 			 "This file exists to document that the attempt to model the combination of ",
@@ -60,6 +66,7 @@ for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
       H_mat(:,1) = H_0;
       theta_mat = zeros(length(z),length(t));
       theta_mat(:,1) = theta_0;
+      try
       for timestep = 2:length(t)
         H_n_plus_1_m = H_mat(:,timestep-1);
         theta_n = theta_mat(:,timestep-1);
@@ -91,7 +98,7 @@ for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
 	## create A
 	A=sparse(diag(Beta))+sparse(diag(Gamma(1:end-1),1))+sparse(diag(Alpha(2:end),-1));
 	delta = full(A\sparse(f'));
-	if (max(abs(delta)) <= abs(threshold_value))
+	if (max(abs(delta)) <= abs(threshold_delta))
 	  H_n = delta + H_n_plus_1_m;
 	  H_n(end) = H_top;
 	  flag = 1;
@@ -102,6 +109,11 @@ for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
 	  H_n_plus_1_m(end) = H_top;
 	  H_n = H_n_plus_1_m;
 	endif
+	++iteration_cntr; ## TESTING
+	iteration_cntr  ## TESTING
+	if (iteration_cntr > threshold_iteration_cntr) ## TESTING
+	  error("%s","too many iterations required.") ## TESTING
+	endif ## TESTING
         endwhile
         H_mat(:,timestep) = H_n;
         theta_mat(:,timestep) = theta_n;
@@ -114,8 +126,6 @@ for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
       system(["mkdir -vp ",data_dir]);
       ## Remove all .csv files from "data_dir":
       ## system(["rm -v ",data_dir,"*.csv"]);
-      ## Set names of files in which to save data:
-      results_struct_file_name = [data_dir,filename_prefix,"results_struct.csv"];
       ## H_mat_file = [data_dir,filename_prefix,"H_mat.csv"];
       ## theta_mat_file = [data_dir,filename_prefix,"theta_mat.csv"];
       ## par_struct_file = [data_dir,filename_prefix,"par_struct.csv"];
@@ -133,12 +143,13 @@ for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
       par_struct.z_final = z_final;
       par_struct.length_t = length(t);
       par_struct.length_z = length(z);
-      par_struct.threshold_value = threshold_value;
+      par_struct.threshold_delta = threshold_delta;
       par_struct.bound_con = bound_con;
       par_struct.init_con = init_con;
       par_struct.init_con_string = init_con_string;
       par_struct.H_top = H_top;
       par_struct.H_bot = H_bot;
+      par_struct.threshold_iteration_cntr = threshold_iteration_cntr;
       par_struct.filename_prefix = filename_prefix;
       ## par_struct.H_mat_file = H_mat_file;
       ## par_struct.theta_mat_file = theta_mat_file;
@@ -155,6 +166,10 @@ for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
       ## save(par_struct_file, "par_struct");
       ## Remove dummy file after succesful modelling attempt:
       system(["rm -v ",attempt_file]);
+      catch ## TESTING
+        [msg,msgid] = lasterr(); ## TESTING
+        sprintf("last error: %s",msg) ## TESTING
+      end_try_catch ## TESTING
     endfor
   endfor
 endfor
