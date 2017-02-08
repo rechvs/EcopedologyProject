@@ -16,11 +16,12 @@ system(["mkdir -vp ",plot_dir]);
 ## Set and create directory in which to temporarily save plots:
 tmp_dir=[plot_dir,"tmp/"];
 system(["mkdir -vp ",tmp_dir]);
-## for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
-for par_set = {"Celia"} ## TESTING
-  par_set = par_set{1};
+for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
+## for par_set = {"Celia"} ## TESTING
+  par_set = par_set{1}; # necessary for “for” loop
   ## for bound_con = [1,2,3,4]
-  for bound_con = 4
+  for bound_con = [1,2,3] ## TESTING (since bound_con = 4 does not converge for some par_sets)
+  ## for bound_con = 4
     for init_con = [1]
       ## Set names of files from which to read data:
       ## par_set = "Celia";
@@ -44,8 +45,20 @@ for par_set = {"Celia"} ## TESTING
       filename_prefix = par_struct.filename_prefix;
       H_top = par_struct.H_top;
       H_bot = par_struct.H_bot;
+      length_t = par_struct.length_t;
+      length_z = par_struct.length_z;
       init_con_string = par_struct.init_con_string;
-      textbox = ["par_set: ",par_set,sprintf("\n"),"H_top: ",num2str(H_top),sprintf("\n"),"H_bot: ",num2str(H_bot),sprintf("\n"),"init_con_string: ",init_con_string];
+      #textbox = ["par_set: ",par_set,sprintf("\n"),"H_top: ",num2str(H_top),sprintf("\n"),"H_bot: ",num2str(H_bot),sprintf("\n"),"init_con_string: ",init_con_string];
+      textbox_spatial = [sprintf("%s%s","par_set: ",par_set),
+		     sprintf("%s%s","length(z): ",num2str(length_z)),
+		     sprintf("%s%s","H_top: ",num2str(H_top)),
+		     sprintf("%s%s","H_bot: ",num2str(H_bot)),
+		     sprintf("%s%s","init_con_string: ",init_con_string)];
+      textbox_time = [sprintf("%s%s","par_set: ",par_set),
+		  sprintf("%s%s","length(t): ",num2str(length_t)),
+		  sprintf("%s%s","H_top: ",num2str(H_top)),
+		  sprintf("%s%s","H_bot: ",num2str(H_bot)),
+		  sprintf("%s%s","init_con_string: ",init_con_string)];
       ##################
       ## Plot H in 2D ##
       ##################
@@ -87,7 +100,7 @@ for par_set = {"Celia"} ## TESTING
         limits = axis();
         text(limits(1)+0.5*(limits(2)-limits(1)),
 	   limits(3)+0.25*(limits(4)-limits(3)),
-	   textbox,
+	   textbox_spatial,
 	   "interpreter",
 	   "none");
         filename=([tmp_dir,filename_prefix,sprintf("%09d",row),".pdf"]);
@@ -95,9 +108,9 @@ for par_set = {"Celia"} ## TESTING
 	    filename);
       endfor
       system(["pdftk ",tmp_dir,filename_prefix,"*.pdf cat output ",current_dir,filename_prefix,"all.pdf"]);
-############################################################
+      ############################################################
       ## Plot H for a single time level over all spatial levels ##
-############################################################
+      ############################################################
       ## Set directory in which to save plots created by this block:
       current_dir = [plot_dir,"H_2D_plots/time_levels/"];
       ## Create "current_dir" if necessary:
@@ -133,7 +146,7 @@ for par_set = {"Celia"} ## TESTING
         limits = axis();
         text(limits(1)+0.5*(limits(2)-limits(1)),
 	   limits(3)+0.25*(limits(4)-limits(3)),
-	   textbox,
+	   textbox_time,
 	   "interpreter",
 	   "none");
         filename=([tmp_dir,filename_prefix,sprintf("%09d",col),".pdf"]);
