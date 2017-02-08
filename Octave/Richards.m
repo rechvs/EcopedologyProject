@@ -1,17 +1,15 @@
-## If the model was not called from outside, clear workspace:
 if ((exist("outside_call") == 0))
+   ## Clear workspace:
   clear;
-endif
-## Set general model parameters:
-delta_t = 10;
-delta_z = 0.3;
-t_final = 43200;
-z_final = 30;
-threshold_delta = 0.001;
-t = [(0 + delta_t):delta_t:t_final]';
-z = [0:delta_z:z_final]';
-## If the model was not called from outside, set van Genuchten parameters and model conditions:
-if ((exist("outside_call") == 0))
+  ## Set general model parameters:
+  delta_t = 10;
+  delta_z = 0.3;
+  t_final = 43200;
+  z_final = 30;
+  threshold_delta = 0.001;
+  t = [(0 + delta_t):delta_t:t_final]';
+  z = [0:delta_z:z_final]';
+  ## Set van Genuchten parameters and model conditions:
   alpha = 0.0335;
   theta_s = 0.368;
   theta_r = 0.102;
@@ -25,11 +23,13 @@ if ((exist("outside_call") == 0))
   H_0 = linspace(H_bot,H_top,length(z))';
   H_top=-28;
   H_0(end)=H_top;
+  ## Set working directory:
+  root_dir="~/laptop02_Projekt/";
+  octave_dir=[root_dir,"Octave/"];
+  cd(octave_dir);
+  ## Set threshold for maximum number of iterations:
+  threshold_iteration_cntr = 100; ## DEBUGGING
 endif
-## Set working directory:
-root_dir="~/laptop02_Projekt/";
-octave_dir=[root_dir,"Octave/"];
-cd(octave_dir);
 ## Run the model:
 [K_0, theta_0, C_0] = van_Genuchten_variables(alpha, lambda, n, theta_r, theta_s, K_s, H_0);
 H_mat = zeros(length(z),length(t));
@@ -40,13 +40,13 @@ for timestep = 2:length(t)
   H_n_plus_1_m = H_mat(:,timestep-1);
   theta_n = theta_mat(:,timestep-1);
   iteration_cntr = 0; ## DEBUGGING
-  threshold_iteration_cntr = 100; ## DEBUGGING
   flag = 0;
   while ((flag == 0))
     [K_n_plus_1_m, theta_n_plus_1_m, C_n_plus_1_m] = van_Genuchten_variables(alpha, lambda, n,theta_r, theta_s, K_s, H_n_plus_1_m);
     Kmean=2./(1./K_n_plus_1_m(2:end)+1./K_n_plus_1_m(1:end-1));
     K_plus=[Kmean; Kmean(end)];
     K_minus=[Kmean(1); Kmean]; 
+
     ## intermediate nodes
     node=2:size(H_n_plus_1_m,1)-1; 
     Alpha(node) = -K_minus(node)./delta_z.^2;
