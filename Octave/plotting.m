@@ -17,28 +17,14 @@ system(["mkdir -vp ",plot_dir]);
 tmp_dir=[plot_dir,"tmp/"];
 system(["mkdir -vp ",tmp_dir]);
 for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
-## for par_set = {"Celia"} ## TESTING
-  par_set = par_set{1}; # necessary for “for” loop
-  ## for bound_con = [1,2,3,4]
-  for bound_con = [1,2,3] ## TESTING (since bound_con = 4 does not converge for some par_sets)
-  ## for bound_con = 4
-    for init_con = [1]
-      ## Set names of files from which to read data:
-      ## par_set = "Celia";
-      ## par_set = "Lt2";
-      ## par_set = "Ss";
-      ## par_set = "Uu";
-      ## bound_con=1; ## equilibrium
-      ## bound_con=2; ## free water at bottom, ca. FC at top
-      ## bound_con=3; ## free water at bottom, dry top
-      ## init_con=1; ## linear change using boundary conditions
+  par_set = par_set{1}; # necessary for accessing the string from the cell array
+  for bound_con = [1,2,3,4]
+    for init_con = [1,2]
+      try ## TESTING
+      ## Set name of file from which to read data:
       results_struct_file_name = [data_dir,par_set,"_",num2str(bound_con),"_",num2str(init_con),"_","results_struct.csv"];
-      ## par_struc_file = [data_dir,par_set,"_",num2str(bound_con),"_",num2str(init_con),"_","par_struc.csv"];
       ## Read data:
       load(results_struct_file_name);
-      ## load(par_struc_file);
-      ## load(par_struc.H_mat_file);
-      ## load(par_struc.theta_mat_file);
       H_mat = results_struct.H_mat;
       theta_mat = results_struct.theta_mat;
       par_struct = results_struct.par_struct;
@@ -48,14 +34,13 @@ for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
       length_t = par_struct.length_t;
       length_z = par_struct.length_z;
       init_con_string = par_struct.init_con_string;
-      #textbox = ["par_set: ",par_set,sprintf("\n"),"H_top: ",num2str(H_top),sprintf("\n"),"H_bot: ",num2str(H_bot),sprintf("\n"),"init_con_string: ",init_con_string];
       textbox_spatial = [sprintf("%s%s","par_set: ",par_set),
-		     sprintf("%s%s","length(z): ",num2str(length_z)),
+		     #sprintf("%s%s","Spatial levels: ",num2str(length_z)),
 		     sprintf("%s%s","H_top: ",num2str(H_top)),
 		     sprintf("%s%s","H_bot: ",num2str(H_bot)),
 		     sprintf("%s%s","init_con_string: ",init_con_string)];
       textbox_time = [sprintf("%s%s","par_set: ",par_set),
-		  sprintf("%s%s","length(t): ",num2str(length_t)),
+		  #sprintf("%s%s","Time levels: ",num2str(length_t)),
 		  sprintf("%s%s","H_top: ",num2str(H_top)),
 		  sprintf("%s%s","H_bot: ",num2str(H_bot)),
 		  sprintf("%s%s","init_con_string: ",init_con_string)];
@@ -95,7 +80,7 @@ for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
 	   "red");
         xlabel("Time level");
         ylabel("Pressure head [cm]");
-        title(["Spatial level: ",num2str(row)]);
+        title(["Spatial level: ",num2str(row),"/",num2str(length_z)]);
         grid ("on");
         limits = axis();
         text(limits(1)+0.5*(limits(2)-limits(1)),
@@ -141,7 +126,7 @@ for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
 	   "red");
         xlabel("Spatial level");
         ylabel("Pressure head [cm]");
-        title(["Time level: ",num2str(col)]);
+        title(["Time level: ",num2str(col),"/",num2str(length_t)]);
         grid ("on");
         limits = axis();
         text(limits(1)+0.5*(limits(2)-limits(1)),
@@ -154,6 +139,10 @@ for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
 	    filename);
       endfor
       system(["pdftk ",tmp_dir,filename_prefix,"*.pdf cat output ",current_dir,filename_prefix,"all.pdf"]);
+      catch
+        [msg,msgid] = lasterr(); ## TESTING
+        sprintf("last error: %s",msg) ## TESTING
+        end_try_catch
     endfor
   endfor
 endfor
