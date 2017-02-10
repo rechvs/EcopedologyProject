@@ -55,7 +55,7 @@ for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
       ## Remove all .pdf files from "tmp_dir":
       system(["rm -vf ",tmp_dir,"*.pdf"]);
       ## for row = 1:rows(H_mat)
-      for row = [1, round(median(1:rows(H_mat))), rows(H_mat)-1] ## plot only a selection of spatial levels
+      for row = [2, round(median(1:rows(H_mat))), rows(H_mat)-1] ## plot only a selection of spatial levels
         ## row=2; ## TESTING
         ## close all;
         y=H_mat(row,:);
@@ -101,7 +101,7 @@ for par_set = {"Celia","Lt2","Ss","Tt","Uu"}
       ## Remove all .pdf files from current directory:
       system(["rm -v ",tmp_dir,"*.pdf"]);
       ## for col = 1:columns(H_mat)
-      for col = [1, round(median(1:columns(H_mat))), columns(H_mat)-1] ## plot only a selection of time levels
+      for col = [2, round(median(1:columns(H_mat))), columns(H_mat)] ## plot only a selection of time levels
         ## col = 1; ## TESTING
         ## close all;
         y=H_mat(:,col);
