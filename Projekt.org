@@ -1,4 +1,17 @@
 * TODO
+** CURRENT check all entries via “zotero” in [[file:Literatur/Projekt_Literaturliste_abstracts.bib::1][Projekt_Literaturliste_abstracts.bib]] matching the search term “hydraulic” (search in “Everything”) for references regarding the topics “hydraulic lift” and “hydraulic redistribution” [“[x]” means all the seemingly relevant references of the item have been attempted to aquire]:
+   + [X] Bayalaa et al. 2008
+   + [X] Bhatnagar et al. 1979
+   + [X] Caldwell et al. 1998
+   + [X] Dawson 1993
+   + [X] Emerman & Dawson 1996
+   + [X] Hao et al. 2010
+   + [X] Kumar et al. 2012
+   + [X] Lee et al. 2005 [references useless since they do not include the title]
+   + [X] Lier et al. 2006
+   + [X] Mendel et al. 2002
+   + [ ] Pouluvassilis & Tzima 1975
+** CURRENT insert the journal name in the “Publication” field in “zotero”
 ** CURRENT look for books on numerical models in hydrology/soil science
 *** TITLE
     AUTHOR(S)
