@@ -80,12 +80,14 @@ for timestep = 2:length(t)
     ## check whether we need another iteration step
     if (max(abs(delta)) <= abs(threshold_delta))
       H_n = delta + H_n_plus_1_m;
+      H_n(1) = H_bot; ## comment this line if you impose no flux at bottom node
       H_n(end) = H_top;
       flag = 1;
       [K_n, theta_n, C_n] = van_Genuchten_variables(alpha, lambda, n, theta_r, theta_s, K_s, H_n);
     else
       flag = 0;
       H_n_plus_1_m = delta + H_n_plus_1_m;
+      H_n(1) = H_bot; ## comment this line if you impose no flux at bottom node
       H_n_plus_1_m(end) = H_top;
       H_n = H_n_plus_1_m;
     endif
