@@ -1,7 +1,4 @@
 * TODO
-** find example data to check results of “van_Genuchten_variables”
-** ask for sensible values for [[file:Octave/octave_test_script.oct::threshold_value%20=%2010%20.^%2010;%20##%20set%20threshold%20value%20for%20residual][threshold_value]] and [[file:Octave/octave_test_script.oct::H_n_plus_1_m_plus_1%20=%20H_n_plus_1_m%20.*%20(1%20+%20(10%20^%20-4));%20##%20calculate%20H%20for%20next%20iteration%20step][H_n_plus_1_m_plus_1]]
-** CURRENT set H_i = const. and calculate elements of A
 ** CURRENT look for books on numerical models in hydrology/soil science
 *** TITLE
     AUTHOR(S)
@@ -100,25 +97,92 @@
    - State "on hold"    from "CURRENT"    [2016-03-23 Mi 16:55] \\
      not sure whether this is possible, since it requires estimation of theta;
      have to ask Andrea or Mohsen about this
-** done deduce equation for C(h) by deriving del theta/del h (s. Projekt_Octave.oct l. 54)
+** done deduce equation for C(h) by deriving del theta/del h
+   + cp. van Genuchten (1980), eq. [23]
    - State "done"       from "CURRENT"    [2016-12-14 Mi 16:13]
 ** done check prefixes in Octave model
-   - State "done"       from "CURRENT"    [2016-12-14 Mi 16:13]
+   + conventions:
+     + in the [[file:Octave/Richards.m::1][model code]] H is negative under unsaturated conditions
+     + [[file:Octave/van_Genuchten_variables.m::1][van Genuchten variables]] can use negative H as input, since it only uses absolute values of H
+   + State "done"       from "CURRENT"    [2016-12-14 Mi 16:13]
 ** done rewrite/improve function definitions in separate [[file:Octave/functions][files]] (e.g., with respect to documentation (s. [[info:octave#Function%20Headers][here]]), input checking (s. [[info:octave#Defining%20Functions][here]]), etc.)
    - State "done"       from "CURRENT"    [2016-12-14 Mi 16:13]
 *** Things to check:
-    + number of input arguments (`nargin()´, s. [[info:octave#Multiple%20Return%20Values][here]])
+    + number of input arguments (“nargin()”, s. [[info:octave#Multiple%20Return%20Values][here]])
     + type of input arguments
+** done find example data to check results of “van_Genuchten_variables”
+   + via “RETC”
+   - State "done"       from              [2017-02-10 Fr 11:58]
+** on hold set H_i = const. and calculate elements of A
+   - State "on hold"    from "CURRENT"    [2017-02-10 Fr 12:15] \\
+     Not sure why I considered this necessary. In any case, not a priority at the moment.
+** done ask for sensible values for [[file:Octave/octave_test_script.oct::threshold_value%20=%2010%20.^%2010;%20##%20set%20threshold%20value%20for%20residual][threshold_value]] and [[file:Octave/octave_test_script.oct::H_n_plus_1_m_plus_1%20=%20H_n_plus_1_m%20.*%20(1%20+%20(10%20^%20-4));%20##%20calculate%20H%20for%20next%20iteration%20step][H_n_plus_1_m_plus_1]]
+   - State "done"       from              [2017-02-10 Fr 12:17]
+     + “H_n_plus_1_m_plus_1” does not need sensible values, since it is computed
+     + sensible values for “threshold_value” depend on the modelling scenario (larger values for more extreme scenarios)
 * General notes
-** Conventions for file `Projekt_Literaturliste_abstracts.bib´
+** Conventions for file “Projekt_Literaturliste_abstracts.bib”
    + default language is English;
-     however, a given name is taken as is from the respective reference (e.g., `Tokio´ instead of `Tokyo´ as a location);
-     same goes for abbreviations (e.g., `USA´ instead of `U.S.A.´)
-   + entries in field `location´ need to be separated by `and´ (s. biblatex pp. 20, 14)
+     however, a given name is taken as is from the respective reference (e.g., “Tokio” instead of “Tokyo” as a location);
+     same goes for abbreviations (e.g., “USA” instead of “U.S.A.”)
+   + entries in field “location” need to be separated by “and” (s. biblatex pp. 20, 14)
    + all locations given by a reference are to be included (i.e., all locations were the publisher resides, s. biblatex p. 20)
-   + locations in the USA are accompanied by the respective state (e.g., `Hoboken, NJ´)
+   + locations in the USA are accompanied by the respective state (e.g., “Hoboken, NJ”)
    + [ ] multiple locations are truncated with [and others] (TODO: modify biber settings)
+** Structure of term paper (cp. email by Martin from 09.02.2017 08:21):
+*** 1. Einleitung/Introduction (1 S.)
+    + Allgemeine Fragestellung und Darstellung der aktuellen Problemstellung
+*** 2. Stand der Wissenschaft/scientific background (2,5 S)
+    + widen the scope here (i.e., provide a general overview of topics of interest, even if the related questions will not be answered in the term paper itself) 
+    + Literaturübersicht zu Fragen von hydraulic lift und hydraulic redistribution
+    + Wasserhaushalt Agroforstsysteme, Schnittstelle Landnutzungen, Parametrisierung an Schnittstellen
+    + Verfügbare Modelle, warum neues Modell?
+*** 3. Physikalisch-mathematischer Modellansatz/physical-mathematical model (5 S)
+    + Richardsgleichung und Picard-Iteration
+    + explain the mathematics as detailed as you consider appropriate
+*** 4. Modell-1D Umsetzung/1D model implementation (5 S.)
+    + Technische Umsetzung, Testläufe
+    + should include both constant pressure head and no (const?) flux at bottom node
+*** 5. Zusammenfassung/summary (1-2 S)
+    + grant an outlook on what the next steps would have to be on the road towards a 2D model
 * Timetables
+** Weekly timetables
+*** [2017-02-13 Mo]--[2017-02-19 So]
+    + [ ] Monday HiWi
+    + [ ] Tuesday Literature research on chapter 2
+    + [ ] Wednesday Literature research on chapter 2
+    + [ ] Thursday Literature research on chapter 2
+    + [ ] Friday Literature research on chapter 2
+*** [2017-02-20 Mo]--[2017-02-26 So]
+    + [ ] Monday HiWi
+    + [ ] Tuesday Writing chapters 2-3
+    + [ ] Wednesday Writing chapters 2-3
+    + [ ] Thursday Writing chapters 2-3
+    + [ ] Friday Writing chapters 2-3
+*** [2017-02-27 Mo]--[2017-03-05 So]
+    + [ ] Monday HiWi
+    + [ ] Tuesday Writing chapters 2-3
+    + [ ] Wednesday Writing chapters 2-3
+    + [ ] Thursday Writing chapters 2-3
+    + [ ] Friday Writing chapters 2-3
+*** [2017-03-06 Mo]--[2017-03-12 So]
+    + [ ] Monday HiWi
+    + [ ] Tuesday Modelling
+    + [ ] Wednesday Writing chapter 4
+    + [ ] Thursday Writing chapter 4
+    + [ ] Friday Writing chapter 4
+*** [2017-03-13 Mo]--[2017-03-19 So]
+    + [ ] Monday HiWi
+    + [ ] Tuesday Writing chapter 4
+    + [ ] Wednesday Writing chapters 1+5
+    + [ ] Thursday Writing chapters 1+5
+    + [ ] Friday Writing chapters 1+5, send draft to Martin and Andrea
+*** [2017-03-20 Mo]--[2017-03-26 So]
+    + [ ] Monday HiWi
+    + [ ] Tuesday corrections/improvements
+    + [ ] Wednesday corrections/improvements
+    + [ ] Thursday corrections/improvements
+    + [ ] Friday corrections/improvements
 ** Daily timetable
    |        TIME | ACTIVITY   | DURATION [min] |
    |-------------+------------+----------------|
@@ -135,11 +199,3 @@
    | 15:40-16:40 | Work       |             60 |
    | 16:40-16:50 | BREAK      |             10 |
    | 16:50-18:00 | Work       |             70 |
-** Weekly timetable
-   |           | WEEK 1 | WEEK 2    | WEEK 3    | WEEK 4              | WEEK 5              | WEEK 6  | WEEK 7  |
-   |-----------+--------+-----------+-----------+---------------------+---------------------+---------+---------|
-   | MONDAY    | HiWi   | HiWi      | HiWi      | HiWi                | HiWi                | HiWi    | HiWi    |
-   | TUESDAY   | Octave | Modelling | Modelling | Literature research | Literature research | Writing | Writing |
-   | WEDNESDAY | Octave | Modelling | Modelling | Literature research | Literature research | Writing | Writing |
-   | THURSDAY  | Octave | Modelling | Modelling | Literature research | Literature research | Writing | Writing |
-   | FRIDAY    | Octave | Modelling | Modelling | Literature research | Literature research | Writing | Writing |
