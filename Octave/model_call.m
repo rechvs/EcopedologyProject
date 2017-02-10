@@ -87,16 +87,18 @@ for par_set = {"Lt2","Ss","Tt","Uu"} ## DEBUGGING
         [msg,msgid] = lasterr();
         ## sprintf("last error: %s",msg)
         ## Create dummy file to mark modelling attempt for the given parameter setting and conditions:
-        textbox = {sprintf("%s%s","par_set = ",par_set),
-	         sprintf("%s%s","H_top = ",num2str(H_top)),
-	         sprintf("%s%s","H_bot = ",num2str(H_bot)),
-	         sprintf("%s%s","init_con_string = ",init_con_string),
+
+        textbox = {sprintf("%s%s\n","par_set = ",par_set),
+	         sprintf("%s%s\n","H_top = ",num2str(H_top)),
+	         sprintf("%s%s\n","H_bot = ",num2str(H_bot)),
+	         sprintf("%s%s\n","init_con_string = ",init_con_string),
 	         sprintf("%s%s","threshold_iteration_cntr = ",num2str(threshold_iteration_cntr))};
         attempt_message = [sprintf("%s\n",
 			   "This file exists to document that the attempt to model the combination of ",
-			   sprintf("%s\n",textbox{1:end}),
-			   "was not successful. Last error message was: ",
+			   sprintf("%s",textbox{1:end}),
+			   "exited after ", num2str(timestep)," timesteps. Last error message was: ",
 			   msg)];
+
         attempt_file = [data_dir,filename_prefix,"attempted.csv"];
         save("-text",attempt_file,"attempt_message");
       end_try_catch
