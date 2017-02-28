@@ -19,6 +19,9 @@
 ## directory “Daten” and its subdirectories:
 Daten/
 
+## directory “Literatur/Artikel” and its subdirectories:
+Literatur/Artikel
+
 ## directory “RetC_602“ and its subdirectories:
 RetC_602/
 
@@ -31,6 +34,10 @@ RetC_602/
 *.nav
 *.out
 *.toc
+*.bbl
+*.blg
+*.run.xml
+*.bcf
 
 ## directory “Vortrag/Grafiken” and its subdirectories:
 Vortrag/Grafiken

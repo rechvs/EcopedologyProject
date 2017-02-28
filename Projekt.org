@@ -1,5 +1,74 @@
 * TODO
-** CURRENT check all entries via “zotero” in [[file:Literatur/Projekt_Literaturliste_abstracts.bib::1][Projekt_Literaturliste_abstracts.bib]] matching the search term “hydraulic” (search in “Everything”) for references regarding the topics “hydraulic lift” and “hydraulic redistribution” [“[x]” means all the seemingly relevant references of the item have been attempted to aquire]:
+** Reading:
+   + [X] Borman 1957
+   + [X] Burgess et al. 1998
+   + [X] Burgess et al. 2001
+   + [X] Caldwell et al. 1998
+   + [X] Emerman & Dawson 1996
+   + [X] Ludwig et al. 2003
+   + [X] Richards & Caldwell 1987
+   + [X] Sekiya et al. 2011
+   + [X] Sekiya & Yano 2004
+   + [X] Dawson 1993
+   + [X] Caldwell & Richards 1989
+   + [X] Bayala et al. 2008a (from Coulibaly et al. 2014, p. 25) on modelled effects of hydraulic redistribution in agroforestry systems
+   + [X] Leffler et al. (2005) (from Sekiya et al. 2010, p. 47) on hydraulic redistribution by senesced plants
+   + [ ] Schulze et al. 1998 (from Hirota et al. 2004, p. 187) on inverse hydraulic lift
+   + [ ] Smith et al. 1999 (from Hirota et al. 2004, p. 187) on inverse hydraulic lift
+   + [ ] Horton and Hart, 1998 (from Bayala et al. 2008, p. 371) on chemical benefits of hydraulic lift
+   + [X] Warren et al., 2007 (from Bayala et al. 2008, p. 376) on gradients as the driving force behind hydraulic redistribution
+   + [ ] Tyree et al. 1995 (from Emerman & Dawson 1996, p. 274) on gradients as the driving force behind hydraulic redistribution
+   + [ ] Lee et al., 2005 (from Warren et al. 2007, p. 754) on indirect effects of hydraulic redistribution on regional climate dynamics
+   + [X] Mendel et al., 2002 (from Warren et al. 2007, p. 754) on a hydrological model including hydraulic redistribution
+   + [X] Ryel et al., 2002 (from Warren et al. 2007, p. 754) on a hydrological model including hydraulic redistribution
+   + [ ] van Bavel and Baker [1985] (from Mendel et al. 2002, p. 1) on the amount of hydraulically lifted water relative to transpiration
+   + [X] [31] Arnold et al. 1998 (from Chen et al. 2015) on a current hydrological model (SWAT)
+   + [ ] [50] Krysanova & Arnold 2008 (from Chen et al. 2015) on shortcomings of a current hydrological model (SWAT)
+   + [ ] Ranatunga et al. 2008 (in [[file:Literatur/Artikel/unread/NO_SEARCH_STRING/][NO_SEARCH_STRING]]) on a hydrological model[/current hydrological models in general?]
+   + [X] Scott et al., 2008a (from Gou & Miller 2014) on the need for incorporating hydraulic lift into ecohydrologic models
+   + [X] Guswa, 2005 (from Scott et al. 2008) on the need for incorporating hydraulic lift into ecohydrologic models
+   + [X] Guswa et al., 2002 (from Scott et al. 2008) on current state of ecohydrologic models
+** CURRENT insert the journal name in the “Publication” field in “zotero”
+** done fix axis tic labels (from “5e-08” to “5 * 10^-8”)
+   - State "done"       from "on hold"    [2016-12-09 Fr 09:59]
+     [[http://octave.1599824.n4.nabble.com/Exponential-notation-in-tick-labels-td1637496.html][This]] is working.
+** done add legend to plot
+   - State "done"       from              [2016-12-09 Fr 16:18]
+** done generate 3D plots for “K”, “theta”, and “C“
+   - State "done"       from              [2016-12-14 Mi 16:00]
+** done make Octave obey my choice of line colors in 3D plots
+   - State "done"       from              [2016-12-14 Mi 16:00]
+** done implement mixed form of Richards equation
+   - State "done"       from "on hold"    [2016-12-14 Mi 16:12]
+   - State "on hold"    from "CURRENT"    [2016-03-23 Mi 16:55] \\
+     not sure whether this is possible, since it requires estimation of theta;
+     have to ask Andrea or Mohsen about this
+** done deduce equation for C(h) by deriving del theta/del h
+   + cp. van Genuchten (1980), eq. [23]
+   - State "done"       from "CURRENT"    [2016-12-14 Mi 16:13]
+** done check prefixes in Octave model
+   + conventions:
+     + in the [[file:Octave/Richards.m::1][model code]] H is negative under unsaturated conditions
+     + [[file:Octave/van_Genuchten_variables.m::1][van Genuchten variables]] can use negative H as input, since it only uses absolute values of H
+   + State "done"       from "CURRENT"    [2016-12-14 Mi 16:13]
+** done rewrite/improve function definitions in separate [[file:Octave/functions][files]] (e.g., with respect to documentation (s. [[info:octave#Function%20Headers][here]]), input checking (s. [[info:octave#Defining%20Functions][here]]), etc.)
+   - State "done"       from "CURRENT"    [2016-12-14 Mi 16:13]
+*** Things to check:
+    + number of input arguments (“nargin()”, s. [[info:octave#Multiple%20Return%20Values][here]])
+    + type of input arguments
+** done find example data to check results of “van_Genuchten_variables”
+   + via “RETC”
+   - State "done"       from              [2017-02-10 Fr 11:58]
+** done ask for sensible values for [[file:Octave/octave_test_script.oct::threshold_value%20=%2010%20.^%2010;%20##%20set%20threshold%20value%20for%20residual][threshold_value]] and [[file:Octave/octave_test_script.oct::H_n_plus_1_m_plus_1%20=%20H_n_plus_1_m%20.*%20(1%20+%20(10%20^%20-4));%20##%20calculate%20H%20for%20next%20iteration%20step][H_n_plus_1_m_plus_1]]
+   - State "done"       from              [2017-02-10 Fr 12:17]
+     + “H_n_plus_1_m_plus_1” does not need sensible values, since it is computed
+     + sensible values for “threshold_value” depend on the modelling scenario (larger values for more extreme scenarios)
+** on hold set H_i = const. and calculate elements of A
+   - State "on hold"    from "CURRENT"    [2017-02-10 Fr 12:15] \\
+     Not sure why I considered this necessary. In any case, not a priority at the moment.
+** on hold check all entries via “zotero” in [[file:Literatur/Projekt_Literaturliste_abstracts.bib::1][Projekt_Literaturliste_abstracts.bib]] matching the search term “hydraulic” (search in “Everything”) for references regarding the topics “hydraulic lift” and “hydraulic redistribution” [“[x]” means all the seemingly relevant references of the item have been attempted to acquire]:
+   - State "on hold"    from "CURRENT"    [2017-02-17 Fr 09:34] \\
+     I already have more than enough papers on the topic.
    + [X] Bayalaa et al. 2008
    + [X] Bhatnagar et al. 1979
    + [X] Caldwell et al. 1998
@@ -11,8 +80,9 @@
    + [X] Lier et al. 2006
    + [X] Mendel et al. 2002
    + [ ] Pouluvassilis & Tzima 1975
-** CURRENT insert the journal name in the “Publication” field in “zotero”
-** CURRENT look for books on numerical models in hydrology/soil science
+** on hold look for books on numerical models in hydrology/soil science
+   - State "on hold"    from "CURRENT"    [2017-02-17 Fr 09:36] \\
+     Not a priority at the moment.
 *** TITLE
     AUTHOR(S)
     YEAR
@@ -96,43 +166,6 @@
     yes
     yes
     + [X] read and bibliographical data saved
-** done fix axis tic labels (from “5e-08” to “5 * 10^-8”)
-   - State "done"       from "on hold"    [2016-12-09 Fr 09:59]
-     [[http://octave.1599824.n4.nabble.com/Exponential-notation-in-tick-labels-td1637496.html][This]] is working.
-** done add legend to plot
-   - State "done"       from              [2016-12-09 Fr 16:18]
-** done generate 3D plots for “K”, “theta”, and “C“
-   - State "done"       from              [2016-12-14 Mi 16:00]
-** done make Octave obey my choice of line colors in 3D plots
-   - State "done"       from              [2016-12-14 Mi 16:00]
-** done implement mixed form of Richards equation
-   - State "done"       from "on hold"    [2016-12-14 Mi 16:12]
-   - State "on hold"    from "CURRENT"    [2016-03-23 Mi 16:55] \\
-     not sure whether this is possible, since it requires estimation of theta;
-     have to ask Andrea or Mohsen about this
-** done deduce equation for C(h) by deriving del theta/del h
-   + cp. van Genuchten (1980), eq. [23]
-   - State "done"       from "CURRENT"    [2016-12-14 Mi 16:13]
-** done check prefixes in Octave model
-   + conventions:
-     + in the [[file:Octave/Richards.m::1][model code]] H is negative under unsaturated conditions
-     + [[file:Octave/van_Genuchten_variables.m::1][van Genuchten variables]] can use negative H as input, since it only uses absolute values of H
-   + State "done"       from "CURRENT"    [2016-12-14 Mi 16:13]
-** done rewrite/improve function definitions in separate [[file:Octave/functions][files]] (e.g., with respect to documentation (s. [[info:octave#Function%20Headers][here]]), input checking (s. [[info:octave#Defining%20Functions][here]]), etc.)
-   - State "done"       from "CURRENT"    [2016-12-14 Mi 16:13]
-*** Things to check:
-    + number of input arguments (“nargin()”, s. [[info:octave#Multiple%20Return%20Values][here]])
-    + type of input arguments
-** done find example data to check results of “van_Genuchten_variables”
-   + via “RETC”
-   - State "done"       from              [2017-02-10 Fr 11:58]
-** on hold set H_i = const. and calculate elements of A
-   - State "on hold"    from "CURRENT"    [2017-02-10 Fr 12:15] \\
-     Not sure why I considered this necessary. In any case, not a priority at the moment.
-** done ask for sensible values for [[file:Octave/octave_test_script.oct::threshold_value%20=%2010%20.^%2010;%20##%20set%20threshold%20value%20for%20residual][threshold_value]] and [[file:Octave/octave_test_script.oct::H_n_plus_1_m_plus_1%20=%20H_n_plus_1_m%20.*%20(1%20+%20(10%20^%20-4));%20##%20calculate%20H%20for%20next%20iteration%20step][H_n_plus_1_m_plus_1]]
-   - State "done"       from              [2017-02-10 Fr 12:17]
-     + “H_n_plus_1_m_plus_1” does not need sensible values, since it is computed
-     + sensible values for “threshold_value” depend on the modelling scenario (larger values for more extreme scenarios)
 * General notes
 ** Conventions for file “Projekt_Literaturliste_abstracts.bib”
    + default language is English;
@@ -142,7 +175,7 @@
    + all locations given by a reference are to be included (i.e., all locations were the publisher resides, s. biblatex p. 20)
    + locations in the USA are accompanied by the respective state (e.g., “Hoboken, NJ”)
    + [ ] multiple locations are truncated with [and others] (TODO: modify biber settings)
-** Structure of term paper (cp. email by Martin from 09.02.2017 08:21):
+** Structure of term paper (cp. email from Martin from 09.02.2017 08:21):
 *** 1. Einleitung/Introduction (1 S.)
     + Allgemeine Fragestellung und Darstellung der aktuellen Problemstellung
 *** 2. Stand der Wissenschaft/scientific background (2,5 S)
@@ -161,19 +194,19 @@
 * Timetables
 ** Weekly timetables
 *** [2017-02-13 Mo]--[2017-02-19 So]
-    + [ ] Monday HiWi
-    + [ ] Tuesday Literature research on chapter 2
-    + [ ] Wednesday Literature research on chapter 2
-    + [ ] Thursday Literature research on chapter 2
-    + [ ] Friday Literature research on chapter 2
+    + [X] Monday HiWi
+    + [X] Tuesday Literature research on chapter 2
+    + [X] Wednesday Literature research on chapter 2
+    + [X] Thursday Literature research on chapter 2
+    + [X] Friday Literature research on chapter 2
 *** [2017-02-20 Mo]--[2017-02-26 So]
-    + [ ] Monday HiWi
-    + [ ] Tuesday Writing chapters 2-3
-    + [ ] Wednesday Writing chapters 2-3
-    + [ ] Thursday Writing chapters 2-3
-    + [ ] Friday Writing chapters 2-3
+    + [X] Monday HiWi
+    + [X] Tuesday Literature research on chapter 2
+    + [X] Wednesday Literature research on chapter 2
+    + [X] Thursday Literature research on chapter 2
+    + [X] Friday Literature research on chapter 2
 *** [2017-02-27 Mo]--[2017-03-05 So]
-    + [ ] Monday HiWi
+    + [X] Monday HiWi
     + [ ] Tuesday Writing chapters 2-3
     + [ ] Wednesday Writing chapters 2-3
     + [ ] Thursday Writing chapters 2-3
