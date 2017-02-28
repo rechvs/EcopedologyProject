@@ -1,0 +1,39 @@
+\documentclass[
+oneside,
+a4paper,
+12pt,
+titlepage]
+{article}
+\usepackage[english]{babel}
+
+\input{/home/renke/Uni/Formatvorlagen/LaTeX/packages.tex}
+\input{/home/renke/Uni/Formatvorlagen/LaTeX/settings.tex}
+\input{/home/renke/Uni/Formatvorlagen/LaTeX/settings_article.tex}
+\input{/home/renke/Uni/Formatvorlagen/LaTeX/settings_bibliography.tex}
+\input{/home/renke/Uni/Formatvorlagen/LaTeX/hyphenation_english.tex}
+
+\addbibresource[location=local]{../../Literatur/Projekt_Literaturliste_zotero.bib} % s. S. 71 f. biblatex-Dokumentation
+
+\begin{document}
+
+\input{../titlepage.tex}
+\newpage
+\input{../tableofcontents.tex}
+\newpage
+\pagestyle{standard}
+\pagenumbering{arabic}
+
+% \section{Introduction}
+
+\section{Scientific background}
+\input{../subsection0201.tex}
+
+
+\newpage
+\input{../Projekt_bibliography.tex}
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
