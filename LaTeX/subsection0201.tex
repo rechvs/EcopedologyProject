@@ -1,7 +1,7 @@
 \subsection{Hydraulic redistribution}
 
 The term ``hydraulic redistribution'' describes the phenomenon of water movement from moist soil via plant roots into drier soil \parencite{burgess_redistribution_1998}.  Originally it was called ``hydraulic lift'' \parencite{richards_hydraulic_1987}, because it was first observed as an upward movement of water from moist deep soil regions into dry shallow soil.  It has been documented in several species, such as
-\emph{Artemisia tridentata} \parencite{richards_hydraulic_1987},
+\emph{Artemisia tridentata} \parencite{richards_hydraulic_1987,caldwell_hydraulic_1989},
 \emph{Vitellaria paradoxa}, and \emph{Parkia biglobosa} \parencite{bayala_hydraulic_2008},
 \emph{Solanum lycopersicum} \parencite{bormann_moisture_1957},
 \emph{Eucalyptus camaldulensis}, and \emph{Eucalyptus platypus} \parencite{burgess_tree_2001},
@@ -13,14 +13,47 @@ The term ``hydraulic redistribution'' describes the phenomenon of water movement
 \emph{Prosopis velutina} \parencite{scott_ecohydrologic_2008},
 \emph{Panicum maximum}, and \emph{Festuca arundinaceum} \parencite{sekiya_applying_2011},
 \emph{Zea mays} \parencite{wan_hydraulic_2000},
-\emph{Pseudotsuga menziesii}, and \emph{Pinus ponderosa} \parencite{warren_hydraulic_2007}, and
+\emph{Pseudotsuga menziesii}, and \emph{Pinus ponderosa} \parencite{warren_hydraulic_2007},
+\emph{Coussarea racemosa}, \emph{Manilkara huberi}, and \emph{Protium robustum} \parencite{Oliveira_2005}, and
 \emph{Quercus petraea} \parencite{zapater_evidence_2011}.
-It is considered a passive process.  The driving force behind it is a gradient in water potential between soil regions \parencite{scott_ecohydrologic_2008}.  In this sense, hydraulic redistribution does not differ from water flow through unsaturated soil.  The mayor difference lies in the velocity of water movement.  \textcite{burgess_tree_2001} observed an almost simultaneous increase of soil moisture in depths between \SI{180}{cm} to \SI{270}{cm} following rainfall.  This could not be explained by unsaturated flow alone, since hydraulic conductivity of the surrounding soil was only a few \si{\milli\metre\per\day}.
+It is considered a passive process.  The driving force behind it is a gradient in water potential between soil regions \parencite{scott_ecohydrologic_2008}.  In this sense, hydraulic redistribution does not differ from water flow through unsaturated soil.  Figure \ref{fig:circuit} shows a schematic of the possible belowground pathways of water in the soil\textendash{}plant continuum.  Water can be expected to flow between soil regions of differing water potential via the root system (i.e., the right pathway in figure \ref{fig:circuit}) rather than directly through the soil (i.e., the left pathway in figure \ref{fig:circuit}), as long as
+\begin{equation*}
+\frac{1}{R_{root}} = K_{root}  >  K_{soil} = \frac{1}{R_{soil}},
+\end{equation*}
+where $K_{root}$ and $K_{soil}$ are the hydraulic conductivity of the root system (including the rhizosphere) and the soil, respectively.
+The mayor difference between the two pathways lies in the velocity of water movement.  \textcite{burgess_tree_2001} observed an almost simultaneous increase of soil moisture in depths between \SI{180}{cm} to \SI{270}{cm} following rainfall.  This could not be explained by unsaturated flow alone, since hydraulic conductivity of the surrounding soil was only a few \si{\milli\metre\per\day}.  Observations concerning the magnitude of hydraulic redistribution vary \parencite{bayala_hydraulic_2008}.  \textcite{emerman_hydraulic_1996} reported that during the night a mature \emph{Acer saccharum} tree can hydraulically lift ca. \SI{25}{\percent} of the water used for transpiration during the day.  For the half-shrub \emph{Gutierrezia sarothrae}, \textcite{wan_does_1993} reported that \SI{15.3}{\percent} of water transpired during the day was hydraulically lifted over night.
 
-Many hypotheses have been put forward as to the possible beneficial effects of hydraulic redistribution.  \textcite{burgess_redistribution_1998} suggest that water exudation into dry soil regions increases viability of fine roots located there.  This would in turn increase the plant’s ability to make use of water suddenly available in large quantities due to a rainfall event.  Without its fine roots, the plant might not be able to take up water quickly enough to prevent percolation or evaporation.  Similarly, if water available in one soil region exceeds the plant’s current need, redistribution and ``storage'' of excess moisture in drier soil regions for later use might be beneficial \parencite{richards_hydraulic_1987}.  This way, the plant may again be able to reduce the amount of water lost from the root system due to percolation and evaporation.  Additionally, by reducing percolation the plant may in turn reduce leaching of nutrients, a property especially beneficial in agroforestry systems \parencite{burgess_redistribution_1998}.  Redistribution of water into drier subsoils may also promote viability of taproots, thus helping the plant to traverse such subsoils with its root system in search of ground water.  Maintaining root water potential at a relatively high level (compared to dry soil) also prevents generation of signals within roots which lead to the reduction of stomatal conductance.  This way, hydraulic redistribution may increase a plant’s total carbon uptake over longer periods of time \parencite{warren_hydraulic_2007}.  Water exudation into dry top soil may also increase solubilisation of nutrients as well as release of nutrients from organic and mineral soil contents through microbial processes \parencite{pate_assessing_1999,ryel_hydraulic_2002}.  When considering larger spatial and temporal scales, hydraulic lift may even influence regional climate dynamics, seasonal patterns of evapotranspiration and whole ecosystem production and carbon sequestration \parencite{warren_hydraulic_2007}.
+Many hypotheses have been put forward as to the possible beneficial effects of hydraulic redistribution \parencite{caldwell_hydraulic_1998}.  \textcite{burgess_redistribution_1998} suggest that water exudation into dry soil regions increases viability of fine roots located there.  This would in turn increase the plant’s ability to make use of water suddenly available in large quantities due to a rainfall event.  Without its fine roots, the plant might not be able to take up water quickly enough to prevent percolation or evaporation.  Similarly, if water available in one soil region exceeds the plant’s current need, redistribution and ``storage'' of excess moisture in drier soil regions for later use might be beneficial \parencite{richards_hydraulic_1987}.  This way, the plant may again be able to reduce the amount of water lost from the root system due to percolation and evaporation.  Additionally, by reducing percolation the plant may in turn reduce leaching of nutrients, a property especially beneficial in agroforestry systems \parencite{burgess_redistribution_1998}.  Redistribution of water into drier subsoils may also promote viability of taproots, thus helping the plant to traverse such subsoils with its root system in search of ground water.  Maintaining root water potential at a relatively high level (compared to dry soil) also prevents generation of signals within roots which lead to the reduction of stomatal conductance.  This way, hydraulic redistribution may increase a plant’s total carbon uptake over longer periods of time \parencite{warren_hydraulic_2007}.  Water exudation into dry top soil may also increase solubilisation of nutrients as well as release of nutrients from organic and mineral soil contents through microbial processes \parencite{pate_assessing_1999,ryel_hydraulic_2002}.  When considering larger spatial and temporal scales, hydraulic lift may even influence regional climate dynamics, seasonal patterns of evapotranspiration and whole ecosystem production and carbon sequestration \parencite{warren_hydraulic_2007}.
 
-In an agroforestry system aimed at increasing total yield of two species grown in close proximity to each other, part of these effects may be especially desirable, since they can be expected to promote viability not only of the ``donor plant'' but also of the ``receiver plant''.  \textcite{bormann_moisture_1957} observed increased viability of tomato plants which were indirectly connected to a water source via the root system of another plant compared to plants not connected to a water source.  A similar setup was used by \textcite{corak_water_1987}, who observed a positive effect of alfalfa plants on the water relations of accompanying maize plants.  \textcite{sekiya_applying_2011} found different species to be differently suited for the role of the donor plant.  \textcite{sekiya_pigeon_2004} observed that the beneficial effects of hydraulic lift for the receiver plant decreased with increasing distance from the donor plant.  
+\begin{figure}[hp]
+\begin{center}
+\begin{circuitikz}[american voltages] \draw
+  % left pathway 
+  (0,0) to [short,color=] (-2,0)
+  (-2,0) to [short] (-2,1)
+  (-2,1) to [R, l=$R_{soil}$] (-2,2)
+  (-2,2) to [short] (-2,3)
+  (-2,3) to [short] (0,3)
+  % middle elements
+  (0,0) node [circ]{}
+  (0,0) to [short] (0,1)
+  (0,1) to [V,l=$V_{soil}$] (0,2)
+  (0,2) to [short] (0,3)
+  (0,3) node [circ]{}
+  % right pathway
+  (0,0) to [short] (2,0)
+  (2,0) to [short] (2,1)
+  (2,1) to [R, l_=$R_{root}$] (2,2)
+  (2,2) to [short] (2,3)
+  (2,3) to [short] (0,3)
+;
+\end{circuitikz}
+\end{center}
+\caption{Schematic of the possible belowground pathways for water in the soil\textendash{}plant continuum.  $R_{soil}$ is the hydraulic resistance of the soil.  $R_{root}$ is the hydraulic resistance of the root system (including the rhizosphere). $V_{soil}$ symbolises the gradient in water potential between soil regions connected via the root system.}
+\label{fig:circuit}
+\end{figure}
 
+In an agroforestry system aimed at increasing total yield of two species grown in close proximity to each other, part of these effects may be especially desirable, since they can be expected to promote viability not only of the ``donor plant'' but also of the ``receiver plant''.  \textcite{bormann_moisture_1957} observed increased viability of tomato plants which were indirectly connected to a water source via the root system of another plant compared to plants not connected to a water source.  A similar setup was used by \textcite{corak_water_1987}, who observed a positive effect of alfalfa plants on the water relations of accompanying maize plants.  \textcite{sekiya_applying_2011} found different species to be differently suited for the role of the donor plant.  \textcite{sekiya_pigeon_2004} observed that the beneficial effects of hydraulic lift for the receiver plant decreased with increasing distance from the donor plant.
 
 %%% Local Variables:
 %%% mode: latex
