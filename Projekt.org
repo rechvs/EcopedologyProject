@@ -185,6 +185,7 @@
     + Verfügbare Modelle, warum neues Modell?
 *** 3. Physikalisch-mathematischer Modellansatz/physical-mathematical model (5 S)
     + Richardsgleichung und Picard-Iteration
+    + explain favoring implicit instead of explicit solution
     + explain the mathematics as detailed as you consider appropriate
 *** 4. Modell-1D Umsetzung/1D model implementation (5 S.)
     + Technische Umsetzung, Testläufe
@@ -207,28 +208,34 @@
     + [X] Friday Literature research on chapter 2
 *** [2017-02-27 Mo]--[2017-03-05 So]
     + [X] Monday HiWi
-    + [ ] Tuesday Writing chapters 2-3
-    + [ ] Wednesday Writing chapters 2-3
-    + [ ] Thursday Writing chapters 2-3
-    + [ ] Friday Writing chapters 2-3
+    + [X] Tuesday Writing chapters 2
+    + [X] Wednesday Writing chapter 2
+    + [X] Thursday Writing chapter 2
+    + [ ] Friday Writing chapter 2
 *** [2017-03-06 Mo]--[2017-03-12 So]
+    + [ ] Monday HiWi
+    + [ ] Tuesday Writing chapters 3
+    + [ ] Wednesday Writing chapter 3
+    + [ ] Thursday Writing chapter 3
+    + [ ] Friday Writing chapter 3
+*** [2017-03-13 Mo]--[2017-03-19 So]
     + [ ] Monday HiWi
     + [ ] Tuesday Modelling
     + [ ] Wednesday Writing chapter 4
     + [ ] Thursday Writing chapter 4
     + [ ] Friday Writing chapter 4
-*** [2017-03-13 Mo]--[2017-03-19 So]
+*** [2017-03-20 Mo]--[2017-03-26 So]
     + [ ] Monday HiWi
     + [ ] Tuesday Writing chapter 4
     + [ ] Wednesday Writing chapters 1+5
     + [ ] Thursday Writing chapters 1+5
     + [ ] Friday Writing chapters 1+5, send draft to Martin and Andrea
-*** [2017-03-20 Mo]--[2017-03-26 So]
+*** [2017-03-27 Mo]--[2017-03-31 Fr]
     + [ ] Monday HiWi
     + [ ] Tuesday corrections/improvements
     + [ ] Wednesday corrections/improvements
     + [ ] Thursday corrections/improvements
-    + [ ] Friday corrections/improvements
+    + [ ] Friday SEND FINAL VERSION
 ** Daily timetable
    |        TIME | ACTIVITY   | DURATION [min] |
    |-------------+------------+----------------|
