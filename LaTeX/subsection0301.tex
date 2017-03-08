@@ -1,0 +1,20 @@
+In the model describe here, water movement is explained with the help of the Richards equation \parencite{richards_capillary_1931}.  There exist 3 standard forms of the Richards equation \parencite{celia_general_1990}:  \\
+$h$ based form
+\begin{equation}
+  \label{eq:h_based_richeq}
+  C(h) \frac{\partial h}{\partial t} - \nabla \cdot K(h)\nabla h - \frac{\partial K}{\partial z} = 0
+\end{equation}
+$\theta$ based form
+\begin{equation}
+  \label{eq:theta_base_richeq}
+  \frac{\partial \theta}{\partial t} - \nabla \cdot D(\theta)\nabla \theta - \frac{\partial K}{\partial z} = 0
+\end{equation}
+mixed form
+\begin{equation}
+  \label{eq:mixed_richeq}
+  \frac{\partial \theta}{\partial t} - \nabla \cdot K(h)\nabla h - \frac{\partial K}{\partial z} = 0
+\end{equation}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "basefile/Projekt_basefile"
+%%% End:
