@@ -1,19 +1,95 @@
-In the model describe here, water movement is explained with the help of the Richards equation \parencite{richards_capillary_1931}.  There exist 3 standard forms of the Richards equation \parencite{celia_general_1990}:  \\
-$h$ based form
+In the model described here, water movement is explained with the help of the Richards equation \parencite{richards_capillary_1931}.  The Richards equation is the result of combining Darcy’s law with the continuity principle \parencite{hillel_environmental_1998}.  According to Darcy’s law, water flux $q$ through a given (isotropic) volume of soil is proportional to the hydraulic head drop $\nabla \left( h + z \right)$ between inflow and outflow boundary, with hydraulic conductivity $K$ acting as the proportionality factor linking both terms:
 \begin{equation}
-  \label{eq:h_based_richeq}
-  C(h) \frac{\partial h}{\partial t} - \nabla \cdot K(h)\nabla h - \frac{\partial K}{\partial z} = 0
+  \label{eq:dareq}
+  q = K(h) \nabla \left( h + z \right)
 \end{equation}
-$\theta$ based form
+The continuity principle states that the temporal change in water content of a given volume of soil $\frac{\partial \theta}{\partial t}$ must be equal to the spatial change in water flux $\nabla \cdot q$ from/to this volume:
 \begin{equation}
-  \label{eq:theta_base_richeq}
-  \frac{\partial \theta}{\partial t} - \nabla \cdot D(\theta)\nabla \theta - \frac{\partial K}{\partial z} = 0
+  \label{eq:contprinc}
+  \pd{\theta}{t}  = \nabla \cdot q
 \end{equation}
-mixed form
+Replacing $q$ in equation (\ref{eq:contprinc}) with the right hand side of equation (\ref{eq:dareq}) gives the Richard equation:
 \begin{equation}
-  \label{eq:mixed_richeq}
-  \frac{\partial \theta}{\partial t} - \nabla \cdot K(h)\nabla h - \frac{\partial K}{\partial z} = 0
+  \label{eq:richeq}
+  \pd{\theta}{t} = \nabla \cdot \left( K(h) \nabla \left( h + z \right) \right)
+  % \frac{\partial \theta}{\partial t} = \nabla \cdot \left( K(h) \nabla \left( h + z \right) \right)
 \end{equation}
+Equation (\ref{eq:richeq}) can be further simplified by applying the vector differential operator $\nabla$: % cp. Notes on Celia et al.1990, p. 24 ff.
+\begin{align*}
+  \pd{\theta}{t} &= \nabla \cdot \left( K(h) \nabla \left( h + z \right) \right) \\
+  % \frac{\partial \theta}{\partial t} &= \nabla \cdot \left( K(h) \nabla \left( h + z \right) \right) \\
+                                     &= \nabla \cdot\left( K(h) \left(\nabla h + \nabla z \right) \right) \\
+                                     &= \nabla \cdot\left( K(h) \left(\nabla h + \left(\pd{z}{x},\pd{z}{y},\pd{z}{z} \right) \right) \right) \\
+                                     % &= \nabla \cdot\left( K(h) \left(\nabla h + \left(\frac{\partial z}{\partial x},\frac{\partial z}{\partial y},\frac{\partial z}{\partial z} \right) \right) \right) \\
+                                     &= \nabla \cdot\left( K(h) \left(\nabla h + \left(0,0,1 \right) \right) \right) \\
+                                     &= \nabla \cdot \left(K(h) \nabla h + K(h) \left(0,0,1 \right) \right) \\
+                                     &= \nabla \cdot \left(K(h) \nabla h + \left(0,0,K(h) \right) \right) \\
+                                     &= \nabla \cdot \left( K(h) \nabla h \right) + \nabla \cdot \left(0,0,K(h) \right) \\
+                                     &= \nabla \cdot \left( K(h) \nabla h \right) + \left(\frac{\partial 0}{\partial x},\frac{\partial 0}{\partial y},\frac{\partial K(h)}{\partial z} \right) \\
+                                     &= \nabla \cdot \left( K(h) \nabla h \right) + \frac{\partial K(h)}{\partial z}
+\end{align*}
+The Richards equation is thus
+\begin{equation}
+  \label{eq:richeq_simple}
+  \frac{\partial \theta}{\partial t} = \nabla \cdot \left( K(h) \nabla h \right) + \frac{\partial K(h)}{\partial z},
+\end{equation}
+or
+\begin{equation}
+  \label{eq:richeq_pde}
+  \frac{\partial \theta}{\partial t} - \nabla \cdot \left( K(h) \nabla h \right) - \frac{\partial K(h)}{\partial z} = 0 .
+\end{equation}
+% Equation (\ref{eq:richeq_pde}) is also called the ``mixed form'' of the Richards equation, since it is a mixture of the ``$h$-based'' and the ``$\theta$-based'' form \parencite{celia_general_1990}.
+The relationships between $\theta$ and $h$ on the one hand, and $K$ and $h$ on the other hand are nonlinear \parencite{celia_general_1990}.  Therefore, numerical approximation is a widely used approach for solving equation (\ref{eq:richeq_pde}).  Discretization of the spatial domain is achieved by implementing the finite difference method, which itself is based on a Taylor series.
+
+\subsubsection{Taylor series}
+A Taylor series is a series expansion of a function about a point \parencite{Weisstein2017}.  A one-dimensional Taylor series expansion of a real function $f(x)$ about a point $x = a$ is given by
+\begin{equation*}
+  \label{eq:tayse}
+  f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\frac{f'''(a)}{2!}(x-a)^3+\mathellipsis+\frac{f^{(n)}(a)}{n!}(x-a)^n+\mathellipsis
+\end{equation*}
+The Taylor series of a function $f(x)$ can be derived by first noting that the integral of the $(n+1)$st derivative $f^{(n+1)}$ of $f(x)$ from the point $x_0$ to an arbitrary point $x$ is given by
+\begin{align*}
+  \int_{x_0}^x{f^{(n+1)}(x)dx} &= \left[f^{(n)}(x)\right]_{x_0}^x \\
+                               &= f^{(n)}(x) - f^{(n)}(x_0) \, .
+\end{align*}
+A second integration gives
+\begin{align*}
+  \int_{x_0}^x{\left[f^{(n)}(x) - f^{(n)}(x_0)\right]}dx &= \int_{x_0}^x{f^{(n)}(x)} - \int_{x_0}^x{f^{(n)}(x_0)} \\
+                                                       &= \left[f^{(n-1)}(x)\right]_{x_0}^x - \left[x f^{(n)}(x_0)\right]_{x_0}^x \\
+                                                       &= f^{(n-1)}(x) - f^{(n-1)}(x_0) - \left[x f^{(n)}(x) - x f^{(n)}(x_0)\right] \\
+                                                       &= f^{(n-1)}(x) - f^{(n-1)}(x_0) - (x - x_0) f^{(n)}(x_0) \, .
+\end{align*}
+A third integration gives
+\begin{align*}
+  &\makebox[5mm]{}\int_{x_0}^x{\left[f^{(n-1)}(x) - f^{(n-1)}(x_0) - (x - x_0) f^{(n)}(x_0)\right]}dx \\
+&= 
+\end{align*}
+
+
+% There exist 3 standard forms of the Richards equation \parencite{celia_general_1990}:  \\
+% $h$ based form
+% \begin{equation}
+  % \label{eq:h_based_richeq}
+  % C(h) \frac{\partial h}{\partial t} - \nabla \cdot K(h)\nabla h - \frac{\partial K(h)}{\partial z} = 0
+% \end{equation}
+% $\theta$ based form
+% \begin{equation}
+  % \label{eq:theta_base_richeq}
+  % \frac{\partial \theta}{\partial t} - \nabla \cdot D(\theta)\nabla \theta - \frac{\partial K(h)}{\partial z} = 0
+% \end{equation}
+% mixed form
+% \begin{equation}
+  % \label{eq:mixed_richeq}
+  % \frac{\partial \theta}{\partial t} - \nabla \cdot K(h)\nabla h - \frac{\partial K(h)}{\partial z} = 0
+% \end{equation}
+% The model employs the mixed
+
+% The hydraulic conductivity for a given pressure head is estimated using the equation given by \textcite{genuchten_closed-form_1980}:
+% \begin{equation}
+  % \label{eq:vange_hycon}
+  % K(h) = K_s 
+% \end{equation}
+
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "basefile/Projekt_basefile"
