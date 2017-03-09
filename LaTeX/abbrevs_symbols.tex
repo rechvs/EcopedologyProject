@@ -10,19 +10,25 @@
   \markboth{\mysectiontitle{}}{} % http://tex.stackexchange.com/questions/89914/chapter-name-in-the-header-with-chapter
   \addcontentsline{toc}{section}{\mysectiontitle{}} % http://tex.stackexchange.com/questions/35433/creating-unnumbered-chapters-sections-plus-adding-them-to-the-toc-and-or-header
 
-  \begin{tabu}{l X l}
-    \toprule
-    $Symbol$ & Description & Unit \\
-    \midrule
-    $\theta$ & volumetric soil moisture content & \si{\cubic\metre\per\cubic\metre} \\
-    $\nabla$ & vector differential operator $\left(\nabla = \left( \frac{\partial}{\partial x}, \frac{\partial}{\partial y}, \frac{\partial}{\partial z} \right)\right)$ & - \\
-    $C$ & specific moisture capacity & \si{\per\metre} \\
-    $D$ & unsaturated diffusivity & \si{\square\meter\per\second} \\
-    $h$ & pressure head & \si{\metre} \\
-    $K$ & unsaturated hydraulic conductivity & \si{\metre\per\second} \\
-    $t$ & time & \si{\second} \\
-    $z$ & distance in vertical dimension (assumed positive upward) & \si{\metre} \\
-  \end{tabu}
+\begin{tabu}{l L l}
+  \toprule
+  $Symbol$ & Description & Unit \\
+  \midrule
+  $\int$ & integral symbol & - \\
+  $\pd{}{x}$ & partial derivative with respect to $x$ & - \\
+  $\theta$ & volumetric soil moisture content & \si{\cubic\metre\per\cubic\metre} \\
+  $\nabla$ & nabla, vector differential operator $\left(\nabla = \left( \frac{\partial}{\partial x}, \frac{\partial}{\partial y}, \frac{\partial}{\partial z} \right)\right)$ & - \\
+  % $C$ & specific moisture capacity, $C(h) \equiv \frac{\partial \theta}{\partial h}$ & \si{\per\metre} \\
+  % $D$ & unsaturated diffusivity, $D(\theta) \equiv \frac{K(\theta)}{C(\theta)}$ & \si{\square\meter\per\second} \\
+  $h$ & pressure head & \si{\metre} \\
+  % $H$ & hydraulic head, $H = h + z$ & \si{\metre} \\
+  $K$ & unsaturated hydraulic conductivity & \si{\metre\per\second} \\
+  $q$ & flux, flux density & \si{\cubic\metre\per\square\metre\per\second}\\
+  % RHS & right hand side & - \\
+  $R_n$ & Lagrange remainder & - \\
+  $t$ & time & \si{\second} \\
+  $z$ & distance in vertical dimension (assumed positive upward) & \si{\metre} \\
+\end{tabu}
 
 }
 %%% Local Variables:
