@@ -12,31 +12,28 @@ Replacing $q$ in equation (\ref{eq:contprinc}) with the right hand side of equat
 \begin{equation}
   \label{eq:richeq}
   \pd{\theta}{t} = \nabla \cdot \left( K(h) \nabla \left( h + z \right) \right)
-  % \frac{\partial \theta}{\partial t} = \nabla \cdot \left( K(h) \nabla \left( h + z \right) \right)
 \end{equation}
 Equation (\ref{eq:richeq}) can be further simplified by applying the vector differential operator $\nabla$: % cp. Notes on Celia et al.1990, p. 24 ff.
 \begin{align*}
   \pd{\theta}{t} &= \nabla \cdot \left( K(h) \nabla \left( h + z \right) \right) \\
-  % \frac{\partial \theta}{\partial t} &= \nabla \cdot \left( K(h) \nabla \left( h + z \right) \right) \\
                                      &= \nabla \cdot\left( K(h) \left(\nabla h + \nabla z \right) \right) \\
                                      &= \nabla \cdot\left( K(h) \left(\nabla h + \left(\pd{z}{x},\pd{z}{y},\pd{z}{z} \right) \right) \right) \\
-                                     % &= \nabla \cdot\left( K(h) \left(\nabla h + \left(\frac{\partial z}{\partial x},\frac{\partial z}{\partial y},\frac{\partial z}{\partial z} \right) \right) \right) \\
                                      &= \nabla \cdot\left( K(h) \left(\nabla h + \left(0,0,1 \right) \right) \right) \\
                                      &= \nabla \cdot \left(K(h) \nabla h + K(h) \left(0,0,1 \right) \right) \\
                                      &= \nabla \cdot \left(K(h) \nabla h + \left(0,0,K(h) \right) \right) \\
                                      &= \nabla \cdot \left( K(h) \nabla h \right) + \nabla \cdot \left(0,0,K(h) \right) \\
-                                     &= \nabla \cdot \left( K(h) \nabla h \right) + \left(\frac{\partial 0}{\partial x},\frac{\partial 0}{\partial y},\frac{\partial K(h)}{\partial z} \right) \\
-                                     &= \nabla \cdot \left( K(h) \nabla h \right) + \frac{\partial K(h)}{\partial z}
+                                     &= \nabla \cdot \left( K(h) \nabla h \right) + \left(\pd{0}{x},\pd{0}{y},\pd{K(h)}{z}\right) \\
+                                     &= \nabla \cdot \left( K(h) \nabla h \right) + \pd{K(h)}{z}
 \end{align*}
 The Richards equation is thus
 \begin{equation}
   \label{eq:richeq_simple}
-  \frac{\partial \theta}{\partial t} = \nabla \cdot \left( K(h) \nabla h \right) + \frac{\partial K(h)}{\partial z},
+  \pd{\theta}{t} = \nabla \cdot \left( K(h) \nabla h \right) + \pd{K(h)}{z} \, ,
 \end{equation}
 or
 \begin{equation}
   \label{eq:richeq_pde}
-  \frac{\partial \theta}{\partial t} - \nabla \cdot \left( K(h) \nabla h \right) - \frac{\partial K(h)}{\partial z} = 0 .
+  \pd{\theta}{t} - \nabla \cdot \left( K(h) \nabla h \right) - \pd{K(h)}{z} = 0 \, .
 \end{equation}
 % Equation (\ref{eq:richeq_pde}) is also called the ``mixed form'' of the Richards equation, since it is a mixture of the ``$h$-based'' and the ``$\theta$-based'' form \parencite{celia_general_1990}.
 The relationships between $\theta$ and $h$ on the one hand, and $K$ and $h$ on the other hand are nonlinear \parencite{celia_general_1990}.  Therefore, numerical approximation is a widely used approach for solving equation (\ref{eq:richeq_pde}).  Discretization of the spatial domain is achieved by implementing the finite difference method, which itself is based on a Taylor series.
