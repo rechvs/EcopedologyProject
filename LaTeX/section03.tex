@@ -36,12 +36,24 @@ or
   \pd{\theta}{t} - \nabla \cdot \del{ K(h) \nabla h } - \pd{K(h)}{z} = 0 \, .
 \end{equation}
 % Equation (\ref{eq:richeq_pde}) is also called the ``mixed form'' of the Richards equation, since it is a mixture of the ``$h$-based'' and the ``$\theta$-based'' form \parencite{celia_general_1990}.
-The relationships between $\theta$ and $h$ on the one hand, and $K$ and $h$ on the other hand are nonlinear \parencite{celia_general_1990}.  Therefore, numerical approximation is a widely used approach for solving equation (\ref{eq:richeq_pde}).  Discretization of the spatial domain can be achieved by implementing the finite difference method, which itself is based on the Taylor series.
+The relationships between $\theta$ and $h$ on the one hand, and $K$ and $h$ on the other hand are nonlinear \parencite{celia_general_1990}.  Therefore, numerical approximation is a widely used approach for solving equation (\ref{eq:richeq_pde}), requiring both temporal discretization (i.e., discretization with respect to $t$) and spatial discretization (i.e., discretization with respect to $x, y, \text{and } z$) of the equation.
 
-\subsubsection{Taylor series}
+In general, 2 approaches for temporally discretizing differential equations exist:  explicit methods and implicit methods.  Explicit methods estimate the value of a function at time $t_{n+1} = t_n + \Delta t$ based on the value at time $t_n$. For example, the Euler forward method uses the equation
+\begin{equation}
+  \label{eq:euformeth}
+  s_{n+1} = s_n + (t_{n+1} - t_n) f(t_n,s_n)
+\end{equation}
+to obtain the value $s_{n+1}$.  Since the method attempts to calculate the value at $t_{n+1}$ based on information valid at $t_n$ it is prone to error and instable results \parencite{Weisstein2017a}.  Implicit methods do not suffer from these shortcomings.  The model presented here employs the Euler backward method, which is an example of an implicit method \parencite{Weisstein2017b}.
+
+\subsection{Euler backward method}
+\input{../subsectioneubackmeth}
+
+Discretization of the spatial domain can be achieved by implementing the finite difference method, which itself is based on the Taylor series.
+
+\subsection{Taylor series}
 \input{../subsectiontayse}
 
-\subsubsection{Finite difference method}
+\subsection{Finite difference method}
 \input{../subsectionfidifmeth}
 
 
