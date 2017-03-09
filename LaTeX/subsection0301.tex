@@ -39,60 +39,10 @@ or
 The relationships between $\theta$ and $h$ on the one hand, and $K$ and $h$ on the other hand are nonlinear \parencite{celia_general_1990}.  Therefore, numerical approximation is a widely used approach for solving equation (\ref{eq:richeq_pde}).  Discretization of the spatial domain is achieved by implementing the finite difference method, which itself is based on a Taylor series.
 
 \subsubsection{Taylor series}
-A Taylor series is a series expansion of a function about a point \parencite{Weisstein2017}.  A one-dimensional Taylor series expansion of a real function $f(x)$ about a point $x = a$ is given by
-\begin{equation*}
-  \label{eq:tayse}
-  f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\frac{f'''(a)}{2!}(x-a)^3+\mathellipsis+\frac{f^{(n)}(a)}{n!}(x-a)^n+\mathellipsis
-\end{equation*}
-The Taylor series of a function $f(x)$ can be derived by first noting that the integral of the $(n+1)$st derivative $f^{(n+1)}$ of $f(x)$ from the point $x_0$ to an arbitrary point $x$ is given by
-\begin{align*}
-  \int_{x_0}^x{f^{(n+1)}(x)}\dif x &= \sbr{ f^{(n)}(x) }_{x_0}^x \\
-                               &= f^{(n)}(x) - f^{(n)}(x_0) \, .
-\end{align*}
-A second integration gives
-\begin{align*}
-  \int_{x_0}^x\int_{x_0}^x{f^{(n+1)}(x)} (\dif x)^2 &= \int_{x_0}^x{\del{ f^{(n)}(x) - f^{(n)}(x_0) }}\dif x \\
-                                    &= \int_{x_0}^x{f^{(n)}(x)} - \int_{x_0}^x{f^{(n)}(x_0)} \\
-                                    &= \sbr{ f^{(n-1)}(x) }_{x_0}^x - \sbr{ x f^{(n)}(x_0) }_{x_0}^x \\
-                                    &= f^{(n-1)}(x) - f^{(n-1)}(x_0) - \del{ x f^{(n)}(x) - x_0 f^{(n)}(x_0) } \\
-                                    &= f^{(n-1)}(x) - f^{(n-1)}(x_0) - (x - x_0) f^{(n)}(x_0) \, .
-\end{align*}
-A third integration gives
-\begin{align*}
-  &\int_{x_0}^x\int_{x_0}^x\int_{x_0}^x{f^{(n+1)}(x)} (\dif x)^3 \\
-  = &\int_{x_0}^x{\del{ f^{(n-1)}(x) - f^{(n-1)}(x_0) - (x - x_0) f^{(n)}(x_0) }}\dif x \\
-  = &\int_{x_0}^x{f^{(n-1)}(x)}\dif x - \int_{x_0}^x{f^{(n-1)}(x_0)}\dif x - \int_{x_0}^x(x - x_0){f^{(n)}(x_0)}\dif x \\
-  = &\int_{x_0}^x{f^{(n-1)}(x)}\dif x - \int_{x_0}^x{f^{(n-1)}(x_0)}\dif x - \int_{x_0}^x\del{x f^{(n)}(x_0) - x_0 f^{(n)}(x_0)}\dif x \\
-  = &\int_{x_0}^x{f^{(n-1)}(x)}\dif x - \int_{x_0}^x{f^{(n-1)}(x_0)}\dif x - \del{ \int_{x_0}^x{x f^{(n)}(x_0)}\dif x - \int_{x_0}^x{x_0 f^{(n)}(x_0)}\dif x } \\
-  = &\sbr{ f^{(n-2)}(x) }_{x_0}^x -\sbr{ x f^{(n-1)}(x_0) }_{x_0}^x - \del{ \sbr{ \frac{1}{2}x^2f^{(n)}(x_0) }_{x_0}^x - \sbr{ xx_0f^{(n)}(x_0) }_{x_0}^x } \\
-  = &f^{(n-2)}(x)
-    - f^{(n-2)}(x_0)
-    - \del{ x f^{(n-1)}(x_0)
-    - x_0 f^{(n-1)}(x_0) } \\
-  &- \del{ \del{ \frac{1}{2} x^2 f^{(n)}(x_0)
-    - \frac{1}{2} x_0^2 f^{(n)}(x_0) }
-    - \del{ x x_0 f^{(n)}(x_0)
-    - x_0 x_0 f^{(n)}(x_0) } } \\
-  = &f^{(n-2)}(x)
-    - f^{(n-2)}(x_0)
-    - (x - x_0) f^{(n-1)}(x_0) - \del{ \frac{1}{2} x^2 - \frac{1}{2} x_0^2 - x x_0 + x_0^2 } f^{(n)}(x_0) \\
-  = &f^{(n-2)}(x)
-    - f^{(n-2)}(x_0)
-    - (x - x_0) f^{(n-1)}(x_0) - \del{ \frac{1}{2} x^2 - x x_0 + \frac{1}{2} x_0^2 } f^{(n)}(x_0) \\
-  = &f^{(n-2)}(x)
-    - f^{(n-2)}(x_0)
-    - (x - x_0) f^{(n-1)}(x_0) - \frac{1}{2} \del{ x^2 - 2 x x_0 + x_0^2 } f^{(n)}(x_0) \\
-  = &f^{(n-2)}(x)
-    - f^{(n-2)}(x_0)
-    - (x - x_0) f^{(n-1)}(x_0) - \frac{1}{2} \del{ x - x_0 }^2 f^{(n)}(x_0) \\
-  = &f^{(n-2)}(x)
-    - f^{(n-2)}(x_0)
-    - (x - x_0) f^{(n-1)}(x_0) - \frac{\del{ x - x_0 }^2}{2 !}  f^{(n)}(x_0) \, .
-\end{align*}
-Continuing up to $n + 1$ integrations gives
-\begin{align*}
-  \int_{}\hdots_{} \int_{x_0}^x \\
-\end{align*}
+% \input{../subsubsection030101.tex}
+\input{../subsubsectiontayse}
+
+
 
 
 % There exist 3 standard forms of the Richards equation \parencite{celia_general_1990}:  \\

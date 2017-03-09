@@ -1,0 +1,80 @@
+A Taylor series is a series expansion of a function about a point \parencite{Weisstein2017}.
+% A one-dimensional Taylor series expansion of a real function $f(x)$ about a point $x = a$ is given by
+% \begin{equation*}
+  % f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\frac{f'''(a)}{2!}(x-a)^3+\mathellipsis+\frac{f^{(n)}(a)}{n!}(x-a)^n+\mathellipsis
+% \end{equation*}
+The Taylor series of a function $f(x)$ can be derived by first noting that the integral of the $(n+1)$st derivative $f^{(n+1)}$ of $f(x)$ from the point $x_0$ to an arbitrary point $x$ is given by
+\begin{align*}
+  \int_{x_0}^x{f^{(n+1)}(x)}\dif x &= \sbr{ f^{(n)}(x) }_{x_0}^x \\
+                               &= f^{(n)}(x) - f^{(n)}(x_0) \, .
+\end{align*}
+A second integration gives
+\begin{align*}
+  \int_{x_0}^x\int_{x_0}^x{f^{(n+1)}(x)} (\dif x)^2 &= \int_{x_0}^x{\del{ f^{(n)}(x) - f^{(n)}(x_0) }}\dif x \\
+                                    &= \int_{x_0}^x{f^{(n)}(x)}\dif x - \int_{x_0}^x{f^{(n)}(x_0)}\dif x \\
+                                    &= \sbr{ f^{(n-1)}(x) }_{x_0}^x - \sbr{ x f^{(n)}(x_0) }_{x_0}^x \\
+                                    &= f^{(n-1)}(x) - f^{(n-1)}(x_0) - \del{ x f^{(n)}(x) - x_0 f^{(n)}(x_0) } \\
+                                    &= f^{(n-1)}(x) - f^{(n-1)}(x_0) - (x - x_0) f^{(n)}(x_0) \, .
+\end{align*}
+A third integration gives
+\begin{align*}
+  &\int_{x_0}^x\int_{x_0}^x\int_{x_0}^x{f^{(n+1)}(x)} (\dif x)^3 \\
+  = &\int_{x_0}^x{\del{ f^{(n-1)}(x) - f^{(n-1)}(x_0) - (x - x_0) f^{(n)}(x_0) }}\dif x \\
+  = &\int_{x_0}^x{f^{(n-1)}(x)}\dif x - \int_{x_0}^x{f^{(n-1)}(x_0)}\dif x - \int_{x_0}^x(x - x_0){f^{(n)}(x_0)}\dif x \\
+  = &\int_{x_0}^x{f^{(n-1)}(x)}\dif x - \int_{x_0}^x{f^{(n-1)}(x_0)}\dif x - \int_{x_0}^x\del{x f^{(n)}(x_0) - x_0 f^{(n)}(x_0)}\dif x \\
+  = &\int_{x_0}^x{f^{(n-1)}(x)}\dif x - \int_{x_0}^x{f^{(n-1)}(x_0)}\dif x - \del{ \int_{x_0}^x{x f^{(n)}(x_0)}\dif x - \int_{x_0}^x{x_0 f^{(n)}(x_0)}\dif x } \\
+  = &\sbr{ f^{(n-2)}(x) }_{x_0}^x -\sbr{ x f^{(n-1)}(x_0) }_{x_0}^x - \del{ \sbr{ \frac{1}{2}x^2f^{(n)}(x_0) }_{x_0}^x - \sbr{ xx_0f^{(n)}(x_0) }_{x_0}^x } \\
+  = &f^{(n-2)}(x)
+    - f^{(n-2)}(x_0)
+    - \del{ x f^{(n-1)}(x_0)
+    - x_0 f^{(n-1)}(x_0) } \\
+  &- \del{ \del{ \frac{1}{2} x^2 f^{(n)}(x_0)
+    - \frac{1}{2} x_0^2 f^{(n)}(x_0) }
+    - \del{ x x_0 f^{(n)}(x_0)
+    - x_0 x_0 f^{(n)}(x_0) } } \\
+  = &f^{(n-2)}(x)
+    - f^{(n-2)}(x_0)
+    - (x - x_0) f^{(n-1)}(x_0) - \del{ \frac{1}{2} x^2 - \frac{1}{2} x_0^2 - x x_0 + x_0^2 } f^{(n)}(x_0) \\
+  = &f^{(n-2)}(x)
+    - f^{(n-2)}(x_0)
+    - (x - x_0) f^{(n-1)}(x_0) - \del{ \frac{1}{2} x^2 - x x_0 + \frac{1}{2} x_0^2 } f^{(n)}(x_0) \\
+  = &f^{(n-2)}(x)
+    - f^{(n-2)}(x_0)
+    - (x - x_0) f^{(n-1)}(x_0) - \frac{1}{2} \del{ x^2 - 2 x x_0 + x_0^2 } f^{(n)}(x_0) \\
+  = &f^{(n-2)}(x)
+    - f^{(n-2)}(x_0)
+    - (x - x_0) f^{(n-1)}(x_0) - \frac{1}{2} \del{ x - x_0 }^2 f^{(n)}(x_0) \\
+  = &f^{(n-2)}(x)
+    - f^{(n-2)}(x_0)
+    - (x - x_0) f^{(n-1)}(x_0) - \frac{\del{ x - x_0 }^2}{2 !}  f^{(n)}(x_0) \, .
+\end{align*}
+Continuing up to $n + 1$ integrations gives
+\begin{align*}
+  &\underbrace{\int \hspace{-4mm} \hdots \hspace{-1mm} \int_{x_0}^x}_{n+1}{f^{(n+1)}(x)(\dif x)^{(n+1)}} \\
+  = &f(x) - f(x_0) - (x - x_0) f'(x_0) - \frac{(x - x_0)^2}{2!} f''(x_0) - \frac{(x - x_0)^3}{3!} f'''(x_0) - \mathellipsis - \frac{(x - x_0)^n}{n!} f^{(n)}(x_0) \, .
+\end{align*}
+Solving for $f(x)$ gives
+\begin{align*}
+  f(x) = &f(x_0)
+           + (x - x_0) f'(x_0)
+           + \frac{(x-x_0)^2}{2!} f''(x_0) \\
+         &+ \frac{(x - x_0)^3}{3!} f'''(x_0)
+           + \mathellipsis \frac{(x - x_0)^n}{n!} f^{(n)}(x_0)
+           + \underbrace{\int \hspace{-4mm} \hdots \hspace{-1mm} \int_{x_0}^x}_{n+1}{f^{(n+1)}(x)(\dif x)^{(n+1)}} \\
+  = &\sum_{k=0}^n{\frac{(x - x_0)^k}{k!}}f^{(k)}(x_0) + \underbrace{\int \hspace{-4mm} \hdots \hspace{-1mm} \int_{x_0}^x}_{n+1}{f^{(n+1)}(x)(\dif x)^{(n+1)}} \, .
+\end{align*}
+Noting that the Lagrange remainder $R_n$ is given by
+\begin{align*}
+  R_n = &\underbrace{\int \hspace{-4mm} \hdots \hspace{-1mm} \int_{x_0}^x}_{n+1}{f^{(n+1)}(x)(\dif x)^{(n+1)}} \, ,
+\end{align*}
+we obtain
+\begin{equation}
+  \label{eq:tayse}
+  f(x) = \sum_{k=0}^n{\frac{(x - x_0)^k}{k!}}f^{(k)}(x_0) + R_n \, ,
+\end{equation}
+which is the one-dimensional Taylor series of the function $f(x)$.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "basefile/Projekt_basefile"
+%%% End:
