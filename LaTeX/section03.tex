@@ -36,13 +36,13 @@ or
   \pd{\theta}{t} - \nabla \cdot \del{ K(h) \nabla h } - \pd{K(h)}{z} = 0 \, .
 \end{equation}
 % Equation (\ref{eq:richeq_pde}) is also called the ``mixed form'' of the Richards equation, since it is a mixture of the ``$h$-based'' and the ``$\theta$-based'' form \parencite{celia_general_1990}.
-The relationships between $\theta$ and $h$ on the one hand, and $K$ and $h$ on the other hand are nonlinear \parencite{celia_general_1990}.  Therefore, numerical approximation is a widely used approach for solving equation (\ref{eq:richeq_pde}).  Discretization of the spatial domain is achieved by implementing the finite difference method, which itself is based on a Taylor series.
+The relationships between $\theta$ and $h$ on the one hand, and $K$ and $h$ on the other hand are nonlinear \parencite{celia_general_1990}.  Therefore, numerical approximation is a widely used approach for solving equation (\ref{eq:richeq_pde}).  Discretization of the spatial domain can be achieved by implementing the finite difference method, which itself is based on the Taylor series.
 
 \subsubsection{Taylor series}
-% \input{../subsubsection030101.tex}
-\input{../subsubsectiontayse}
+\input{../subsectiontayse}
 
-
+\subsubsection{Finite difference method}
+\input{../subsectionfidifmeth}
 
 
 % There exist 3 standard forms of the Richards equation \parencite{celia_general_1990}:  \\

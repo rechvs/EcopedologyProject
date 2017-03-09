@@ -3,7 +3,7 @@ A Taylor series is a series expansion of a function about a point \parencite{Wei
 % \begin{equation*}
   % f(x)=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\frac{f'''(a)}{2!}(x-a)^3+\mathellipsis+\frac{f^{(n)}(a)}{n!}(x-a)^n+\mathellipsis
 % \end{equation*}
-The Taylor series of a function $f(x)$ can be derived by first noting that the integral of the $(n+1)$st derivative $f^{(n+1)}$ of $f(x)$ from the point $x_0$ to an arbitrary point $x$ is given by
+The Taylor series of a function $f(x)$ can be derived by first noting that the integral of the $(n+1)$st derivative $f^{(n+1)}$ of $f(x)$ from the point $x_0$ to an arbitrary point $x_0 + \Delta x = x$ is given by
 \begin{align*}
   \int_{x_0}^x{f^{(n+1)}(x)}\dif x &= \sbr{ f^{(n)}(x) }_{x_0}^x \\
                                &= f^{(n)}(x) - f^{(n)}(x_0) \, .
