@@ -27,16 +27,17 @@ Equation (\ref{eq:richeq}) can be further simplified by applying the vector diff
 \end{align*}
 The Richards equation is thus
 \begin{equation}
-  \label{eq:richeq_simple}
+  \label{eq:richeq_3D}
   \pd{\theta}{t} = \nabla \cdot \del{ K(h) \nabla h } + \pd{K(h)}{z} \, ,
 \end{equation}
-or
+or, when only considering the vertical spatial dimension,
 \begin{equation}
-  \label{eq:richeq_pde}
-  \pd{\theta}{t} - \nabla \cdot \del{ K(h) \nabla h } - \pd{K(h)}{z} = 0 \, .
+  \label{eq:richeq_1D}
+  % \pd{\theta}{t} - \nabla \cdot \del{ K(h) \nabla h } - \pd{K(h)}{z} = 0 \, .
+  \pd{\theta}{t} = \frac{\partial}{\partial z} \del{ K(h) \pd{h}{z} } + \pd{K(h)}{z} \, ,
 \end{equation}
 % Equation (\ref{eq:richeq_pde}) is also called the ``mixed form'' of the Richards equation, since it is a mixture of the ``$h$-based'' and the ``$\theta$-based'' form \parencite{celia_general_1990}.
-The relationships between $\theta$ and $h$ on the one hand, and $K$ and $h$ on the other hand are nonlinear \parencite{celia_general_1990}.  Therefore, numerical approximation is a widely used approach for solving equation (\ref{eq:richeq_pde}), requiring both temporal discretization (i.e., discretization with respect to $t$) and spatial discretization (i.e., discretization with respect to $x, y, \text{and } z$) of the equation.
+The relationships between $\theta$ and $h$ on the one hand, and $K$ and $h$ on the other hand are nonlinear \parencite{celia_general_1990}.  Therefore, numerical approximation is a widely used approach for solving equation \eqref{eq:richeq_1D}, requiring both temporal discretization (i.e., discretization with respect to $t$) and spatial discretization (i.e., discretization with respect to $x, y, \text{and } z$) of the equation.
 
 In general, 2 approaches for temporally discretizing differential equations exist:  explicit methods and implicit methods.  Explicit methods estimate the value of a function at time $t_{n+1} = t_n + \Delta t$ based on the value at time $t_n$. For example, the Euler forward method uses the equation
 \begin{equation}
@@ -48,13 +49,13 @@ to obtain the value $s_{n+1}$.  Since the method attempts to calculate the value
 \subsection{Euler backward method}
 \input{../subsectioneubackmeth}
 
-Discretization of the spatial domain can be achieved by implementing the finite difference method, which itself is based on the Taylor series.
-
 \subsection{Taylor series}
 \input{../subsectiontayse}
 
-\subsection{Finite difference method}
-\input{../subsectionfidifmeth}
+% Discretization of the spatial domain can be achieved by implementing the finite difference method, which itself is based on the Taylor series.
+
+% \subsection{Finite difference method}
+% \input{../subsectionfidifmeth}
 
 
 % There exist 3 standard forms of the Richards equation \parencite{celia_general_1990}:  \\

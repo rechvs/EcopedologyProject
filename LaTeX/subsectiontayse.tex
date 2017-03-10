@@ -51,7 +51,8 @@ A third integration gives
 Continuing up to $n + 1$ integrations gives
 \begin{align*}
   &\underbrace{\int \hspace{-4mm} \hdots \hspace{-1mm} \int_{x_0}^x}_{n+1}{f^{\del{ n+1 }}\del{ x }\del{ \dif x }^{\del{ n+1 }}} \\
-  = &f\del{ x } - f\del{ x_0 } - \del{ x - x_0 } f'\del{ x_0 } - \frac{\del{ x - x_0 }^2}{2!} f''\del{ x_0 } - \frac{\del{ x - x_0 }^3}{3!} f'''\del{ x_0 } - \mathellipsis - \frac{\del{ x - x_0 }^n}{n!} f^{\del{ n }}\del{ x_0 } \, .
+  = &f\del{ x } - f\del{ x_0 } - \del{ x - x_0 } f'\del{ x_0 } - \frac{\del{ x - x_0 }^2}{2!} f''\del{ x_0 } - \frac{\del{ x - x_0 }^3}{3!} f'''\del{ x_0 } \\
+  &- \mathellipsis - \frac{\del{ x - x_0 }^n}{n!} f^{\del{ n }}\del{ x_0 } \, .
 \end{align*}
 Solving for $f\del{ x }$ gives
 \begin{align*}
@@ -76,9 +77,9 @@ The right hand side of equation \eqref{eq:tayse} is the one-dimensional Taylor s
 \begin{align}
   \label{eq:celia_15}
   % \theta^{n+1,m+1} = \sum_{k=0}^1\frac{\del{ H^{n+1,m+1} - H^{n+1,m} }^k}{k!}f^{\del{ k }}\del{ H^{n+1,m} } + R_1
-  \theta^{n+1,m+1} &= \sum_{k=0}^1\frac{\del{ H^{n+1,m+1} - H^{n+1,m} }^k}{k!}f^{\del{ k }}\del{ H^{n+1,m} } + R_1 \\
-                   &= \frac{\del{ H^{n+1,m+1} - H^{n+1,m} }^0}{0!} f^{\del{ 0 }}\del{ H^{n+1,m} } + \frac{\del{ H^{n+1,m+1} - H^{n+1,m} }^1}{1!} f^{\del{ 1 }}\del{ H^{n+1,m} } + R_1 \\
-                   &= f\del{ H^{n+1,m} } + 
+  \theta^{n+1,m+1} = &\sum_{k=0}^1\frac{\del{ H^{n+1,m+1} - H^{n+1,m} }^k}{k!}f^{\del{ k }}\del{ H^{n+1,m} } + R_1 \\
+  = &\frac{\del{ H^{n+1,m+1} - H^{n+1,m} }^0}{0!} f^{\del{ 0 }}\del{ H^{n+1,m} } + \frac{\del{ H^{n+1,m+1} - H^{n+1,m} }^1}{1!} f^{\del{ 1 }}\del{ H^{n+1,m} } + R_1 \\
+                   = &f\del{ H^{n+1,m} } + \del{ H^{n+1,m+1} - H^{n+1,m} } f'\del{ H^{n+1,m} } + 0 \del{ \delta^2 }
 \end{align}
 
 %%% Local Variables:
