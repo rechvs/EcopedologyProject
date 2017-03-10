@@ -1,84 +1,84 @@
 A Taylor series is a series expansion of a function about a point \parencite{Weisstein2017}.
 % A one-dimensional Taylor series expansion of a real function $f\del{ x }$ about a point $x = a$ is given by
 % \begin{equation*}
-  % f\del{ x }=f(a)+f'(a)(x-a)+\frac{f''(a)}{2!}(x-a)^2+\frac{f'''(a)}{2!}(x-a)^3+\mathellipsis+\frac{f^{(n)}(a)}{n!}(x-a)^n+\mathellipsis
+  % f\del{ x }=f\del{ a }+f'\del{ a }\del{ x-a }+\frac{f''\del{ a }}{2!}\del{ x-a }^2+\frac{f'''\del{ a }}{2!}\del{ x-a }^3+\mathellipsis+\frac{f^{\del{ n }}\del{ a }}{n!}\del{ x-a }^n+\mathellipsis
 % \end{equation*}
-The Taylor series of a function $f\del{ x }$ can be derived by first noting that the integral of the $(n+1)$st derivative $f^{(n+1)}$ of $f\del{ x }$ from the point $x_0$ to an arbitrary point $x_0 + \Delta x = x$ is given by
+The Taylor series of a function $f\del{ x }$ can be derived by first noting that the integral of the $\del{ n+1 }$st derivative $f^{\del{ n+1 }}$ of $f\del{ x }$ from the point $x_0$ to an arbitrary point $x_0 + \Delta x = x$ is given by
 \begin{align*}
-  \int_{x_0}^x{f^{(n+1)}\del{ x }}\dif x &= \sbr{ f^{(n)}\del{ x } }_{x_0}^x \\
-                               &= f^{(n)}\del{ x } - f^{(n)}\del{ x_0 } \, .
+  \int_{x_0}^x{f^{\del{ n+1 }}\del{ x }}\dif x &= \sbr{ f^{\del{ n }}\del{ x } }_{x_0}^x \\
+                               &= f^{\del{ n }}\del{ x } - f^{\del{ n }}\del{ x_0 } \, .
 \end{align*}
 A second integration gives
 \begin{align*}
-  \int_{x_0}^x\int_{x_0}^x{f^{(n+1)}\del{ x }} (\dif x)^2 &= \int_{x_0}^x{\del{ f^{(n)}\del{ x } - f^{(n)}\del{ x_0 } }}\dif x \\
-                                    &= \int_{x_0}^x{f^{(n)}\del{ x }}\dif x - \int_{x_0}^x{f^{(n)}\del{ x_0 }}\dif x \\
-                                    &= \sbr{ f^{(n-1)}\del{ x } }_{x_0}^x - \sbr{ x f^{(n)}\del{ x_0 } }_{x_0}^x \\
-                                    &= f^{(n-1)}\del{ x } - f^{(n-1)}\del{ x_0 } - \del{ x f^{(n)}\del{ x } - x_0 f^{(n)}\del{ x_0 } } \\
-                                    &= f^{(n-1)}\del{ x } - f^{(n-1)}\del{ x_0 } - (x - x_0) f^{(n)}\del{ x_0 } \, .
+  \int_{x_0}^x\int_{x_0}^x{f^{\del{ n+1 }}\del{ x }} \del{ \dif x }^2 &= \int_{x_0}^x{\del{ f^{\del{ n }}\del{ x } - f^{\del{ n }}\del{ x_0 } }}\dif x \\
+                                    &= \int_{x_0}^x{f^{\del{ n }}\del{ x }}\dif x - \int_{x_0}^x{f^{\del{ n }}\del{ x_0 }}\dif x \\
+                                    &= \sbr{ f^{\del{ n-1 }}\del{ x } }_{x_0}^x - \sbr{ x f^{\del{ n }}\del{ x_0 } }_{x_0}^x \\
+                                    &= f^{\del{ n-1 }}\del{ x } - f^{\del{ n-1 }}\del{ x_0 } - \del{ x f^{\del{ n }}\del{ x } - x_0 f^{\del{ n }}\del{ x_0 } } \\
+                                    &= f^{\del{ n-1 }}\del{ x } - f^{\del{ n-1 }}\del{ x_0 } - \del{ x - x_0 } f^{\del{ n }}\del{ x_0 } \, .
 \end{align*}
 A third integration gives
 \begin{align*}
-  &\int_{x_0}^x\int_{x_0}^x\int_{x_0}^x{f^{(n+1)}\del{ x }} (\dif x)^3 \\
-  = &\int_{x_0}^x{\del{ f^{(n-1)}\del{ x } - f^{(n-1)}\del{ x_0 } - (x - x_0) f^{(n)}\del{ x_0 } }}\dif x \\
-  = &\int_{x_0}^x{f^{(n-1)}\del{ x }}\dif x - \int_{x_0}^x{f^{(n-1)}\del{ x_0 }}\dif x - \int_{x_0}^x(x - x_0){f^{(n)}\del{ x_0 }}\dif x \\
-  = &\int_{x_0}^x{f^{(n-1)}\del{ x }}\dif x - \int_{x_0}^x{f^{(n-1)}\del{ x_0 }}\dif x - \int_{x_0}^x\del{x f^{(n)}\del{ x_0 } - x_0 f^{(n)}\del{ x_0 }}\dif x \\
-  = &\int_{x_0}^x{f^{(n-1)}\del{ x }}\dif x - \int_{x_0}^x{f^{(n-1)}\del{ x_0 }}\dif x - \del{ \int_{x_0}^x{x f^{(n)}\del{ x_0 }}\dif x - \int_{x_0}^x{x_0 f^{(n)}\del{ x_0 }}\dif x } \\
-  = &\sbr{ f^{(n-2)}\del{ x } }_{x_0}^x -\sbr{ x f^{(n-1)}\del{ x_0 } }_{x_0}^x - \del{ \sbr{ \frac{1}{2}x^2f^{(n)}\del{ x_0 } }_{x_0}^x - \sbr{ xx_0f^{(n)}\del{ x_0 } }_{x_0}^x } \\
-  = &f^{(n-2)}\del{ x }
-    - f^{(n-2)}\del{ x_0 }
-    - \del{ x f^{(n-1)}\del{ x_0 }
-    - x_0 f^{(n-1)}\del{ x_0 } } \\
-  &- \del{ \del{ \frac{1}{2} x^2 f^{(n)}\del{ x_0 }
-    - \frac{1}{2} x_0^2 f^{(n)}\del{ x_0 } }
-    - \del{ x x_0 f^{(n)}\del{ x_0 }
-    - x_0 x_0 f^{(n)}\del{ x_0 } } } \\
-  = &f^{(n-2)}\del{ x }
-    - f^{(n-2)}\del{ x_0 }
-    - (x - x_0) f^{(n-1)}\del{ x_0 } - \del{ \frac{1}{2} x^2 - \frac{1}{2} x_0^2 - x x_0 + x_0^2 } f^{(n)}\del{ x_0 } \\
-  = &f^{(n-2)}\del{ x }
-    - f^{(n-2)}\del{ x_0 }
-    - (x - x_0) f^{(n-1)}\del{ x_0 } - \del{ \frac{1}{2} x^2 - x x_0 + \frac{1}{2} x_0^2 } f^{(n)}\del{ x_0 } \\
-  = &f^{(n-2)}\del{ x }
-    - f^{(n-2)}\del{ x_0 }
-    - (x - x_0) f^{(n-1)}\del{ x_0 } - \frac{1}{2} \del{ x^2 - 2 x x_0 + x_0^2 } f^{(n)}\del{ x_0 } \\
-  = &f^{(n-2)}\del{ x }
-    - f^{(n-2)}\del{ x_0 }
-    - (x - x_0) f^{(n-1)}\del{ x_0 } - \frac{1}{2} \del{ x - x_0 }^2 f^{(n)}\del{ x_0 } \\
-  = &f^{(n-2)}\del{ x }
-    - f^{(n-2)}\del{ x_0 }
-    - (x - x_0) f^{(n-1)}\del{ x_0 } - \frac{\del{ x - x_0 }^2}{2 !}  f^{(n)}\del{ x_0 } \, .
+  &\int_{x_0}^x\int_{x_0}^x\int_{x_0}^x{f^{\del{ n+1 }}\del{ x }} \del{ \dif x }^3 \\
+  = &\int_{x_0}^x{\del{ f^{\del{ n-1 }}\del{ x } - f^{\del{ n-1 }}\del{ x_0 } - \del{ x - x_0 } f^{\del{ n }}\del{ x_0 } }}\dif x \\
+  = &\int_{x_0}^x{f^{\del{ n-1 }}\del{ x }}\dif x - \int_{x_0}^x{f^{\del{ n-1 }}\del{ x_0 }}\dif x - \int_{x_0}^x\del{ x - x_0 }{f^{\del{ n }}\del{ x_0 }}\dif x \\
+  = &\int_{x_0}^x{f^{\del{ n-1 }}\del{ x }}\dif x - \int_{x_0}^x{f^{\del{ n-1 }}\del{ x_0 }}\dif x - \int_{x_0}^x\del{x f^{\del{ n }}\del{ x_0 } - x_0 f^{\del{ n }}\del{ x_0 }}\dif x \\
+  = &\int_{x_0}^x{f^{\del{ n-1 }}\del{ x }}\dif x - \int_{x_0}^x{f^{\del{ n-1 }}\del{ x_0 }}\dif x - \del{ \int_{x_0}^x{x f^{\del{ n }}\del{ x_0 }}\dif x - \int_{x_0}^x{x_0 f^{\del{ n }}\del{ x_0 }}\dif x } \\
+  = &\sbr{ f^{\del{ n-2 }}\del{ x } }_{x_0}^x -\sbr{ x f^{\del{ n-1 }}\del{ x_0 } }_{x_0}^x - \del{ \sbr{ \frac{1}{2}x^2f^{\del{ n }}\del{ x_0 } }_{x_0}^x - \sbr{ xx_0f^{\del{ n }}\del{ x_0 } }_{x_0}^x } \\
+  = &f^{\del{ n-2 }}\del{ x }
+    - f^{\del{ n-2 }}\del{ x_0 }
+    - \del{ x f^{\del{ n-1 }}\del{ x_0 }
+    - x_0 f^{\del{ n-1 }}\del{ x_0 } } \\
+  &- \del{ \del{ \frac{1}{2} x^2 f^{\del{ n }}\del{ x_0 }
+    - \frac{1}{2} x_0^2 f^{\del{ n }}\del{ x_0 } }
+    - \del{ x x_0 f^{\del{ n }}\del{ x_0 }
+    - x_0 x_0 f^{\del{ n }}\del{ x_0 } } } \\
+  = &f^{\del{ n-2 }}\del{ x }
+    - f^{\del{ n-2 }}\del{ x_0 }
+    - \del{ x - x_0 } f^{\del{ n-1 }}\del{ x_0 } - \del{ \frac{1}{2} x^2 - \frac{1}{2} x_0^2 - x x_0 + x_0^2 } f^{\del{ n }}\del{ x_0 } \\
+  = &f^{\del{ n-2 }}\del{ x }
+    - f^{\del{ n-2 }}\del{ x_0 }
+    - \del{ x - x_0 } f^{\del{ n-1 }}\del{ x_0 } - \del{ \frac{1}{2} x^2 - x x_0 + \frac{1}{2} x_0^2 } f^{\del{ n }}\del{ x_0 } \\
+  = &f^{\del{ n-2 }}\del{ x }
+    - f^{\del{ n-2 }}\del{ x_0 }
+    - \del{ x - x_0 } f^{\del{ n-1 }}\del{ x_0 } - \frac{1}{2} \del{ x^2 - 2 x x_0 + x_0^2 } f^{\del{ n }}\del{ x_0 } \\
+  = &f^{\del{ n-2 }}\del{ x }
+    - f^{\del{ n-2 }}\del{ x_0 }
+    - \del{ x - x_0 } f^{\del{ n-1 }}\del{ x_0 } - \frac{1}{2} \del{ x - x_0 }^2 f^{\del{ n }}\del{ x_0 } \\
+  = &f^{\del{ n-2 }}\del{ x }
+    - f^{\del{ n-2 }}\del{ x_0 }
+    - \del{ x - x_0 } f^{\del{ n-1 }}\del{ x_0 } - \frac{\del{ x - x_0 }^2}{2 !}  f^{\del{ n }}\del{ x_0 } \, .
 \end{align*}
 Continuing up to $n + 1$ integrations gives
 \begin{align*}
-  &\underbrace{\int \hspace{-4mm} \hdots \hspace{-1mm} \int_{x_0}^x}_{n+1}{f^{(n+1)}\del{ x }(\dif x)^{(n+1)}} \\
-  = &f\del{ x } - f\del{ x_0 } - (x - x_0) f'\del{ x_0 } - \frac{(x - x_0)^2}{2!} f''\del{ x_0 } - \frac{(x - x_0)^3}{3!} f'''\del{ x_0 } - \mathellipsis - \frac{(x - x_0)^n}{n!} f^{(n)}\del{ x_0 } \, .
+  &\underbrace{\int \hspace{-4mm} \hdots \hspace{-1mm} \int_{x_0}^x}_{n+1}{f^{\del{ n+1 }}\del{ x }\del{ \dif x }^{\del{ n+1 }}} \\
+  = &f\del{ x } - f\del{ x_0 } - \del{ x - x_0 } f'\del{ x_0 } - \frac{\del{ x - x_0 }^2}{2!} f''\del{ x_0 } - \frac{\del{ x - x_0 }^3}{3!} f'''\del{ x_0 } - \mathellipsis - \frac{\del{ x - x_0 }^n}{n!} f^{\del{ n }}\del{ x_0 } \, .
 \end{align*}
 Solving for $f\del{ x }$ gives
 \begin{align*}
   f\del{ x } = &f\del{ x_0 }
-           + (x - x_0) f'\del{ x_0 }
-           + \frac{(x-x_0)^2}{2!} f''\del{ x_0 } \\
-         &+ \frac{(x - x_0)^3}{3!} f'''\del{ x_0 }
-           + \mathellipsis \frac{(x - x_0)^n}{n!} f^{(n)}\del{ x_0 }
-           + \underbrace{\int \hspace{-4mm} \hdots \hspace{-1mm} \int_{x_0}^x}_{n+1}{f^{(n+1)}\del{ x }(\dif x)^{(n+1)}} \\
-  = &\sum_{k=0}^n{\frac{(x - x_0)^k}{k!}}f^{(k)}\del{ x_0 } + \underbrace{\int \hspace{-4mm} \hdots \hspace{-1mm} \int_{x_0}^x}_{n+1}{f^{(n+1)}\del{ x }(\dif x)^{(n+1)}} \, .
+           + \del{ x - x_0 } f'\del{ x_0 }
+           + \frac{\del{ x-x_0 }^2}{2!} f''\del{ x_0 } \\
+         &+ \frac{\del{ x - x_0 }^3}{3!} f'''\del{ x_0 }
+           + \mathellipsis \frac{\del{ x - x_0 }^n}{n!} f^{\del{ n }}\del{ x_0 }
+           + \underbrace{\int \hspace{-4mm} \hdots \hspace{-1mm} \int_{x_0}^x}_{n+1}{f^{\del{ n+1 }}\del{ x }\del{ \dif x }^{\del{ n+1 }}} \\
+  = &\sum_{k=0}^n{\frac{\del{ x - x_0 }^k}{k!}}f^{\del{ k }}\del{ x_0 } + \underbrace{\int \hspace{-4mm} \hdots \hspace{-1mm} \int_{x_0}^x}_{n+1}{f^{\del{ n+1 }}\del{ x }\del{ \dif x }^{\del{ n+1 }}} \, .
 \end{align*}
 Noting that the Lagrange remainder $R_n$ is given by
 \begin{align*}
-  R_n = &\underbrace{\int \hspace{-4mm} \hdots \hspace{-1mm} \int_{x_0}^x}_{n+1}{f^{(n+1)}\del{ x }(\dif x)^{(n+1)}} \, ,
+  R_n = &\underbrace{\int \hspace{-4mm} \hdots \hspace{-1mm} \int_{x_0}^x}_{n+1}{f^{\del{ n+1 }}\del{ x }\del{ \dif x }^{\del{ n+1 }}} \, ,
 \end{align*}
 we obtain
 \begin{equation}
   \label{eq:tayse}
-  f\del{ x } = \sum_{k=0}^n{\frac{\del{ x - x_0 }^k}{k!}}f^{(k)}\del{ x_0 } + R_n \, .
+  f\del{ x } = \sum_{k=0}^n{\frac{\del{ x - x_0 }^k}{k!}}f^{\del{ k }}\del{ x_0 } + R_n \, .
 \end{equation}
 The right hand side of equation \eqref{eq:tayse} is the one-dimensional Taylor series of function $f\del{ x }$.  $\theta^{n+1,m+1}$ in equation \eqref{eq:celia_14} can be estimated using equation \eqref{eq:tayse} by setting $n = 1, x = H^{n+1,m+1}, x_0 = H^{n+1,m}, f\del{ x } = \theta^{n+1,m+1}, f\del{ x_0 } = \theta^{n+1,m}, f'\del{ x_0 } = \evalat{\od{\theta}{h}}{n+1,m}$ \parencite{celia_general_1990}:
 \begin{align}
   \label{eq:celia_15}
-  % \theta^{n+1,m+1} = \sum_{k=0}^1\frac{(H^{n+1,m+1} - H^{n+1,m})^k}{k!}f^{(k)}(H^{n+1,m}) + R_1
-  \theta^{n+1,m+1} &= \sum_{k=0}^1\frac{(H^{n+1,m+1} - H^{n+1,m})^k}{k!}f^{(k)}(H^{n+1,m}) + R_1 \\
-                   &= \frac{(H^{n+1,m+1} - H^{n+1,m})^0}{0!} f^{(0)}(H^{n+1,m}) + \frac{(H^{n+1,m+1} - H^{n+1,m})^1}{1!} f^{(1)}(H^{n+1,m}) + R_1 \\
-                   &= f(H^{n+1,m}) + 
+  % \theta^{n+1,m+1} = \sum_{k=0}^1\frac{\del{ H^{n+1,m+1} - H^{n+1,m} }^k}{k!}f^{\del{ k }}\del{ H^{n+1,m} } + R_1
+  \theta^{n+1,m+1} &= \sum_{k=0}^1\frac{\del{ H^{n+1,m+1} - H^{n+1,m} }^k}{k!}f^{\del{ k }}\del{ H^{n+1,m} } + R_1 \\
+                   &= \frac{\del{ H^{n+1,m+1} - H^{n+1,m} }^0}{0!} f^{\del{ 0 }}\del{ H^{n+1,m} } + \frac{\del{ H^{n+1,m+1} - H^{n+1,m} }^1}{1!} f^{\del{ 1 }}\del{ H^{n+1,m} } + R_1 \\
+                   &= f\del{ H^{n+1,m} } + 
 \end{align}
 
 %%% Local Variables:
