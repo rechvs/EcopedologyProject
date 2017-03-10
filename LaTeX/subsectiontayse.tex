@@ -75,11 +75,25 @@ we obtain
 \end{equation}
 The right hand side of equation \eqref{eq:tayse} is the one-dimensional Taylor series of function $f\del{ x }$.  $\theta^{n+1,m+1}$ in equation \eqref{eq:celia_14} can be estimated using equation \eqref{eq:tayse} by setting $n = 1, x = H^{n+1,m+1}, x_0 = H^{n+1,m}, f\del{ x } = \theta^{n+1,m+1}, f\del{ x_0 } = \theta^{n+1,m}, f'\del{ x_0 } = \evalat{\od{\theta}{h}}{n+1,m}$ \parencite{celia_general_1990}:
 \begin{align}
-  \label{eq:celia_15}
   % \theta^{n+1,m+1} = \sum_{k=0}^1\frac{\del{ H^{n+1,m+1} - H^{n+1,m} }^k}{k!}f^{\del{ k }}\del{ H^{n+1,m} } + R_1
-  \theta^{n+1,m+1} = &\sum_{k=0}^1\frac{\del{ H^{n+1,m+1} - H^{n+1,m} }^k}{k!}f^{\del{ k }}\del{ H^{n+1,m} } + R_1 \\
-  = &\frac{\del{ H^{n+1,m+1} - H^{n+1,m} }^0}{0!} f^{\del{ 0 }}\del{ H^{n+1,m} } + \frac{\del{ H^{n+1,m+1} - H^{n+1,m} }^1}{1!} f^{\del{ 1 }}\del{ H^{n+1,m} } + R_1 \\
-                   = &f\del{ H^{n+1,m} } + \del{ H^{n+1,m+1} - H^{n+1,m} } f'\del{ H^{n+1,m} } + 0 \del{ \delta^2 }
+  \theta^{n+1,m+1} &= \sum_{k=0}^1\frac{\del{ H^{n+1,m+1} - H^{n+1,m} }^k}{k!}f^{\del{ k }}\del{ H^{n+1,m} } + R_1 \\
+                   &= \frac{\del{ H^{n+1,m+1} - H^{n+1,m} }^0}{0!} f^{\del{ 0 }}\del{ H^{n+1,m} } + \frac{\del{ H^{n+1,m+1} - H^{n+1,m} }^1}{1!} f^{\del{ 1 }}\del{ H^{n+1,m} } + R_1 \\
+                   &= f\del{ H^{n+1,m} } + \del{ H^{n+1,m+1} - H^{n+1,m} } f'\del{ H^{n+1,m} } + 0 \del{ \delta^2 } \\
+  \label{eq:celia_15}
+                   &= \theta^{n+1,m} + \evalat{\od{\theta}{h}}{n+1,m} \del{ H^{n+1,m+1} - H^{n+1,m} } + 0 \del{ \delta^2 }
+\end{align}
+Neglecting all terms higher than linear in equation \eqref{eq:celia_15}  we obtain
+\begin{align}
+  \theta^{n+1,m+1} &= \theta^{n+1,m} + \evalat{\od{\theta}{h}}{n+1,m} \del{ H^{n+1,m+1} - H^{n+1,m} } \\
+  \label{eq:celia_15.25}
+                   &= \theta^{n+1,m} + C^{n+1,m} \delta^m
+\end{align}
+Substituting equation \eqref{eq:celia_15.25} into equation \eqref{eq:celia_14} we obtain
+\begin{align}
+  0 &= \frac{\theta^{n+1,m+1} - \theta^n}{\Delta t} - \frac{\partial}{\partial z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} } - \pd{K^{n+1,m}}{z} \\
+    &= \frac{\del{\theta^{n+1,m} + C^{n+1,m} \delta^m} - \theta^n}{\Delta t} - \frac{\partial}{\partial z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} } - \pd{K^{n+1,m}}{z} \\
+  \label{eq:celia_15.5}
+  &= \del{\frac{1}{\Delta t} C^{n+1,m}} \delta^m + \frac{\theta^{n+1,m}  - \theta^n}{\Delta t} - \frac{\partial}{\partial z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} } - \pd{K^{n+1,m}}{z}
 \end{align}
 
 %%% Local Variables:
