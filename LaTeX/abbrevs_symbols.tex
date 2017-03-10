@@ -14,16 +14,17 @@
   \toprule
   $Symbol$ & Description & Unit \\
   \midrule
-  $\int_a^b{f(x)}\dif x$ & integral of function $f(x)$ with respect to $x$ on the interval $\intcc{a,b}$ & - \\
-  $\pd{a}{x}$ & partial derivative of $a$ with respect to $x$ & - \\
-  $f^{(n)}(x)$ & $n$th derivative of function $f(x)$ & - \\
+  $\int_a^b{f\del{ x }}\dif x$ & integral of function $f\del{ x }$ with respect to $x$ on the interval $\intcc{a,b}$ & - \\
+  $\pd{f\del{ x }}{x}$ & partial derivative of function $f\del{ x }$ with respect to $x$ & - \\
+  $f^{\del{ n }}\del{ x }$ & $n$th derivative of function $f\del{ x }$ & - \\
   $\theta$ & volumetric soil moisture content & \si{\cubic\metre\per\cubic\metre} \\
-  $\nabla$ & nabla, vector differential operator $\left(\nabla = \left( \frac{\partial}{\partial x}, \frac{\partial}{\partial y}, \frac{\partial}{\partial z} \right)\right)$ & - \\
-  % $C$ & specific moisture capacity, $C(h) \equiv \frac{\partial \theta}{\partial h}$ & \si{\per\metre} \\
-  % $D$ & unsaturated diffusivity, $D(\theta) \equiv \frac{K(\theta)}{C(\theta)}$ & \si{\square\meter\per\second} \\
+  $\nabla$ & nabla, vector differential operator $\del{ \nabla = \del{  \frac{\partial}{\partial x}, \frac{\partial}{\partial y}, \frac{\partial}{\partial z}  } }$ & - \\
+  % $C$ & specific moisture capacity, $C\del{ h } \equiv \frac{\partial \theta}{\partial h}$ & \si{\per\metre} \\
+  % $D$ & unsaturated diffusivity, $D\del{ \theta } \equiv \frac{K\del{ \theta }}{C\del{ \theta }}$ & \si{\square\meter\per\second} \\
   $h$ & pressure head & \si{\metre} \\
-  % $H$ & hydraulic head, $H = h + z$ & \si{\metre} \\
+  $H^n$ & approximate value of $h$ at the $n$th discrete time level & \si{\metre} \\
   $K$ & unsaturated hydraulic conductivity & \si{\metre\per\second} \\
+  $K^{n+1}$ & hydraulic conductivity evaluated using $H^{n+1}$ & \si{\metre\per\second} \\
   $q$ & flux, flux density & \si{\cubic\metre\per\square\metre\per\second}\\
   % RHS & right hand side & - \\
   $R_n$ & Lagrange remainder & - \\
