@@ -7,24 +7,25 @@ The Euler backward method is based on the mean value theorem.  For the mean valu
   f(t_1) = f(t_0) + (t_1 - t_0) f'(t_2) \, .
 \end{equation*}
 
-Let us assume we are given the ordinary differential equation
-\begin{equation*}
-  y'(t) = f(t, y(t)) \, .
-\end{equation*}
-Applying the mean value theorem we obtain
-\begin{equation*}
-  y(t_1) = y(t_0) + (t_1 - t_0) y'(t_2) \, .
-\end{equation*}
+% Let us assume we are given the ordinary differential equation
+% \begin{equation*}
+  % y'(t) = f(t, y(t)) \, .
+% \end{equation*}
+% Applying the mean value theorem we obtain
+% \begin{equation*}
+  % y(t_1) = y(t_0) + (t_1 - t_0) y'(t_2) \, .
+% \end{equation*}
 The Euler backward method works by assuming that $t_2 = t_1$ \parencite{hairer_solving_2009}, so that
 \begin{equation*}
-  y(t_1) = y(t_0) + (t_1 - t_0) y'(t_1) \, .
+  % y(t_1) = y(t_0) + (t_1 - t_0) y'(t_1) \, .
+  f(t_1) = f(t_0) + (t_1 - t_0) f'(t_1) \, .
 \end{equation*}
 Applying the Euler backward method coupled with the Picard iteration to equation \eqref{eq:richeq_1D}, we obtain \parencite{celia_general_1990}
 \begin{equation}
   \label{eq:celia_14}
   \frac{\theta^{n+1,m+1} - \theta^n}{\Delta t} - \frac{\partial}{\partial z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} } - \pd{K^{n+1,m}}{z} = 0 \, ,
 \end{equation}
-where $n$ and $m$ denote time level and iteration level, respectively.  The value $\theta^{n+1,m+1}$ can be approximated using a truncated Taylor series, which I will explain in the following section.
+where $n$ and $m$ denote time level and iteration level, respectively.  The value $\theta^{n+1,m+1}$ can be approximated using a truncated Taylor series, which will be explained in the following section.
 
 
 %%% Local Variables:
