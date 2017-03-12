@@ -1,0 +1,101 @@
+At each time level, equation \eqref{eq:celia_17} has to be solved iteratively for each spatial level.  Additionally, 2 separate scenarios will be simulated, called ``constant pressure'', or cp,  and ``no flux'', or nf, respectively.  The scenarios differ in the treatment of the bottom node.  The cp scenario assumes a constant pressure head at the bottom node, whereas the nf scenario assumes no flux at the bottom node.  All other nodes are treated the same way in both scenarios.
+
+To make full use of the computational capabilities of GNU Octave, equation \eqref{eq:celia_17} needs to be reformulated in matrix form as \parencite{lier_root_2006}
+\begin{equation*}
+  \begin{bmatrix}
+    \beta_1 & \gamma_1 & & & & & \\
+    \alpha_2 & \beta_2 & \gamma_2 & & & & \\
+    & \alpha_3 & \beta_3 & \gamma_3 & & & \\
+    & & & & \alpha_{p-1} & \beta_{p-1} & \gamma_{p-1} \\
+    & & & & & \alpha_p & \beta_p
+  \end{bmatrix}
+  \begin{bmatrix}
+    &\delta_1^m \\
+    &\delta_2^m \\
+    &\delta_3^m \\
+    &\delta_{p-1}^m \\
+    &\delta_p^m
+  \end{bmatrix} =
+  \begin{bmatrix}
+    &f_1 \\
+    &f_2 \\
+    &f_3 \\
+    &f_{p-1} \\
+    &f_p
+  \end{bmatrix} \, .
+\end{equation*}
+The individual elements of the afforementioned matrix and vectors are defined as follows:
+\begin{enumerate}
+\item for $i = 1$ (bottom spatial level):
+  \begin{enumerate}
+  \item cp scenario:
+    \begin{equation}
+    \label{eq:beta_bottom}
+    \beta_i = 1
+  \end{equation}
+  \begin{equation}
+    \label{eq:gamma_bottom}
+    \gamma_i = 0
+  \end{equation}
+  \begin{equation}
+    \label{eq:f_bottom}
+    f_i = 0
+  \end{equation}
+\end{enumerate}
+  \begin{enumerate}
+  \item nf scenario:
+    \begin{equation}
+      \label{eq:beta_bottom}
+      \beta_i = \frac{C_i^{n+1,m}}{\Delta t} + \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\del{ \Delta z }^2}
+      % \beta_i = 1
+  \end{equation}
+  \begin{equation}
+    \label{eq:gamma_bottom}
+    \gamma_i = - \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\del{ \Delta z }^2}
+  \end{equation}
+  \begin{equation}
+    \label{eq:f_bottom}
+    f_i = \frac{1}{\del{ \Delta z }^2} K_{i+\frac{1}{2}}^{n+1,m} \del{ H_{i+1}^{n+1,m} - H_{i}^{n+1,m}} + \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\Delta z} - \frac{\theta_i^{n+1,m} - \theta_i^{n}}{\Delta t}
+  \end{equation}
+\end{enumerate}
+\item for $1 < i < p$ (intermediate spatial levels):
+  \begin{equation}
+    \label{eq:alpha_intermediate}
+    \alpha_i = - \frac{K_{i-\frac{1}{2}}^{n+1,m}}{\del{ \Delta z }^2}
+  \end{equation}
+  \begin{equation}
+    \label{eq:beta_intermediate}
+    \beta_i = \frac{C_i^{n+1,m}}{\Delta t} + \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\del{ \Delta z }^2} + \frac{K_{i-\frac{1}{2}}^{n+1,m}}{\del{ \Delta z }^2}
+  \end{equation}
+  \begin{equation}
+    \label{eq:gamma_intermediate}
+    \gamma_i = - \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\del{ \Delta z }^2}
+  \end{equation}
+  \begin{equation}
+    \label{eq:f_intermediate}
+    \begin{split}
+      f_i = &\frac{1}{\del{ \Delta z }^2} \del{ K_{i+\frac{1}{2}}^{n+1,m} \del{ H_{i+1}^{n+1,m} - H_{i}^{n+1,m} } - K_{i-\frac{1}{2}}^{n+1,m} \del{ H_{i}^{n+1,m} - H_{i-1}^{n+1,m} } } \\
+      &+ \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - \frac{\theta_i^{n+1,m} - \theta_i^{n}}{\Delta t}
+    \end{split}
+  \end{equation}
+\item for $i = p$ (top spatial level):
+  \begin{equation}
+    \label{eq:alpha_top}
+    \alpha_i = 0
+  \end{equation}
+  \begin{equation}
+    \label{eq:beta_top}
+    \beta_i = 1
+  \end{equation}
+  \begin{equation}
+    \label{eq:f_top}
+    f_i = 0
+  \end{equation}
+\end{enumerate}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "basefile/Projekt_basefile"
+%%% End:
