@@ -21,6 +21,8 @@
   $\theta$ & volumetric soil moisture content & \si{\cubic\metre\per\cubic\metre} \\
   $\nabla$ & nabla, vector differential operator $\del{ \nabla = \del{  \frac{\partial}{\partial x}, \frac{\partial}{\partial y}, \frac{\partial}{\partial z}  } }$ & - \\
   $C$ & specific moisture capacity $\del{ C\del{ h } \equiv \frac{\partial \theta}{\partial h} }$ & \si{\per\metre} \\
+  $C^{n+1}$ & specific moisture capacity evaluated using $H^{n+1}$ & \si{\per\metre} \\
+  cp & constant pressure (simulation scenario) & - \\
   % $D$ & unsaturated diffusivity, $D\del{ \theta } \equiv \frac{K\del{ \theta }}{C\del{ \theta }}$ & \si{\square\meter\per\second} \\
   $h$ & pressure head & \si{\metre} \\
   $H^n$ & approximate value of $h$ at the $n$th discrete time level & \si{\metre} \\
@@ -29,6 +31,8 @@
   $K^{n+1}$ & hydraulic conductivity evaluated using $H^{n+1}$ & \si{\metre\per\second} \\
   $m$ & iteration level & - \\
   $n$ & time level & - \\
+  nf & no flux (simulation scenario) & - \\
+  $p$ & total number of spatial levels & - \\
   $q$ & flux, flux density & \si{\cubic\metre\per\square\metre\per\second}\\
   % RHS & right hand side & - \\
   $R_n$ & Lagrange remainder & - \\
