@@ -32,13 +32,16 @@ Expansion of the inner $\frac{\Delta}{\Delta z}$-terms yields the spatially disc
 \end{align*}
 
 Substituting the spatially discretized versions of all 3 terms into equation \eqref{eq:celia_16} yields \parencite{celia_general_1990}
-\begin{align}
+\begin{equation}
   \label{eq:celia_17}
-  % \pd{}{z} \del{ K^{n+1,m} \pd{H^{n+1,m}}{z} } + \pd{K^{n+1,m}}{z} - \frac{\theta^{n+1,m} - \theta^n}{\Delta t} = \del{ \frac{1}{\Delta t} C^{n+1,m} } \delta^m - \pd{}{z} \del{ K^{n+1,m} \pd{\delta^m}{z} } \, .
-  &\frac{1}{\del{ \Delta z }^2} \del{ K_{i+\frac{1}{2}}^{n+1,m} \del{ H_{i+1}^{n+1,m} - H_{i}^{n+1,m} } - K_{i-\frac{1}{2}}^{n+1,m} \del{ H_{i}^{n+1,m} - H_{i-1}^{n+1,m} } } \\
-  &+ \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\delta z} - \frac{\theta_i^{n+1,m} - \theta_i^{n}}{\delta t} \\
-  = &\del{ \frac{1}{\Delta t} C^{n+1,m} } \delta^m - \frac{1}{\del{ \Delta z }^2} \del{ K_{i+\frac{1}{2}}^{n+1,m} \del{ \delta_{i+1}^{m} - \delta_{i}^{m} } - K_{i-\frac{1}{2}}^{n+1,m} \del{ \delta_{i}^{m} - \delta_{i-1}^{m} } }  \, .
-\end{align}
+  \begin{split}
+    % \pd{}{z} \del{ K^{n+1,m} \pd{H^{n+1,m}}{z} } + \pd{K^{n+1,m}}{z} - \frac{\theta^{n+1,m} - \theta^n}{\Delta t} = \del{ \frac{1}{\Delta t} C^{n+1,m} } \delta^m - \pd{}{z} \del{ K^{n+1,m} \pd{\delta^m}{z} } \, .
+    &\frac{1}{\del{ \Delta z }^2} \del{ K_{i+\frac{1}{2}}^{n+1,m} \del{ H_{i+1}^{n+1,m} - H_{i}^{n+1,m} } - K_{i-\frac{1}{2}}^{n+1,m} \del{ H_{i}^{n+1,m} - H_{i-1}^{n+1,m} } } \\
+    &+ \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - \frac{\theta_i^{n+1,m} - \theta_i^{n}}{\Delta t} \\
+    = &\del{ \frac{1}{\Delta t} C^{n+1,m} } \delta^m - \frac{1}{\del{ \Delta z }^2} \del{ K_{i+\frac{1}{2}}^{n+1,m} \del{ \delta_{i+1}^{m} - \delta_{i}^{m} } - K_{i-\frac{1}{2}}^{n+1,m} \del{ \delta_{i}^{m} - \delta_{i-1}^{m} } }  \, ,
+  \end{split}
+\end{equation}
+where $K_{i\pm\frac{1}{2}}$ is defined as the arithmetic mean between $K_i$ and $K_{i\pm1}$.  The left side of equation \eqref{eq:celia_17} is now a measure of the amount by which the $m$th iterate fails to satisfy the finite difference approximation \parencite{celia_general_1990}.
 
 %%% Local Variables:
 %%% mode: latex
