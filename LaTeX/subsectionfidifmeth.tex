@@ -1,4 +1,4 @@
-The finite difference method employs a Taylor series in order to solve a partial differential equation like equation \eqref{eq:richeq_3D} \parencite{fornberg_finite_2011}.  Truncating the Taylor series given by equation \eqref{eq:tayse} after the first derivative (i.e., $n = 1$) gives
+The finite difference method employs a Taylor series in order to solve a partial differential equation like equation \eqref{eq:richeq_1D} \parencite{fornberg_finite_2011}.  Truncating the Taylor series given by equation \eqref{eq:tayse} after the first derivative (i.e., $o = 1$) gives
 \begin{align*}
   f(x) &= \frac{(x - x_0)^0}{0!}f^{(0)}(x_0) + \frac{(x - x_0)^1}{1!}f^{(1)}(x_0) + R_1 \\
        &= f(x_0) + (x - x_0)f'(x_0) + R_1
@@ -10,8 +10,35 @@ Solving for $f'(x_0)$ gives
 Assuming that $\frac{R_1}{x - x_0}$ is sufficiently small we obtain
 \begin{equation}
   \label{eq:fidifmeth}
-  f'(x_0) \approx \frac{f(x) - f(x_0)}{x - x_0}
+  f'(x_0) \approx \frac{f(x) - f(x_0)}{x - x_0} \, .
 \end{equation}
+
+Equation \eqref{eq:celia_16} contains 3 terms requiring spatial discretization, namely
+\begin{equation*}
+  \pd{}{z} \del{ K^{n+1,m} \pd{H^{n+1,m}}{z} } \, , \, \pd{K^{n+1,m}}{z} \, , \, \text{ and } \, \pd{}{z} \del{ K^{n+1,m} \pd{\delta^m}{z} } \, .
+\end{equation*}
+As an example, I will explain spatial discretization of the first term above.  Spatial discretization first requires assignment of a spatial level, denoted here by $i$.  We thus obtain
+\begin{equation*}
+  \frac{\Delta}{\Delta z} \del{ K^{n+1,m}\frac{\Delta H^{n+1,m}}{z} }_i \, .
+\end{equation*}
+Expansion of the outer $\frac{\Delta}{\Delta z}$-term yields
+\begin{equation*}
+  \frac{1}{\Delta z} \del{ K_{i+\frac{1}{2}}^{n+1,m}\frac{\Delta H_{i+\frac{1}{2}}^{n+1,m}}{\Delta z} - K_{i-\frac{1}{2}}^{n+1,m}\frac{\Delta H_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} } \, .
+\end{equation*}
+Expansion of the inner $\frac{\Delta}{\Delta z}$-terms yields the spatially discretized version
+\begin{align*}
+  &\frac{1}{\Delta z} \del{ K_{i+\frac{1}{2}}^{n+1,m}\frac{1}{\Delta z} \del{ H_{i+1}^{n+1,m} - H_{i}^{n+1,m} } - K_{i-\frac{1}{2}}^{n+1,m}\frac{1}{\Delta z} \del{ H_{i}^{n+1,m} - H_{i-1}^{n+1,m} } } \\
+  = &\frac{1}{\del{ \Delta z }^2} \del{ K_{i+\frac{1}{2}}^{n+1,m} \del{ H_{i+1}^{n+1,m} - H_{i}^{n+1,m} } - K_{i-\frac{1}{2}}^{n+1,m} \del{ H_{i}^{n+1,m} - H_{i-1}^{n+1,m} } } \, .
+\end{align*}
+
+Substituting the spatially discretized versions of all 3 terms into equation \eqref{eq:celia_16} yields \parencite{celia_general_1990}
+\begin{align}
+  \label{eq:celia_17}
+  % \pd{}{z} \del{ K^{n+1,m} \pd{H^{n+1,m}}{z} } + \pd{K^{n+1,m}}{z} - \frac{\theta^{n+1,m} - \theta^n}{\Delta t} = \del{ \frac{1}{\Delta t} C^{n+1,m} } \delta^m - \pd{}{z} \del{ K^{n+1,m} \pd{\delta^m}{z} } \, .
+  &\frac{1}{\del{ \Delta z }^2} \del{ K_{i+\frac{1}{2}}^{n+1,m} \del{ H_{i+1}^{n+1,m} - H_{i}^{n+1,m} } - K_{i-\frac{1}{2}}^{n+1,m} \del{ H_{i}^{n+1,m} - H_{i-1}^{n+1,m} } } \\
+  &+ \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\delta z} - \frac{\theta_i^{n+1,m} - \theta_i^{n}}{\delta t} \\
+  = &\del{ \frac{1}{\Delta t} C^{n+1,m} } \delta^m - \frac{1}{\del{ \Delta z }^2} \del{ K_{i+\frac{1}{2}}^{n+1,m} \del{ \delta_{i+1}^{m} - \delta_{i}^{m} } - K_{i-\frac{1}{2}}^{n+1,m} \del{ \delta_{i}^{m} - \delta_{i-1}^{m} } }  \, .
+\end{align}
 
 %%% Local Variables:
 %%% mode: latex
