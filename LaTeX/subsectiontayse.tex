@@ -90,30 +90,30 @@ Neglecting all terms higher than linear in the equation above we obtain
 \end{align}
 Substituting equation \eqref{eq:celia_15.25} into equation \eqref{eq:celia_14} we obtain
 \begin{equation*}
-  0 = \del{\frac{1}{\Delta t} C^{n+1,m}} \delta^m + \frac{\theta^{n+1,m}  - \theta^n}{\Delta t} - \pd{}{z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} } - \pd{K^{n+1,m}}{z}
+  0 = \frac{C^{n+1,m}}{\Delta t} \delta^m + \frac{\theta^{n+1,m}  - \theta^n}{\Delta t} - \pd{}{z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} } - \pd{K^{n+1,m}}{z}
 \end{equation*}
 This equation can be rewritten in terms of the increment in iteration $\delta ^m$ (see page \pageref{celia_15.5_transformation}):
 \newpage
 \label{celia_15.5_transformation}
 \begin{landscape}
   \begin{align*}
-    0 &= \del{\frac{1}{\Delta t} C^{n+1,m}} \delta^m + \frac{\theta^{n+1,m} - \theta^n}{\Delta t} - \pd{}{z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} } - \pd{K^{n+1,m}}{z} \quad \Bigr\rvert - \frac{\theta^{n+1,m} - \theta^n}{\Delta t} \\
-    - \frac{\theta^{n+1,m} - \theta^n}{\Delta t} &= \del{\frac{1}{\Delta t} C^{n+1,m}} \delta^m - \pd{}{z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} } - \pd{K^{n+1,m}}{z} \quad \Bigr\rvert + \pd{K^{n+1,m}}{z} \\
-    \pd{K^{n+1,m}}{z} - \frac{\theta^{n+1,m} - \theta^n}{\Delta t} &= \del{\frac{1}{\Delta t} C^{n+1,m}} \delta^m - \pd{}{z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} } \quad \Bigr\rvert - \pd{}{z} \del{ K^{n+1,m}\pd{}{z}\del{ H^{n+1,m} - H^{n+1,m} } } \\
-    \pd{K^{n+1,m}}{z} - \frac{\theta^{n+1,m} - \theta^n}{\Delta t} - \pd{}{z} \del{ K^{n+1,m}\pd{}{z}\del{ H^{n+1,m} - H^{n+1,m} } } &= \del{\frac{1}{\Delta t} C^{n+1,m}} \delta^m - \pd{}{z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} } - \pd{}{z} \del{ K^{n+1,m}\pd{}{z}\del{ H^{n+1,m} - H^{n+1,m} } } \\
-    \pd{K^{n+1,m}}{z} - \frac{\theta^{n+1,m} - \theta^n}{\Delta t} - 0 &= \del{ \frac{1}{\Delta t} C^{n+1,m} } \delta^m - \pd{}{z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} } - \pd{}{z} \del{ K^{n+1,m}\del{ \pd{H^{n+1,m}}{z} - \pd{H^{n+1,m}}{z} } } \\
-    \pd{K^{n+1,m}}{z} - \frac{\theta^{n+1,m} - \theta^n}{\Delta t} &= \del{ \frac{1}{\Delta t} C^{n+1,m} } \delta^m - \pd{}{z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} - K^{n+1,m}\del{ \pd{H^{n+1,m}}{z} - \pd{H^{n+1,m}}{z} } } \\
-      &= \del{ \frac{1}{\Delta t} C^{n+1,m} } \delta^m - \pd{}{z} \del{ K^{n+1,m} \del{ \pd{H^{n+1,m+1}}{z} - \pd{H^{n+1,m}}{z} + \pd{H^{n+1,m}}{z} } } \\
-      &= \del{ \frac{1}{\Delta t} C^{n+1,m} } \delta^m - \pd{}{z} \del{ K^{n+1,m} \pd{}{z} \del{ H^{n+1,m+1} - H^{n+1,m} } + K^{n+1,m} \pd{H^{n+1,m}}{z} } \\
-      &= \del{ \frac{1}{\Delta t} C^{n+1,m} } \delta^m - \pd{}{z} \del{ K^{n+1,m} \pd{\delta^m}{z} } - \pd{}{z} \del{ K^{n+1,m} \pd{H^{n+1,m}}{z} } \quad \Bigr\rvert + \pd{}{z} \del{ K^{n+1,m} \pd{H^{n+1,m}}{z} } \\
-    \pd{}{z} \del{ K^{n+1,m} \pd{H^{n+1,m}}{z} } + \pd{K^{n+1,m}}{z} - \frac{\theta^{n+1,m} - \theta^n}{\Delta t} &= \del{ \frac{1}{\Delta t} C^{n+1,m} } \delta^m - \pd{}{z} \del{ K^{n+1,m} \pd{\delta^m}{z} }
+    0 &= \frac{C^{n+1,m}}{\Delta t} \delta^m + \frac{\theta^{n+1,m} - \theta^n}{\Delta t} - \pd{}{z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} } - \pd{K^{n+1,m}}{z} \quad \Bigr\rvert - \frac{\theta^{n+1,m} - \theta^n}{\Delta t} \\
+    - \frac{\theta^{n+1,m} - \theta^n}{\Delta t} &= \frac{C^{n+1,m}}{\Delta t} \delta^m - \pd{}{z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} } - \pd{K^{n+1,m}}{z} \quad \Bigr\rvert + \pd{K^{n+1,m}}{z} \\
+    \pd{K^{n+1,m}}{z} - \frac{\theta^{n+1,m} - \theta^n}{\Delta t} &= \frac{C^{n+1,m}}{\Delta t} \delta^m - \pd{}{z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} } \quad \Bigr\rvert - \pd{}{z} \del{ K^{n+1,m}\pd{}{z}\del{ H^{n+1,m} - H^{n+1,m} } } \\
+    \pd{K^{n+1,m}}{z} - \frac{\theta^{n+1,m} - \theta^n}{\Delta t} - \pd{}{z} \del{ K^{n+1,m}\pd{}{z}\del{ H^{n+1,m} - H^{n+1,m} } } &= \frac{C^{n+1,m}}{\Delta t} \delta^m - \pd{}{z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} } - \pd{}{z} \del{ K^{n+1,m}\pd{}{z}\del{ H^{n+1,m} - H^{n+1,m} } } \\
+    \pd{K^{n+1,m}}{z} - \frac{\theta^{n+1,m} - \theta^n}{\Delta t} - 0 &= \frac{C^{n+1,m}}{\Delta t} \delta^m - \pd{}{z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} } - \pd{}{z} \del{ K^{n+1,m}\del{ \pd{H^{n+1,m}}{z} - \pd{H^{n+1,m}}{z} } } \\
+    \pd{K^{n+1,m}}{z} - \frac{\theta^{n+1,m} - \theta^n}{\Delta t} &= \frac{C^{n+1,m}}{\Delta t} \delta^m - \pd{}{z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} - K^{n+1,m}\del{ \pd{H^{n+1,m}}{z} - \pd{H^{n+1,m}}{z} } } \\
+      &= \frac{C^{n+1,m}}{\Delta t} \delta^m - \pd{}{z} \del{ K^{n+1,m} \del{ \pd{H^{n+1,m+1}}{z} - \pd{H^{n+1,m}}{z} + \pd{H^{n+1,m}}{z} } } \\
+      &= \frac{C^{n+1,m}}{\Delta t} \delta^m - \pd{}{z} \del{ K^{n+1,m} \pd{}{z} \del{ H^{n+1,m+1} - H^{n+1,m} } + K^{n+1,m} \pd{H^{n+1,m}}{z} } \\
+      &= \frac{C^{n+1,m}}{\Delta t} \delta^m - \pd{}{z} \del{ K^{n+1,m} \pd{\delta^m}{z} } - \pd{}{z} \del{ K^{n+1,m} \pd{H^{n+1,m}}{z} } \quad \Bigr\rvert + \pd{}{z} \del{ K^{n+1,m} \pd{H^{n+1,m}}{z} } \\
+    \pd{}{z} \del{ K^{n+1,m} \pd{H^{n+1,m}}{z} } + \pd{K^{n+1,m}}{z} - \frac{\theta^{n+1,m} - \theta^n}{\Delta t} &= \frac{C^{n+1,m}}{\Delta t} \delta^m - \pd{}{z} \del{ K^{n+1,m} \pd{\delta^m}{z} }
   \end{align*}
 \end{landscape}
 \newpage
 By switching left hand side and right hand side in the equation above we obtain \parencite{celia_general_1990}
 \begin{equation}
   \label{eq:celia_16}
-  \del{ \frac{1}{\Delta t} C^{n+1,m} } \delta^m - \pd{}{z} \del{ K^{n+1,m} \pd{\delta^m}{z} } = \pd{}{z} \del{ K^{n+1,m} \pd{H^{n+1,m}}{z} } + \pd{K^{n+1,m}}{z} - \frac{\theta^{n+1,m} - \theta^n}{\Delta t} \, .
+  \frac{C^{n+1,m}}{\Delta t} \delta^m - \pd{}{z} \del{ K^{n+1,m} \pd{\delta^m}{z} } = \pd{}{z} \del{ K^{n+1,m} \pd{H^{n+1,m}}{z} } + \pd{K^{n+1,m}}{z} - \frac{\theta^{n+1,m} - \theta^n}{\Delta t} \, .
 \end{equation}
 
 %%% Local Variables:
