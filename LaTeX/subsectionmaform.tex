@@ -1,21 +1,37 @@
 At each time level, equation \eqref{eq:celia_17} has to be solved iteratively for each spatial level.  Additionally, 2 separate scenarios will be simulated, called ``constant pressure'', or cp,  and ``no flux'', or nf, respectively.  The scenarios differ in the treatment of the bottom node.  The cp scenario assumes a constant pressure head at the bottom node, whereas the nf scenario assumes no flux at the bottom node.  All other nodes are treated the same way in both scenarios.
 
 To make full use of the computational capabilities of GNU Octave, equation \eqref{eq:celia_17} needs to be reformulated in matrix form as \parencite{lier_root_2006}
-\begin{equation*}
+\begin{equation}
+  \label{eq:maform}
+  \mathbf{A} \cdot \boldsymbol{\delta} = \mathbf{f} \, ,
+\end{equation}
+where
+\begin{equation}
+  \label{eq:mat_A}
+  \mathbf{A} = 
   \begin{bmatrix}
     \beta_1 & \gamma_1 & & & & & \\
     \alpha_2 & \beta_2 & \gamma_2 & & & & \\
     & \alpha_3 & \beta_3 & \gamma_3 & & & \\
     & & & & \alpha_{p-1} & \beta_{p-1} & \gamma_{p-1} \\
     & & & & & \alpha_p & \beta_p
-  \end{bmatrix}
+  \end{bmatrix} \, ,
+\end{equation}
+\begin{equation}
+  \label{eq:vec_delta}
+  \boldsymbol{\delta} = 
   \begin{bmatrix}
     &\delta_1^m \\
     &\delta_2^m \\
     &\delta_3^m \\
     &\delta_{p-1}^m \\
     &\delta_p^m
-  \end{bmatrix} =
+  \end{bmatrix} \, ,
+\end{equation}
+and
+\begin{equation}
+  \label{eq:vec_f}
+  \mathbf{f} =
   \begin{bmatrix}
     &f_1 \\
     &f_2 \\
@@ -23,8 +39,10 @@ To make full use of the computational capabilities of GNU Octave, equation \eqre
     &f_{p-1} \\
     &f_p
   \end{bmatrix} \, .
-\end{equation*}
-The individual elements of the afforementioned matrix and vectors are defined as follows:
+\end{equation}
+
+
+The individual elements of $\mathbf A$, $\boldsymbol{\delta}$ and $\mathbf f$ are defined as follows:
 \begin{enumerate}
 \item for $i = 1$ (bottom spatial level):
   \begin{enumerate}
@@ -36,6 +54,10 @@ The individual elements of the afforementioned matrix and vectors are defined as
   \begin{equation}
     \label{eq:gamma_bottom}
     \gamma_i = 0
+  \end{equation}
+  \begin{equation}
+    \label{eq:delta_bottom}
+    \delta_i^m = H_i^{n+1,m+1} - H_i^{n+1,m}
   \end{equation}
   \begin{equation}
     \label{eq:f_bottom}
@@ -72,6 +94,10 @@ The individual elements of the afforementioned matrix and vectors are defined as
     \gamma_i = - \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\del{ \Delta z }^2}
   \end{equation}
   \begin{equation}
+    \label{eq:delta_intermediate}
+    \delta_i^m = H_i^{n+1,m+1} - H_i^{n+1,m}
+  \end{equation}
+  \begin{equation}
     \label{eq:f_intermediate}
     \begin{split}
       f_i = &\frac{1}{\del{ \Delta z }^2} \del{ K_{i+\frac{1}{2}}^{n+1,m} \del{ H_{i+1}^{n+1,m} - H_{i}^{n+1,m} } - K_{i-\frac{1}{2}}^{n+1,m} \del{ H_{i}^{n+1,m} - H_{i-1}^{n+1,m} } } \\
@@ -88,12 +114,47 @@ The individual elements of the afforementioned matrix and vectors are defined as
     \beta_i = 1
   \end{equation}
   \begin{equation}
+    \label{eq:delta_top}
+    \delta_i^m = H_i^{n+1,m+1} - H_i^{n+1,m}
+  \end{equation}
+  \begin{equation}
     \label{eq:f_top}
     f_i = 0
   \end{equation}
 \end{enumerate}
+The model rests on the assumption that appropriate constitutive relationshiphs between $\theta$ and $h$ and between $K$ and $h$ exist.  These relationships are modelled with the help of the equations laid out by \textcite{genuchten_closed-form_1980}, namely
+\begin{equation}
+  \label{eq:vange_K}
+  K(h) = K_{sat} \frac{\del{ 1 - \del{ \omega \abs{h} }^{v-1} \del{ 1 + \del{ \omega \abs{h} }^v }^{-u} }^2}{\del{ 1 + \del{ \omega \abs{h} }^v }^{\frac{u}{2}}} \, ,
+\end{equation}
+\begin{equation}
+  \label{eq:vange_theta}
+  \theta(h) = \theta_r + \frac{\del{ \theta_s - \theta_r}}{\del{ 1 + \del{ \omega \abs{h} }^v }^u} \, ,
+\end{equation}
+and
+\begin{equation}
+  \label{eq:vange_C}
+  C(h) = \frac{-\omega u \del{ \theta_s - \theta_r }}{1 - u} \Theta^{\frac{1}{u}} \del{ 1 - \Theta^{\frac{1}{u}} }^u \, ,
+\end{equation}
+where
+\begin{equation*}
+  v = 1 - \frac{1}{u} \, ,
+\end{equation*}
+\begin{equation*}
+  \Theta = \del{ \frac{1}{1 + \del{ \omega \abs{h} }^v} }^u \, ,
+\end{equation*}
+and where $\theta_r$, $\theta_s$, $\omega$, $K_{sat}$, and $u$ are parameters that need to be determined for a given isotropic soil.
 
-
+Taking equations \eqref{eq:vange_K}, \eqref{eq:vange_theta}, and \eqref{eq:vange_C} into account and provided appropriate initial and boundary values are supplied, $\mathbf{A}$ and $\mathbf{f}$ in equation \eqref{eq:maform} can be calculated for a given iterative step.  In turn, vector $\delta$ can be computed by left division as follows:
+\begin{equation}
+  \label{eq:maform_ledi}
+  \boldsymbol{\delta} = \mathbf{A \backslash f}
+\end{equation}
+This equation is solved in an iterative manner for every time level.  At the end of each iterative step the algorithm checks whether the maximum of $\boldsymbol{\delta}$ exceeds an arbitrary threshold.
+If the threshold is exceeded, it means the estimated value of $H$ differed too much from the estimate of the previous iterative step and the iteration needs to continue.
+% First the values of both $H_1$ and $H_P$ are imposed (cp scenario) or only the value of $H_p$ is imposed (nf scenario).  Then the sum of $\delta_i^m$ and $H_i^{m+1,n}$ is used as the estimate of $H_i$ for the next iterative step.  
+If the threshold is not exceeded, it means the estimated value of $H$ is considered acceptable and the iteration can be exited.
+% First the sum of $\delta_i^m$ and $H_i^{m+1,n}$ is used as the value of $H_i$ for the next time step.  Then the values of both $H_1$ and $H_P$ are imposed (cp scenario) or only the value of $H_p$ is imposed (nf scenario).  Afterwards the iterative loop is excited and calculations for the new time step begin.
 
 %%% Local Variables:
 %%% mode: latex
