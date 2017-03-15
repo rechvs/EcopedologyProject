@@ -15,9 +15,9 @@ Assuming that $\frac{R_1}{x - x_0}$ is sufficiently small we obtain
 
 Equation \eqref{eq:celia_16} contains 3 terms requiring spatial discretization, namely
 \begin{equation*}
-  \pd{}{z} \del{ K^{n+1,m} \pd{H^{n+1,m}}{z} } \, , \, \pd{K^{n+1,m}}{z} \, , \, \text{ and } \, \pd{}{z} \del{ K^{n+1,m} \pd{\delta^m}{z} } \, .
+  \pd{}{z} \del{ K^{n+1,m} \pd{\delta^m}{z} } \, , \pd{}{z} \del{ K^{n+1,m} \pd{H^{n+1,m}}{z} } \, , \, \text{ and } \, \, \pd{K^{n+1,m}}{z} \, .
 \end{equation*}
-As an example, I will explain spatial discretization of the first term above.  Spatial discretization first requires assignment of a spatial level, denoted here by $i$.  We thus obtain
+As an example, I will explain spatial discretization of the second term above.  Spatial discretization first requires assignment of a spatial level, denoted here by subscript $i$.  We thus obtain
 \begin{equation*}
   \frac{\Delta}{\Delta z} \del{ K^{n+1,m}\frac{\Delta H^{n+1,m}}{z} }_i \, .
 \end{equation*}
@@ -30,15 +30,13 @@ Expansion of the inner $\frac{\Delta}{\Delta z}$-terms yields the spatially disc
   &\frac{1}{\Delta z} \del{ K_{i+\frac{1}{2}}^{n+1,m}\frac{1}{\Delta z} \del{ H_{i+1}^{n+1,m} - H_{i}^{n+1,m} } - K_{i-\frac{1}{2}}^{n+1,m}\frac{1}{\Delta z} \del{ H_{i}^{n+1,m} - H_{i-1}^{n+1,m} } } \\
   = &\frac{1}{\del{ \Delta z }^2} \del{ K_{i+\frac{1}{2}}^{n+1,m} \del{ H_{i+1}^{n+1,m} - H_{i}^{n+1,m} } - K_{i-\frac{1}{2}}^{n+1,m} \del{ H_{i}^{n+1,m} - H_{i-1}^{n+1,m} } } \, .
 \end{align*}
-
 Substituting the spatially discretized versions of all 3 terms into equation \eqref{eq:celia_16} yields \parencite{celia_general_1990}
 \begin{equation}
   \label{eq:celia_17}
   \begin{split}
-    % \pd{}{z} \del{ K^{n+1,m} \pd{H^{n+1,m}}{z} } + \pd{K^{n+1,m}}{z} - \frac{\theta^{n+1,m} - \theta^n}{\Delta t} = \del{ \frac{1}{\Delta t} C^{n+1,m} } \delta^m - \pd{}{z} \del{ K^{n+1,m} \pd{\delta^m}{z} } \, .
-    &\frac{1}{\del{ \Delta z }^2} \del{ K_{i+\frac{1}{2}}^{n+1,m} \del{ H_{i+1}^{n+1,m} - H_{i}^{n+1,m} } - K_{i-\frac{1}{2}}^{n+1,m} \del{ H_{i}^{n+1,m} - H_{i-1}^{n+1,m} } } \\
-    &+ \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - \frac{\theta_i^{n+1,m} - \theta_i^{n}}{\Delta t} \\
-    = &\del{ \frac{1}{\Delta t} C^{n+1,m} } \delta^m - \frac{1}{\del{ \Delta z }^2} \del{ K_{i+\frac{1}{2}}^{n+1,m} \del{ \delta_{i+1}^{m} - \delta_{i}^{m} } - K_{i-\frac{1}{2}}^{n+1,m} \del{ \delta_{i}^{m} - \delta_{i-1}^{m} } }  \, ,
+    &C_i^{n+1,m} \frac{\delta_i^m}{\Delta t} - \frac{1}{\del{ \Delta z }^2} \del{ K_{i+\frac{1}{2}}^{n+1,m} \del{ \delta_{i+1}^{m} - \delta_{i}^{m} } - K_{i-\frac{1}{2}}^{n+1,m} \del{ \delta_{i}^{m} - \delta_{i-1}^{m} } } \\
+    = &\frac{1}{\del{ \Delta z }^2} \del{ K_{i+\frac{1}{2}}^{n+1,m} \del{ H_{i+1}^{n+1,m} - H_{i}^{n+1,m} } - K_{i-\frac{1}{2}}^{n+1,m} \del{ H_{i}^{n+1,m} - H_{i-1}^{n+1,m} } } \\
+    &+ \frac{K_{i+\frac{1}{2}}^{n+1,m} - K_{i-\frac{1}{2}}^{n+1,m}}{\Delta z} - \frac{\theta_i^{n+1,m} - \theta_i^{n}}{\Delta t} \, ,
   \end{split}
 \end{equation}
 where $K_{i\pm\frac{1}{2}}$ is defined as the arithmetic mean between $K_i$ and $K_{i\pm1}$.  The left side of equation \eqref{eq:celia_17} is now a measure of the amount by which the $m$th iterate fails to satisfy the finite difference approximation \parencite{celia_general_1990}.
