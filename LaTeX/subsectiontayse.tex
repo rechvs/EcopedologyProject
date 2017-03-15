@@ -89,12 +89,9 @@ Neglecting all terms higher than linear in the equation above we obtain
                    &= \theta^{n+1,m} + C^{n+1,m} \delta^m
 \end{align}
 Substituting equation \eqref{eq:celia_15.25} into equation \eqref{eq:celia_14} we obtain
-\begin{align*}
-  % 0 &= \frac{\theta^{n+1,m+1} - \theta^n}{\Delta t} - \pd{}{z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} } - \pd{K^{n+1,m}}{z} \\
-  0 &= \frac{\del{\theta^{n+1,m} + C^{n+1,m} \delta^m} - \theta^n}{\Delta t} - \pd{}{z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} } - \pd{K^{n+1,m}}{z} \\
-  \label{eq:celia_15.5}
-  &= \del{\frac{1}{\Delta t} C^{n+1,m}} \delta^m + \frac{\theta^{n+1,m}  - \theta^n}{\Delta t} - \pd{}{z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} } - \pd{K^{n+1,m}}{z}
-\end{align*}
+\begin{equation*}
+  0 = \del{\frac{1}{\Delta t} C^{n+1,m}} \delta^m + \frac{\theta^{n+1,m}  - \theta^n}{\Delta t} - \pd{}{z} \del{ K^{n+1,m}\pd{H^{n+1,m+1}}{z} } - \pd{K^{n+1,m}}{z}
+\end{equation*}
 This equation can be rewritten in terms of the increment in iteration $\delta ^m$ (see page \pageref{celia_15.5_transformation}):
 \newpage
 \label{celia_15.5_transformation}
