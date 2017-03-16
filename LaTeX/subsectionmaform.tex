@@ -48,38 +48,36 @@ The individual elements of $\mathbf A$, $\boldsymbol{\delta}$ and $\mathbf f$ ar
   \begin{enumerate}
   \item cp scenario:
     \begin{equation}
-    \label{eq:beta_bottom}
-    \beta_i = 1
-  \end{equation}
-  \begin{equation}
-    \label{eq:gamma_bottom}
-    \gamma_i = 0
-  \end{equation}
-  \begin{equation}
-    \label{eq:delta_bottom}
-    \delta_i^m = H_i^{n+1,m+1} - H_i^{n+1,m}
-  \end{equation}
-  \begin{equation}
-    \label{eq:f_bottom}
-    f_i = 0
-  \end{equation}
-\end{enumerate}
-  \begin{enumerate}
+      \label{eq:beta_bottom}
+      \beta_i = 1
+    \end{equation}
+    \begin{equation}
+      \label{eq:gamma_bottom}
+      \gamma_i = 0
+    \end{equation}
+    \begin{equation}
+      \label{eq:delta_bottom}
+      \delta_i^m = H_i^{n+1,m+1} - H_i^{n+1,m}
+    \end{equation}
+    \begin{equation}
+      \label{eq:f_bottom}
+      f_i = 0
+    \end{equation}
   \item nf scenario:
     \begin{equation}
       \label{eq:beta_bottom}
       \beta_i = \frac{C_i^{n+1,m}}{\Delta t} + \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\del{ \Delta z }^2}
       % \beta_i = 1
-  \end{equation}
-  \begin{equation}
-    \label{eq:gamma_bottom}
-    \gamma_i = - \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\del{ \Delta z }^2}
-  \end{equation}
-  \begin{equation}
-    \label{eq:f_bottom}
-    f_i = \frac{1}{\del{ \Delta z }^2} K_{i+\frac{1}{2}}^{n+1,m} \del{ H_{i+1}^{n+1,m} - H_{i}^{n+1,m}} + \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\Delta z} - \frac{\theta_i^{n+1,m} - \theta_i^{n}}{\Delta t}
-  \end{equation}
-\end{enumerate}
+    \end{equation}
+    \begin{equation}
+      \label{eq:gamma_bottom}
+      \gamma_i = - \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\del{ \Delta z }^2}
+    \end{equation}
+    \begin{equation}
+      \label{eq:f_bottom}
+      f_i = \frac{1}{\del{ \Delta z }^2} K_{i+\frac{1}{2}}^{n+1,m} \del{ H_{i+1}^{n+1,m} - H_{i}^{n+1,m}} + \frac{K_{i+\frac{1}{2}}^{n+1,m}}{\Delta z} - \frac{\theta_i^{n+1,m} - \theta_i^{n}}{\Delta t}
+    \end{equation}
+  \end{enumerate}
 \item for $1 < i < p$ (intermediate spatial levels):
   \begin{equation}
     \label{eq:alpha_intermediate}
