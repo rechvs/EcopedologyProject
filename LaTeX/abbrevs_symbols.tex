@@ -12,7 +12,9 @@
   \markboth{\mysectiontitle{}}{} % http://tex.stackexchange.com/questions/89914/chapter-name-in-the-header-with-chapter
   \addcontentsline{toc}{section}{\mysectiontitle{}} % http://tex.stackexchange.com/questions/35433/creating-unnumbered-chapters-sections-plus-adding-them-to-the-toc-and-or-header
   
-  \begin{longtabu}{l L l}
+  \begin{table}[h]
+    \centering
+    \begin{longtabu}{l L l}
     \toprule
     $Symbol$ & Description & Unit \\
     \midrule
@@ -20,38 +22,45 @@
     $\int_a^b{f\del{ x }}\dif x$ & integral of function $f\del{ x }$ with respect to $x$ on the interval $\intcc{a,b}$ & - \\
     $\pd{f\del{ x }}{x}$ & partial derivative of function $f\del{ x }$ with respect to $x$ & - \\
     $f^{\del{ n }}\del{ x }$ & $n$th derivative of function $f\del{ x }$ & - \\
-    $\delta^m$ & increment in pressure head between iterations $\del{ \delta^m \equiv H^{n+1,m+1} - H^{n+1,m} }$ & \si{\metre} \\
+    $\nabla$ & nabla, vector differential operator $\del{ \nabla = \del{  \frac{\partial}{\partial x}, \frac{\partial}{\partial y}, \frac{\partial}{\partial z}  } }$ & - \\
+    $\delta^m$ & increment in $H$ between iterations $\del{ \delta^m \equiv H^{n+1,m+1} - H^{n+1,m} }$ & \si{\centi\meter} \\
+    $\delta_{th}$ & threshold value to determine acceptability of $\delta^m$ & \si{\centi\meter} \\
     $\boldsymbol{\delta}$ & vector (cp. page \pageref{eq:vec_delta} f.) & - \\
     $\Delta t$ & distance between time levels & \si{\second} \\
-    $\Delta z$ & distance between spatial levels & \si{\metre} \\
+    $\Delta z$ & distance between spatial levels & \si{\centi\meter} \\
+    $\theta$ & volumetric soil moisture content & \si{\cubic\centi\meter\per\cubic\centi\meter} \\
+    $\theta_r$ & function parameter & \si{\cubic\centi\meter\per\cubic\centi\meter} \\
+    $\theta_s$ & function parameter & \si{\cubic\centi\meter\per\cubic\centi\meter} \\
     $\omega$ & function parameter & - \\
-    $\theta$ & volumetric soil moisture content & \si{\cubic\metre\per\cubic\metre} \\
-    $\theta_r$ & function parameter & \si{\cubic\metre\per\cubic\metre} \\
-    $\theta_s$ & function parameter & \si{\cubic\metre\per\cubic\metre} \\
-    $\nabla$ & nabla, vector differential operator $\del{ \nabla = \del{  \frac{\partial}{\partial x}, \frac{\partial}{\partial y}, \frac{\partial}{\partial z}  } }$ & - \\
     $\mathbf{A}$ & matrix (cp. page \pageref{eq:mat_A} f.) & - \\
-    $C$ & specific moisture capacity $\del{ C\del{ h } \equiv \frac{\partial \theta}{\partial h} }$ & \si{\per\metre} \\
-    $C^{n+1}$ & specific moisture capacity evaluated using $H^{n+1}$ & \si{\per\metre} \\
+    bcs & boundary conditions setting & - \\
+    $C$ & specific moisture capacity $\del{ C\del{ h } \equiv \frac{\partial \theta}{\partial h} }$ & \si{\per\centi\meter} \\
+    $C^{n+1}$ & specific moisture capacity evaluated using $H^{n+1}$ & \si{\per\centi\meter} \\
     cp & constant pressure (simulation scenario) & - \\
     $\mathbf{f}$ & vector (cp. page \pageref{eq:vec_f} f.) & - \\
-    $h$ & pressure head & \si{\metre} \\
-    $H^n$ & approximate value of $h$ at the $n$th discrete time level & \si{\metre} \\
+    $h$ & pressure head & \si{\centi\meter} \\
+    $H^n$ & approximate value of $h$ at the $n$th discrete time level & \si{\centi\meter} \\
     $i$ & spatial level & - \\
-    $K$ & unsaturated hydraulic conductivity & \si{\metre\per\second} \\
-    $K_{i\pm\frac{1}{2}}$ & arithmetic mean between $K_{i\pm1}$ and $K_i$ & \si{\metre\per\second} \\
-    $K^{n+1}$ & hydraulic conductivity evaluated using $H^{n+1}$ & \si{\metre\per\second} \\
-    $K_{sat}$ & function parameter & \si{\metre\per\second} \\
+    $K$ & unsaturated hydraulic conductivity & \si{\centi\meter\per\second} \\
+    $K_{i\pm\frac{1}{2}}$ & arithmetic mean between $K_{i\pm1}$ and $K_i$ & \si{\centi\meter\per\second} \\
+    $K^{n+1}$ & hydraulic conductivity evaluated using $H^{n+1}$ & \si{\centi\meter\per\second} \\
+    $K_{sat}$ & function parameter & \si{\centi\meter\per\second} \\
     $m$ & iteration level & - \\
     $n$ & time level & - \\
     nf & no flux (simulation scenario) & - \\
     $p$ & total number of spatial levels & - \\
-    $q$ & flux, flux density & \si{\cubic\metre\per\square\metre\per\second}\\
+    $q$ & flux, flux density & \si{\cubic\centi\meter\per\square\centi\meter\per\second}\\
     $R_o$ & Lagrange remainder & - \\
     $t$ & time & \si{\second} \\
+    $t_{tot}$ & total duration of the model  & \si{\second} \\
     $u$ & function parameter & - \\
     $v$ & function parameter & - \\
-    $z$ & distance in vertical dimension (assumed positive upward) & \si{\metre} \\
+    $z$ & distance in vertical dimension (assumed positive upward) & \si{\centi\meter} \\
+    $z_{tot}$ & total height of the model domain & \si{\centi\meter} \\
+    \bottomrule
   \end{longtabu}
+\end{table}
+
   
 }
 %%% Local Variables:
