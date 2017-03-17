@@ -1,0 +1,72 @@
+The model was run for both scenarios and several different boundary conditions settings (bcs).  In total, 9 model runs were conducted: 5 using the cp scenario, 4 using the nf scenario.  The cp scenario assumed a constant pressure head at the bottom node ($H_1$) whereas the nf scenario assumed no flux at the bottom node.  The parameters settings applying to all model runs are reported in table \ref{tab:moset_ge}.  Note that in all model runs a constant pressure head at the top spatial level ($H_p$) was assumed.  The values of $H_1$ and $H_p$ used in the different boundary conditions settings are reported in table \ref{tab:boundconsettings}.  The initial condition in all model runs was a linear decrease in pressure head from the bottom ($i = 1$) to the top ($i = p$) using the respective boundary conditions.  
+
+\begin{table}[h]
+  \centering
+  \begin{tabu}{l l}
+    \\ \toprule
+    Parameter & Value \\
+    \midrule
+    $\delta_{th}$ & 0.001 \si{\centi\meter} \\
+    $\Delta t$ & \SI{10}{\second} \\
+    $\Delta z$ & \SI{0.3}{\centi\meter} \\
+    $t_{tot} $ & \SI{43200}{\second} $=$ \SI{12}{\hour} \\
+    $z_{tot}$ & \SI{30}{\centi\meter} \\
+    $H_p$ & constant \\
+    \bottomrule
+  \end{tabu}
+  \caption{Parameter settings valid for all model runs.}
+  \label{tab:moset_ge}
+\end{table}
+
+\begin{table}[h]
+  \centering
+  \begin{tabu}{l l l l l l}
+    \\ \toprule
+    Parameter & \multicolumn{5}{c}{Value [\si{\centi\meter}]} \\
+    & bcs 1 & bcs 2 & bcs 3 & bcs 4 & bcs 5 \\
+    \midrule
+    $H_1$ & $0$ & $0$ & $0$ & $0$ & $0$ \\
+    $H_p$ & $-z_{tot}$ & $-10$ & $-35$ & $-60$ & $-300$ \\
+    \bottomrule
+  \end{tabu}
+  \caption{Values of $H_1$ and $H_p$ used in the different boundary conditions settings.  Note that for the nf scenario, $H_1$ is only valid as an initial condition.  \\bcs: boundary condition setting}
+  \label{tab:boundconsettings}
+\end{table}
+
+\subsection{Boundary conditions setting 1}
+
+Boundary conditions setting 1 was tailored to impose an equilibrium state as the initial condition.  Under this condition, the pressure head $h$ decreased by the same amount by which the gravitational head $z$ (which is equal to the height above reference level), increased.  Thus, the total hydraulic head was \SI{0}{\centi\meter} throughout the domain.  This bcs served to check whether the model produced realistic results, meaning that no changes should occur under it for both scenarios.  The results for the cp and the nf scenario are reported in figures \ref{fig:cp1} and \ref{fig:nf1}, respectively.
+
+The model produced realistic results.  Since outside influences were absent, it did not leave the equilibrium state of the initial condition.  The value of $H$ was stable for all spatial levels and all time levels in both scenarios.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\textwidth]{../../Grafiken/H_3D_plots/Ss_cp_1_1_}
+  \caption{Approximation of pressure head ($H$) over all time levels and spatial levels for the cp scenario, using bcs 1.  Spatial level 1 is located at the bottom of the domain.}
+  \label{fig:cp1}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\textwidth]{../../Grafiken/H_3D_plots/Ss_nf_1_1_}
+  \caption{Approximation of pressure head ($H$) over all time levels and spatial levels for the nf scenario, using bcs 1.  Spatial level 1 is located at the bottom of the domain.}
+  \label{fig:nf1}
+\end{figure}
+
+\subsection{Boundary conditions setting 2}
+
+Boundary conditions setting 2 consisted of free water at the bottom spatial level ($H_1 = \SI{0}{\centi\meter}$), while the top spatial level was only moderately dry ($H_p = \SI{-10}{\centi\meter}$) and moister than under equilibrium conditions.  The results for the cp scenario are reported in figure \ref{fig:cp2}.  The pressure head decreased over time at the intermediate spatial levels ($1 < i < p$).  This was expected, since the initial condition was too moist for the pressure head to remain stable.
+
+For the nf scenario, however, the model did not converge (i.e., it required more than \SI{100}{} iterative steps for a given time step).  The most probable cause for this was the combination of the nf scenario and an excessivley moist soil profile as the initial condition.  The latter presumably led to downward movement of the excess moisture.  At the same time the nf scenario prevented drainage of excess moisture from the bottom spatial level, which was already at saturation ($H_1 = \SI{0}{\centi\meter}$) at the beginning of the model run.  Thus, $H_1$ reached a positive value.  Equations \eqref{eq:vange_K}, \eqref{eq:vange_theta}, and \eqref{eq:vange_C}, however, are only valid if $h \leq \SI{0}{\centi\meter}$.  Therefore, the model was not able to simulate the combination of the nf scenario with boundary conditions setting 2.  In general, the model is incapable of simulating an excessively moist soil profile from which excess moisture cannot escape fast enough to prevent positive pressure head values.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1.0\textwidth]{../../Grafiken/H_3D_plots/Ss_cp_2_1_}
+  \caption{Approximation of pressure head ($H$) over all time levels and spatial levels for the cp scenario, using bcs 2.  Spatial level 1 is located at the bottom of the domain.}
+  \label{fig:cp2}
+\end{figure}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "basefile/Projekt_basefile"
+%%% End:
