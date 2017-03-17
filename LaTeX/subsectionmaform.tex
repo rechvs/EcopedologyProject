@@ -148,7 +148,7 @@ Taking equations \eqref{eq:vange_K}, \eqref{eq:vange_theta}, and \eqref{eq:vange
   \label{eq:maform_ledi}
   \boldsymbol{\delta} = \mathbf{A \backslash f}
 \end{equation}
-This equation is solved in an iterative manner for every time level.  At the end of each iterative step the algorithm checks whether the maximum of $\boldsymbol{\delta}$ exceeds an arbitrary threshold.
+This equation is solved in an iterative manner for every time level.  At the end of each iterative step the algorithm checks whether the maximum of $\boldsymbol{\delta}$ exceeds an arbitrary threshold $\delta_{th}$.
 If the threshold is exceeded, it means the estimated value of $H$ differed too much from the estimate of the previous iterative step and the iteration needs to continue.
 % First the values of both $H_1$ and $H_P$ are imposed (cp scenario) or only the value of $H_p$ is imposed (nf scenario).  Then the sum of $\delta_i^m$ and $H_i^{m+1,n}$ is used as the estimate of $H_i$ for the next iterative step.  
 If the threshold is not exceeded, it means the estimated value of $H$ is considered acceptable and the iteration can be exited.
