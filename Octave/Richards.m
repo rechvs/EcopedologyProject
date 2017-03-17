@@ -9,6 +9,7 @@ if ((exist("outside_call") == 0))
   threshold_delta = 0.001;
   t = [(0 + delta_t):delta_t:t_final]';
   z = [0:delta_z:z_final]';
+  scenario = "cp"; ## constant pressure as default scenario
   ## Set van Genuchten parameters and model conditions:
   alpha = 0.0335;
   theta_s = 0.368;
@@ -47,25 +48,29 @@ for timestep = 2:length(t)
     K_plus=[Kmean; Kmean(end)];
     K_minus=[Kmean(1); Kmean]; 
 
+    if (scenario == "cp")
+      ## bottom node % constant pressure
+      node=1;
+      Alpha(node) = 0;
+      Beta(node) = 1;
+      Gamma(node) = 0;
+      f(node) = 0;
+    elseif (scenario == "nf")
+      ## bottom node % no flux
+      node=1;
+      Alpha(node) = 0;
+      Beta(node) = C_n_plus_1_m(node)/delta_t + (K_plus(node)./delta_z.^2 + 0);
+      Gamma(node) = -K_plus(node)./delta_z.^2;
+      f(node) = (1./delta_z.^2) .* (K_plus(node).*(H_n_plus_1_m(node+1)-H_n_plus_1_m(node)) - 0) +(K_plus(node)- 0)/delta_z- (theta_n_plus_1_m(node) - theta_n(node))/delta_t;
+    endif
+
     ## intermediate nodes
     node=2:size(H_n_plus_1_m,1)-1; 
     Alpha(node) = -K_minus(node)./delta_z.^2;
     Beta(node) = C_n_plus_1_m(node)/delta_t + (K_plus(node)./delta_z.^2 + K_minus(node)./delta_z.^2);
     Gamma(node) = -K_plus(node)./delta_z.^2;
     f(node) = (1./delta_z.^2) .* (K_plus(node).*(H_n_plus_1_m(node+1)-H_n_plus_1_m(node)) - K_minus(node).*(H_n_plus_1_m(node)-H_n_plus_1_m(node-1))) +(K_plus(node)- K_minus(node))/delta_z - (theta_n_plus_1_m(node) - theta_n(node))/delta_t;
-    ## bottom node % constant pressure
-    node=1;
-    Alpha(node) = 0;
-    Beta(node) = 1;
-    Gamma(node) = 0;
-    f(node) = 0;
-    ## bottom node % no flux
-    ## node=1;
-    ## Alpha(node) = 0;
-    ## Beta(node) = C_n_plus_1_m(node)/delta_t + (K_plus(node)./delta_z.^2 + 0);
-    ## Gamma(node) = -K_plus(node)./delta_z.^2;
-    ## f(node) = (1./delta_z.^2) .* (K_plus(node).*(H_n_plus_1_m(node+1)-H_n_plus_1_m(node)) - 0) +(K_plus(node)- 0)/delta_z- (theta_n_plus_1_m(node) - theta_n(node))/delta_t;
-
+    
     ## top node % constant pressure
     node=size(H_n_plus_1_m,1);
     Alpha(node) = 0;
@@ -75,19 +80,25 @@ for timestep = 2:length(t)
 
     ## create A
     A=sparse(diag(Beta))+sparse(diag(Gamma(1:end-1),1))+sparse(diag(Alpha(2:end),-1));
+
+    ## calculate vector delta
     delta = full(A\sparse(f'));
 
     ## check whether we need another iteration step
     if (max(abs(delta)) <= abs(threshold_delta))
       H_n = delta + H_n_plus_1_m;
-      H_n(1) = H_bot; ## comment this line if you impose no flux at bottom node
+      if (scenario == "cp")
+        H_n(1) = H_bot; ## use only for scenario "constant pressure at bottom node"
+      endif
       H_n(end) = H_top;
       flag = 1;
       [K_n, theta_n, C_n] = van_Genuchten_variables(alpha, lambda, n, theta_r, theta_s, K_s, H_n);
     else
       flag = 0;
       H_n_plus_1_m = delta + H_n_plus_1_m;
-      H_n(1) = H_bot; ## comment this line if you impose no flux at bottom node
+      if (scenario == "cp")
+        H_n(1) = H_bot; ## use only for scenario "constant pressure at bottom node"
+      endif
       H_n_plus_1_m(end) = H_top;
       H_n = H_n_plus_1_m;
     endif
