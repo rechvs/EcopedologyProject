@@ -120,14 +120,15 @@ The individual elements of $\mathbf A$, $\boldsymbol{\delta}$ and $\mathbf f$ ar
     f_i = 0
   \end{equation}
 \end{enumerate}
-The model rests on the assumption that appropriate constitutive relationshiphs between $\theta$ and $h$ and between $K$ and $h$ exist.  These relationships are modelled with the help of the equations laid out by \textcite{genuchten_closed-form_1980}, namely
+The model rests on the assumption that appropriate constitutive relationshiphs between $\theta$ and $h$ and between $K$ and $\theta$ exist.  These relationships are modelled with the help of the equations laid out by \textcite{genuchten_closed-form_1980}, namely
 \begin{equation}
   \label{eq:vange_K}
-  K(h) = K_{sat} \frac{\del{ 1 - \del{ \omega \abs{h} }^{v-1} \del{ 1 + \del{ \omega \abs{h} }^v }^{-u} }^2}{\del{ 1 + \del{ \omega \abs{h} }^v }^{\frac{u}{2}}} \, ,
+  % K(h) = K_{sat} \frac{\del{ 1 - \del{ \omega \abs{h} }^{v-1} \del{ 1 + \del{ \omega \abs{h} }^v }^{-u} }^2}{\del{ 1 + \del{ \omega \abs{h} }^v }^{\frac{u}{2}}} \, ,
+  K(\Theta) = K_{sat} \Theta^{\lambda} \del{ 1 - \del{ 1 - \Theta^{\frac{1}{u}} }^u }^2
 \end{equation}
 \begin{equation}
   \label{eq:vange_theta}
-  \theta(h) = \theta_r + \frac{\del{ \theta_s - \theta_r}}{\del{ 1 + \del{ \omega \abs{h} }^v }^u} \, ,
+  \theta(h) = \theta_r + \frac{\theta_s - \theta_r}{\del{ 1 + \del{ \omega \abs{h} }^v }^u} \, ,
 \end{equation}
 and
 \begin{equation}
@@ -136,12 +137,13 @@ and
 \end{equation}
 where
 \begin{equation*}
-  v = 1 - \frac{1}{u} \, ,
+  u = 1 - \frac{1}{v} \, ,
 \end{equation*}
 \begin{equation*}
-  \Theta = \del{ \frac{1}{1 + \del{ \omega \abs{h} }^v} }^u \, ,
+  % \Theta = \del{ \frac{1}{1 + \del{ \omega \abs{h} }^v} }^u \, ,
+  \Theta = \frac{\theta - \theta_r}{\theta_s - \theta_r} \, ,
 \end{equation*}
-and where $\theta_r$, $\theta_s$, $\omega$, $K_{sat}$, and $u$ are parameters that need to be determined for a given isotropic soil.
+and where $\theta_r$, $\theta_s$, $\lambda$, $\omega$, $K_{sat}$, and $u$ are parameters that need to be determined for a given isotropic soil.
 
 Taking equations \eqref{eq:vange_K}, \eqref{eq:vange_theta}, and \eqref{eq:vange_C} into account and provided appropriate initial and boundary values are supplied, $\mathbf{A}$ and $\mathbf{f}$ in equation \eqref{eq:maform} can be calculated for a given iterative step.  In turn, vector $\delta$ can be computed by left division as follows:
 \begin{equation}
