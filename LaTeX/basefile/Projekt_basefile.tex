@@ -22,23 +22,25 @@ titlepage]
 
 \begin{document}
 
-% \input{../titlepage.tex}
-% \newpage
-% \input{../tableofcontents.tex}
-% \newpage
+\input{../titlepage.tex}
+\newpage
+\input{../tableofcontents.tex}
+\newpage
 \input{../abbrevs_symbols.tex}
 \newpage
 \pagestyle{standard}
 \pagenumbering{arabic}
+\setcounter{table}{0} %reset table counter
+\renewcommand{\thetable}{\arabic{table}} % reset table labels
 
 % \section{Introduction}
 
-% \section{Scientific background}
-% \input{../subsection0201.tex}
-% \input{../subsection0202.tex}
+\section{Scientific background}
+\input{../subsection0201.tex}
+\input{../subsection0202.tex}
 
-% \section{Physical-mathematical model approach}
-% \input{../section03.tex}
+\section{Physical-mathematical model approach}
+\input{../section03.tex}
 
 \section{Results}
 \input{../section04.tex}
