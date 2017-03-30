@@ -23,36 +23,36 @@ A third integration gives
   = &\int_{x_0}^x{f^{\del{ o-1 }}\del{ x }}\dif x - \int_{x_0}^x{f^{\del{ o-1 }}\del{ x_0 }}\dif x - \int_{x_0}^x\del{ x - x_0 }{f^{\del{ o }}\del{ x_0 }}\dif x \\
   = &\int_{x_0}^x{f^{\del{ o-1 }}\del{ x }}\dif x - \int_{x_0}^x{f^{\del{ o-1 }}\del{ x_0 }}\dif x - \int_{x_0}^x\del{x f^{\del{ o }}\del{ x_0 } - x_0 f^{\del{ o }}\del{ x_0 }}\dif x \\
   = &\int_{x_0}^x{f^{\del{ o-1 }}\del{ x }}\dif x - \int_{x_0}^x{f^{\del{ o-1 }}\del{ x_0 }}\dif x - \del{ \int_{x_0}^x{x f^{\del{ o }}\del{ x_0 }}\dif x - \int_{x_0}^x{x_0 f^{\del{ o }}\del{ x_0 }}\dif x } \\
-  = &\sbr{ f^{\del{ n-2 }}\del{ x } }_{x_0}^x -\sbr{ x f^{\del{ o-1 }}\del{ x_0 } }_{x_0}^x - \del{ \sbr{ \frac{1}{2}x^2f^{\del{ o }}\del{ x_0 } }_{x_0}^x - \sbr{ xx_0f^{\del{ o }}\del{ x_0 } }_{x_0}^x } \\
-  = &f^{\del{ n-2 }}\del{ x }
-    - f^{\del{ n-2 }}\del{ x_0 }
+  = &\sbr{ f^{\del{ o-2 }}\del{ x } }_{x_0}^x -\sbr{ x f^{\del{ o-1 }}\del{ x_0 } }_{x_0}^x - \del{ \sbr{ \frac{1}{2}x^2f^{\del{ o }}\del{ x_0 } }_{x_0}^x - \sbr{ xx_0f^{\del{ o }}\del{ x_0 } }_{x_0}^x } \\
+  = &f^{\del{ o-2 }}\del{ x }
+    - f^{\del{ o-2 }}\del{ x_0 }
     - \del{ x f^{\del{ o-1 }}\del{ x_0 }
     - x_0 f^{\del{ o-1 }}\del{ x_0 } } \\
   &- \del{ \del{ \frac{1}{2} x^2 f^{\del{ o }}\del{ x_0 }
     - \frac{1}{2} x_0^2 f^{\del{ o }}\del{ x_0 } }
     - \del{ x x_0 f^{\del{ o }}\del{ x_0 }
     - x_0 x_0 f^{\del{ o }}\del{ x_0 } } } \\
-  = &f^{\del{ n-2 }}\del{ x }
-    - f^{\del{ n-2 }}\del{ x_0 }
+  = &f^{\del{ o-2 }}\del{ x }
+    - f^{\del{ o-2 }}\del{ x_0 }
     - \del{ x - x_0 } f^{\del{ o-1 }}\del{ x_0 } - \del{ \frac{1}{2} x^2 - \frac{1}{2} x_0^2 - x x_0 + x_0^2 } f^{\del{ o }}\del{ x_0 } \\
-  = &f^{\del{ n-2 }}\del{ x }
-    - f^{\del{ n-2 }}\del{ x_0 }
+  = &f^{\del{ o-2 }}\del{ x }
+    - f^{\del{ o-2 }}\del{ x_0 }
     - \del{ x - x_0 } f^{\del{ o-1 }}\del{ x_0 } - \del{ \frac{1}{2} x^2 - x x_0 + \frac{1}{2} x_0^2 } f^{\del{ o }}\del{ x_0 } \\
-  = &f^{\del{ n-2 }}\del{ x }
-    - f^{\del{ n-2 }}\del{ x_0 }
+  = &f^{\del{ o-2 }}\del{ x }
+    - f^{\del{ o-2 }}\del{ x_0 }
     - \del{ x - x_0 } f^{\del{ o-1 }}\del{ x_0 } - \frac{1}{2} \del{ x^2 - 2 x x_0 + x_0^2 } f^{\del{ o }}\del{ x_0 } \\
-  = &f^{\del{ n-2 }}\del{ x }
-    - f^{\del{ n-2 }}\del{ x_0 }
+  = &f^{\del{ o-2 }}\del{ x }
+    - f^{\del{ o-2 }}\del{ x_0 }
     - \del{ x - x_0 } f^{\del{ o-1 }}\del{ x_0 } - \frac{1}{2} \del{ x - x_0 }^2 f^{\del{ o }}\del{ x_0 } \\
-  = &f^{\del{ n-2 }}\del{ x }
-    - f^{\del{ n-2 }}\del{ x_0 }
+  = &f^{\del{ o-2 }}\del{ x }
+    - f^{\del{ o-2 }}\del{ x_0 }
     - \del{ x - x_0 } f^{\del{ o-1 }}\del{ x_0 } - \frac{\del{ x - x_0 }^2}{2 !}  f^{\del{ o }}\del{ x_0 } \, .
 \end{align*}
 Continuing up to $o + 1$ integrations gives
 \begin{align*}
   &\underbrace{\int \hspace{-4mm} \hdots \hspace{-1mm} \int_{x_0}^x}_{o+1}{f^{\del{ o+1 }}\del{ x }\del{ \dif x }^{\del{ o+1 }}} \\
   = &f\del{ x } - f\del{ x_0 } - \del{ x - x_0 } f'\del{ x_0 } - \frac{\del{ x - x_0 }^2}{2!} f''\del{ x_0 } - \frac{\del{ x - x_0 }^3}{3!} f'''\del{ x_0 } \\
-  &- \mathellipsis - \frac{\del{ x - x_0 }^n}{n!} f^{\del{ o }}\del{ x_0 } \, .
+  &- \mathellipsis - \frac{\del{ x - x_0 }^o}{o!} f^{\del{ o }}\del{ x_0 } \, .
 \end{align*}
 Solving for $f\del{ x }$ gives
 \begin{align*}
@@ -60,9 +60,9 @@ Solving for $f\del{ x }$ gives
            + \del{ x - x_0 } f'\del{ x_0 }
            + \frac{\del{ x-x_0 }^2}{2!} f''\del{ x_0 } \\
          &+ \frac{\del{ x - x_0 }^3}{3!} f'''\del{ x_0 }
-           + \mathellipsis \frac{\del{ x - x_0 }^n}{n!} f^{\del{ o }}\del{ x_0 }
+           + \mathellipsis \frac{\del{ x - x_0 }^o}{o!} f^{\del{ o }}\del{ x_0 }
            + \underbrace{\int \hspace{-4mm} \hdots \hspace{-1mm} \int_{x_0}^x}_{o+1}{f^{\del{ o+1 }}\del{ x }\del{ \dif x }^{\del{ o+1 }}} \\
-  = &\sum_{k=0}^n{\frac{\del{ x - x_0 }^k}{k!}}f^{\del{ k }}\del{ x_0 } + \underbrace{\int \hspace{-4mm} \hdots \hspace{-1mm} \int_{x_0}^x}_{o+1}{f^{\del{ o+1 }}\del{ x }\del{ \dif x }^{\del{ o+1 }}} \, .
+  = &\sum_{k=0}^o{\frac{\del{ x - x_0 }^k}{k!}}f^{\del{ k }}\del{ x_0 } + \underbrace{\int \hspace{-4mm} \hdots \hspace{-1mm} \int_{x_0}^x}_{o+1}{f^{\del{ o+1 }}\del{ x }\del{ \dif x }^{\del{ o+1 }}} \, .
 \end{align*}
 The last term on the right hand side of the equation above is known as the Lagrange remainder
 \begin{align*}
@@ -110,7 +110,7 @@ This equation can be rewritten in terms of the increment in iteration $\delta ^m
   \end{align*}
 \end{landscape}
 \newpage
-By switching left hand side and right hand side in the equation above we obtain \parencite{celia_general_1990}
+By switching left hand side and right hand side in the last equation above we obtain \parencite{celia_general_1990}
 \begin{equation}
   \label{eq:celia_16}
   \frac{C^{n+1,m}}{\Delta t} \delta^m - \pd{}{z} \del{ K^{n+1,m} \pd{\delta^m}{z} } = \pd{}{z} \del{ K^{n+1,m} \pd{H^{n+1,m}}{z} } + \pd{K^{n+1,m}}{z} - \frac{\theta^{n+1,m} - \theta^n}{\Delta t} \, .
