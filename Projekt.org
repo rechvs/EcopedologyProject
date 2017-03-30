@@ -175,14 +175,14 @@
    + all locations given by a reference are to be included (i.e., all locations were the publisher resides, s. biblatex p. 20)
    + locations in the USA are accompanied by the respective state (e.g., “Hoboken, NJ”)
    + [ ] multiple locations are truncated with [and others] (TODO: modify biber settings)
-** Structure of term paper (cp. email from Martin from 09.02.2017 08:21):
+** Structure of term paper (cf. email from Martin from [2017-02-09 Do 08:21] and email from Andrea from [2017-03-21 Di 10:21]):
 *** 1. Einleitung/Introduction (1 S.)
     + Allgemeine Fragestellung und Darstellung der aktuellen Problemstellung
 *** 2. Stand der Wissenschaft/scientific background (2,5 S)
     + widen the scope here (i.e., provide a general overview of topics of interest, even if the related questions will not be answered in the term paper itself) 
     + Literaturübersicht zu Fragen von hydraulic lift und hydraulic redistribution
     + Wasserhaushalt Agroforstsysteme, Schnittstelle Landnutzungen, Parametrisierung an Schnittstellen
-    + Verfügbare Modelle, warum neues Modell?
+    + Verfügbare Modelle, wie wird hydraulic redistribution in den einzelnen Modellen umgesetzt (nur kurze Beschreibung), warum neues Modell?
 *** 3. Physikalisch-mathematischer Modellansatz/physical-mathematical model (5 S)
     + Richardsgleichung und Picard-Iteration
     + explain favoring implicit instead of explicit solution
@@ -190,7 +190,9 @@
 *** 4. Modell-1D Umsetzung/1D model implementation (5 S.)
     + Technische Umsetzung, Testläufe
     + should include both constant pressure head and no (const?) flux at bottom node
-*** 5. Zusammenfassung/summary (1-2 S)
+*** 5. Outlook
+    + How could root water uptake and hydraulic lift be implemented?
+*** 6. Zusammenfassung/summary (1-2 S)
     + grant an outlook on what the next steps would have to be on the road towards a 2D model
 * Timetables
 ** Weekly timetables
