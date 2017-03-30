@@ -143,9 +143,9 @@ where
   % \Theta = \del{ \frac{1}{1 + \del{ \omega \abs{h} }^v} }^u \, ,
   \Theta = \frac{\theta - \theta_r}{\theta_s - \theta_r} \, ,
 \end{equation*}
-and where $\theta_r$, $\theta_s$, $\lambda$, $\omega$, $K_{sat}$, and $u$ are parameters that need to be determined for a given isotropic soil.
+and where $\theta_r$, $\theta_s$, $\lambda$, $\omega$, $K_{sat}$, and $v$ are parameters that need to be determined for a given isotropic soil.
 
-Taking equations \eqref{eq:vange_K}, \eqref{eq:vange_theta}, and \eqref{eq:vange_C} into account and provided appropriate initial and boundary values are supplied, $\mathbf{A}$ and $\mathbf{f}$ in equation \eqref{eq:maform} can be calculated for a given iterative step.  In turn, vector $\delta$ can be computed by left division as follows:
+Taking equations \eqref{eq:vange_K}, \eqref{eq:vange_theta}, and \eqref{eq:vange_C} into account and provided appropriate initial and boundary values are supplied, $\mathbf{A}$ and $\mathbf{f}$ in equation \eqref{eq:maform} can be calculated for a given iterative step.  In turn, vector $\boldsymbol{\delta}$ can be computed by left division as follows:
 \begin{equation}
   \label{eq:maform_ledi}
   \boldsymbol{\delta} = \mathbf{A \backslash f}
