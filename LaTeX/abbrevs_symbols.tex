@@ -1,7 +1,5 @@
 \pagestyle{abbrevs_symbols}
 
-\pagenumbering{Roman}
-
 {
   \renewcommand{\MakeUppercase}[1]{#1} % http://tex.stackexchange.com/questions/179966/fancyhdr-chaptermark-and-table-of-contents
 
@@ -12,16 +10,19 @@
   \markboth{\mysectiontitle{}}{} % http://tex.stackexchange.com/questions/89914/chapter-name-in-the-header-with-chapter
   \addcontentsline{toc}{section}{\mysectiontitle{}} % http://tex.stackexchange.com/questions/35433/creating-unnumbered-chapters-sections-plus-adding-them-to-the-toc-and-or-header
   
-  \begin{table}[h]
-    \centering
-    \begin{longtabu}{l L l}
+  % \begin{table}[H]
+  %   \centering
+  \begin{longtabu}{l L l}
     \toprule
     $Symbol$ & Description & Unit \\
     \midrule
-    % $D$ & unsaturated diffusivity, $D\del{ \theta } \equiv \frac{K\del{ \theta }}{C\del{ \theta }}$ & \si{\square\meter\per\second} \\
+    \endfirsthead
+    \bottomrule
+    \endlastfoot
     $\int_a^b{f\del{ x }}\dif x$ & integral of function $f\del{ x }$ with respect to $x$ on the interval $\intcc{a,b}$ & - \\
     $\pd{f\del{ x }}{x}$ & partial derivative of function $f\del{ x }$ with respect to $x$ & - \\
     $f^{\del{ n }}\del{ x }$ & $n$th derivative of function $f\del{ x }$ & - \\
+    $f'(x), f''(x), f'''(x)$ & first, second, third derivative of function $f(x)$ & - \\
     $\nabla$ & nabla, vector differential operator $\del{ \nabla = \del{  \frac{\partial}{\partial x}, \frac{\partial}{\partial y}, \frac{\partial}{\partial z}  } }$ & - \\
     $\delta^m$ & increment in $H$ between iterations $\del{ \delta^m \equiv H^{n+1,m+1} - H^{n+1,m} }$ & \si{\centi\meter} \\
     $\delta_{th}$ & threshold value to determine acceptability of $\delta^m$ & \si{\centi\meter} \\
@@ -53,15 +54,12 @@
     $R_o$ & Lagrange remainder & - \\
     $t$ & time & \si{\second} \\
     $t_{tot}$ & total duration of the model & \si{\second} \\
-    % $t_{tot}$ & total duration of the model  $\del{ t_{tot} = \SI{43200}{\second} = \SI{12}{\hour} }$ & \si{\second} \\
     $u$ & function parameter & - \\
     $v$ & function parameter & - \\
     $z$ & distance in vertical dimension (assumed positive upward) & \si{\centi\meter} \\
-    % $z_{tot}$ & total height of the model domain & \si{\centi\meter} \\
-    $z_{tot}$ & total height of the model domain & \si{\centi\meter} \\
-    \bottomrule
+    $z_{tot}$ & total height of the model domain & \si{\centi\meter}
   \end{longtabu}
-\end{table}
+  % \end{table}
 
   
 }
