@@ -30,10 +30,11 @@ titlepage]
 \newpage
 \pagestyle{standard}
 \pagenumbering{arabic}
-\setcounter{table}{0} %reset table counter
+\setcounter{table}{0} % reset table counter
 \renewcommand{\thetable}{\arabic{table}} % reset table labels
 
-% \section{Introduction}
+\section{Introduction}
+\input{../introduction}
 
 \section{Scientific background}
 \input{../subsection0201.tex}
@@ -45,8 +46,11 @@ titlepage]
 \section{Results}
 \input{../section04.tex}
 
+\section{Conclusion}
+\input{../section05.tex}
+
 \newpage
-\input{../Projekt_bibliography.tex}
+\input{../bibliography.tex}
 
 \end{document}
 %%% Local Variables:
