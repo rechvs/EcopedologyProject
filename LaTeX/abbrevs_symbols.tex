@@ -17,6 +17,9 @@
     $Symbol$ & Description & Unit \\
     \midrule
     \endfirsthead
+    $Symbol$ & Description & Unit \\
+    \midrule
+    \endhead
     \bottomrule
     \endlastfoot
     $\int_a^b{f\del{ x }}\dif x$ & integral of function $f\del{ x }$ with respect to $x$ on the interval $\intcc{a,b}$ & - \\
@@ -28,11 +31,11 @@
     $\delta_{th}$ & threshold value to determine acceptability of $\delta^m$ & \si{\centi\meter} \\
     $\boldsymbol{\delta}$ & vector (cp. page \pageref{eq:vec_delta} f.) & - \\
     $\Delta t$ & distance between time levels & \si{\second} \\
-    $\Delta z$ & distance between spatial levels & \si{\centi\meter} \\
+    $\Delta z$ & vertical distance between spatial levels & \si{\centi\meter} \\
     $\theta$ & volumetric soil moisture content & \si{\cubic\centi\meter\per\cubic\centi\meter} \\
-    $\theta_r$ & function parameter & \si{\cubic\centi\meter\per\cubic\centi\meter} \\
-    $\theta_s$ & function parameter & \si{\cubic\centi\meter\per\cubic\centi\meter} \\
-    $\omega$ & function parameter & - \\
+    $\theta_r$ & function parameter of equations \eqref{eq:vange_K}, \eqref{eq:vange_theta}, and \eqref{eq:vange_C} & \si{\cubic\centi\meter\per\cubic\centi\meter} \\
+    $\theta_s$ & function parameter of equations \eqref{eq:vange_K}, \eqref{eq:vange_theta}, and \eqref{eq:vange_C} & \si{\cubic\centi\meter\per\cubic\centi\meter} \\
+    $\omega$ & function parameter of equations \eqref{eq:vange_theta} and \eqref{eq:vange_C} & - \\
     $\mathbf{A}$ & matrix (cp. page \pageref{eq:mat_A} f.) & - \\
     bcs & boundary conditions setting & - \\
     $C$ & specific moisture capacity $\del{ C\del{ h } \equiv \frac{\partial \theta}{\partial h} }$ & \si{\per\centi\meter} \\
@@ -43,9 +46,9 @@
     $H^n$ & approximate value of $h$ at the $n$th discrete time level & \si{\centi\meter} \\
     $i$ & spatial level & - \\
     $K$ & unsaturated hydraulic conductivity & \si{\centi\meter\per\second} \\
-    $K_{i\pm\frac{1}{2}}$ & arithmetic mean between $K_{i\pm1}$ and $K_i$ & \si{\centi\meter\per\second} \\
+    $K_{i\pm\frac{1}{2}}$ & arithmetic mean between $K_i$ and $K_{i\pm1}$ & \si{\centi\meter\per\second} \\
     $K^{n+1}$ & hydraulic conductivity evaluated using $H^{n+1}$ & \si{\centi\meter\per\second} \\
-    $K_{sat}$ & function parameter & \si{\centi\meter\per\second} \\
+    $K_{sat}$ & function parameter of equation \eqref{eq:vange_K} & \si{\centi\meter\per\second} \\
     $m$ & iteration level & - \\
     $n$ & time level & - \\
     nf & no flux (simulation scenario) & - \\
@@ -53,9 +56,8 @@
     $q$ & flux, flux density & \si{\cubic\centi\meter\per\square\centi\meter\per\second}\\
     $R_o$ & Lagrange remainder & - \\
     $t$ & time & \si{\second} \\
-    $t_{tot}$ & total duration of the model & \si{\second} \\
-    $u$ & function parameter & - \\
-    $v$ & function parameter & - \\
+    $t_{tot}$ & total timespan covered by a single model run & \si{\second} \\
+    $v$ & function parameter of equations \eqref{eq:vange_K}, \eqref{eq:vange_theta}, and \eqref{eq:vange_C} & - \\
     $z$ & distance in vertical dimension (assumed positive upward) & \si{\centi\meter} \\
     $z_{tot}$ & total height of the model domain & \si{\centi\meter}
   \end{longtabu}
